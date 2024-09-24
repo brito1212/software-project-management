@@ -1,0 +1,249 @@
+Brenno de Oliveira da Rosa - 2021029935
+Felipe Faustino Brito - 2021007366
+Felipe Queiroz Flores Quintão Bachetti - 2021005147
+Jorge Christino dos Santos Ferreira - 2021014825
+Lucas Luan Belarmino Barbosa - 2021017872
+
+***************************************************************************************
+2. Estimativa de Tamanho e Esforço:
+
+Atores: Usuário, superusuario = 2 atores complexos
+
+Fatores tecnicos = 1.2
+Fatores ambientais = 0.9
+
+Tipos de Caso de Uso	|Peso	|Descrição 
+Simples			|5	|Contém uma interface com o usuário mais simplificada e utiliza apenas uma entidade no banco de dados.
+Médio			|10	|Contém uma interface com o usuário mais trabalhada e utiliza 2 ou mais entidades no banco de dados.
+Complexo 		|15	|Contém uma interface com o usuário mais complexa e utiliza 3 ou mais entidades no banco de dados.
+
+Tipos de Ator 	| Peso 	| Descrição 
+Simples		|1	|Acesso a um sistema remoto através de uma API de programação
+Médio		|3	|Acesso a um sistema remoto através de um protocolo de comunicação.
+Complexo 	|5	|Usuário interagindo através de uma interface gráfica.
+--------------------------------------------------------------------------------------------
+
+Req.	|Peso
+RF01	|5
+RF02	|5
+RF03	|5
+RF04	|5
+RF05	|5
+RF06	|5
+RF07	|5
+RF08	|10
+RF09	|5
+RF10	|10
+RF11	|15
+RF12	|15
+RF13	|5
+RF14	|5
+RF15	|15
+RF16	|10
+RF17	|10
+RF18	|5
+RF19	|15
+RF20	|5
+RF21	|5
+RF22	|15
+RF23	|5
+RF24	|10
+RF25	|5
+---------------------------------------------
+Total: (15 x 5) + (5 x 10) + (5 x 15) = 200
+
+2 atores complexos = 5 + 5 = 10
+
+Tamanho = (Soma(peso dos atores) + soma(peso requisitos)) x Fat. tecnicos x Fat. ambientais
+Tamanho = (Soma(peso dos atores) + soma(peso requisitos)) x 1,2 x 0,9
+
+UCP = (10 + 200) x 1,2 x 0,9
+UCP = 226,8
+
+Esforço do projeto: UCP x 3 = 226,8 x 3 = 680,4
+
+PROSPECÇÃO:
+
+ 680,4 x 5% = 34,02
+--------------------------------------------
+ANÁLISE:
+
+680,4 x 15% = 102,06
+--------------------------------------------
+PLANEJAMENTO:
+
+680,4 x 10% = 68,04
+---------------------------------------------------------------
+FECHAMENTO:
+
+680,4 x 10% = 68,04
+--------------------------------------------
+IMPLEMENTAÇÃO:
+
+Implementação do RF01:
+((2x5) + 5) x 1,2 x 0,9 x 50% * 3 = 24,3 
+
+Implementação do RF02:
+((0x5) + 5) x 1,2 x 0,9 x 50% * 3 = 8,1 
+
+Implementação do RF03:
+((0x5) + 5) x 1,2 x 0,9 x 50% * 3 = 8,1 
+
+Implementação do RF04:
+((0x5) + 5) x 1,2 x 0,9 x 50% * 3 = 8,1 
+
+Implementação do RF05:
+((0x5) + 5) x 1,2 x 0,9 x 50% * 3 = 8,1 
+
+Implementação do RF06:
+((0x5) + 5) x 1,2 x 0,9 x 50% * 3 = 8,1 
+
+Implementação do RF07:
+((0x5) + 5) x 1,2 x 0,9 x 50% * 3 = 8,1 
+
+Implementação do RF08:
+((0x5) + 10) x 1,2 x 0,9 x 50% * 3 = 16,2 
+
+Implementação do RF09:
+((0x5) + 5) x 1,2 x 0,9 x 50% * 3 = 8,1 
+
+Implementação do RF10:
+((0x5) + 10) x 1,2 x 0,9 x 50% * 3 = 16,2 
+
+Implementação do RF11:
+((0x5) + 15) x 1,2 x 0,9 x 50% * 3 = 24,3 
+
+Implementação do RF12:
+((0x5) + 15) x 1,2 x 0,9 x 50% * 3 = 24,3 
+
+Implementação do RF13:
+((0x5) + 5) x 1,2 x 0,9 x 50% * 3 = 8,1 
+
+Implementação do RF14:
+((0x5) + 5) x 1,2 x 0,9 x 50% * 3 = 8,1 
+
+Implementação do RF15:
+((0x5) + 15) x 1,2 x 0,9 x 50% * 3 = 24,3 
+
+Implementação do RF16:
+((0x5) + 10) x 1,2 x 0,9 x 50% * 3 = 16,2 
+
+Implementação do RF17:
+((0x5) + 10) x 1,2 x 0,9 x 50% * 3 = 16,2 
+
+Implementação do RF18:
+((0x5) + 5) x 1,2 x 0,9 x 50% * 3 = 8,1 
+
+Implementação do RF19:
+((0x5) + 15) x 1,2 x 0,9 x 50% * 3 = 24,3 
+
+Implementação do RF20:
+((0x5) + 5) x 1,2 x 0,9 x 50% * 3 = 8,1 
+
+Implementação do RF21:
+((0x5) + 5) x 1,2 x 0,9 x 50% * 3 = 8,1 
+
+Implementação do RF22:
+((0x5) + 15) x 1,2 x 0,9 x 50% * 3 = 24,3 
+
+Implementação do RF23:
+((0x5) + 5) x 1,2 x 0,9 x 50% * 3 = 8,1 
+
+Implementação do RF24:
+((0x5) + 10) x 1,2 x 0,9 x 50% * 3 = 16,2 
+
+Implementação do RF25:
+((0x5) + 5) x 1,2 x 0,9 x 50% * 3 = 8,1
+
+Implementação total = (14 x 8,1) + (5 x 16,2) + (6 x 24,3) = 340,2
+--------------------------------------------
+TESTE:
+
+Teste RF01:
+((2x5) + 5) x 1,2 x 0,9 x 10% * 3 = 4,86
+
+Teste RF02:
+((0x5) + 5) x 1,2 x 0,9 x 10% * 3 = 1,62
+
+Teste RF03:
+((0x5) + 5) x 1,2 x 0,9 x 10% * 3 = 1,62
+
+Teste RF04:
+((0x5) + 5) x 1,2 x 0,9 x 10% * 3 = 1,62
+
+Teste RF05:
+((0x5) + 5) x 1,2 x 0,9 x 10% * 3 = 1,62
+
+Teste RF06:
+((0x5) + 5) x 1,2 x 0,9 x 10% * 3 = 1,62
+
+Teste RF07:
+((0x5) + 5) x 1,2 x 0,9 x 10% * 3 = 1,62
+
+Teste RF08:
+((0x5) + 10) x 1,2 x 0,9 x 10% * 3 = 3,24
+
+Teste RF09:
+((0x5) + 5) x 1,2 x 0,9 x 10% * 3 = 1,62
+
+Teste RF10:
+((0x5) + 10) x 1,2 x 0,9 x 10% * 3 = 3,24
+
+Teste RF11:
+((0x5) + 15) x 1,2 x 0,9 x 10% * 3 = 4,86
+
+Teste RF12:
+((0x5) + 15) x 1,2 x 0,9 x 10% * 3 = 4,86
+
+Teste RF13:
+((0x5) + 5) x 1,2 x 0,9 x 10% * 3 = 1,62
+
+Teste RF14:
+((0x5) + 5) x 1,2 x 0,9 x 10% * 3 = 1,62
+
+Teste RF15:
+((0x5) + 15) x 1,2 x 0,9 x 10% * 3 = 4,86
+
+Teste RF16:
+((0x5) + 10) x 1,2 x 0,9 x 10% * 3 = 3,24
+
+Teste RF17:
+((0x5) + 10) x 1,2 x 0,9 x 10% * 3 = 3,24
+
+Teste RF18:
+((0x5) + 5) x 1,2 x 0,9 x 10% * 3 = 1,62
+
+Teste RF19:
+((0x5) + 15) x 1,2 x 0,9 x 10% * 3 = 4,86
+
+Teste RF20:
+((0x5) + 5) x 1,2 x 0,9 x 10% * 3 = 1,62
+
+Teste RF21:
+((0x5) + 5) x 1,2 x 0,9 x 10% * 3 = 1,62
+
+Teste RF22:
+((0x5) + 15) x 1,2 x 0,9 x 10% * 3 = 4,86
+
+Teste RF23:
+((0x5) + 5) x 1,2 x 0,9 x 10% * 3 = 1,62
+
+Teste RF24:
+((0x5) + 10) x 1,2 x 0,9 x 10% * 3 = 3,24
+
+Teste RF25:
+((0x5) + 5) x 1,2 x 0,9 x 10% * 3 = 1,62
+
+Teste total = (14 x 1,62) + (5 x 3,24) + (6 x 4,86) =  68,04
+--------------------------------------------
+Total:
+
+34,02 <-- Prospecção
+102,06 <-- Análise
+68,04 <-- Planejamento
+68,04 <-- Fechamento
+340,2 <-- Implementação
+68,04 <-- Teste
+
+Total = 680,4
+

@@ -1,0 +1,40 @@
+Brenno de Oliveira da Rosa - 2021029935
+Felipe Faustino Brito - 2021007366
+Felipe Queiroz Flores Quintão Bachetti - 2021005147
+Jorge Christino dos Santos Ferreira - 2021014825
+Lucas Luan Belarmino Barbosa - 2021017872
+
+***************************************************************************************
+4. Cálculo de dados de EVM:
+
+Desenvolvedor Júnior:   |336h   | R$13.440
+Testador:               |72h    | R$2.520
+Product Owner           | 92h   | R$ 5.520
+Scrum master            | 128h  | R$ 7.680
+
+Total: R$29.160
+
+Até o quinto dia de projeto:
+--> Estimar  tamanho do projeto - 12h
+--> Revisar estimativa do tamanho - 4h
+--> Elaborar cronograma - 8h
+--> Revisar cronograma - 4h
+--> Viabilidade - 8h
+--> Estudar domínio da aplicação - 8h
+
+Total de horas: 40h
+Total de valor: R$2400
+
+PV: R$2400
+EV acum: R$2400
+AC acum:R$2400
+
+PV aCum do projeto: R$2400
+
+CPI acum: 1
+EAC do projeto: R$29.160 
+SPI acum do projeto: 1
+TAC: 38 dias
+
+BAC: R$29.160
+PAC: 38 dias
