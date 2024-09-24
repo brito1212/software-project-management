@@ -25,11 +25,16 @@ Este repositório contém arquivos relacionados ao projeto de uma **Plataforma W
 
 
 ### Integrantes
+
 Brenno de Oliveira da Rosa - 2021029935
+
 Felipe Faustino Brito - 2021007366
+
 Felipe Queiroz Flores Quintão Bachetti - 2021005147
+
 Jorge Christino dos Santos Ferreira - 2021014825
+
 Lucas Luan Belarmino Barbosa - 2021017872
----
+
 
 
