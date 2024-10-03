@@ -1,0 +1,15 @@
+[tool.poetry]
+name = "midias"
+version = "0.1.0"
+description = "Plataforma de midias e reviews"
+authors = ["brito1212 <felipef_brito@outlook.com>"]
+readme = "README.md"
+
+[tool.poetry.dependencies]
+python = "^3.11"
+django = "^5.1.1"
+
+
+[build-system]
+requires = ["poetry-core"]
+build-backend = "poetry.core.masonry.api"
