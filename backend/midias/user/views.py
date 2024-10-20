@@ -167,3 +167,16 @@ class ForgetPassword(APIView):
                 f"Failed forget password: \n{str(e)}",
                 status=status.HTTP_500_INTERNAL_SERVER_ERROR,
             )
+
+
+class Seguidor(APIView):
+    def seguir(resquest):
+        user_seguidor = User.objects.get(id=request.data.get("user_seguidor"))
+        user_seguido = User.objects.get(id=request.data.get("user_seguido"))
+        user_seguidor.seguindo.add(user_seguido)
+        user_seguidor.save()
+        user_seguido.seguidores.add(user_seguidor)
+        user_seguido.save()
+        return Response(
+            {"message": "Seguidor adicionado com sucesso"}, status=status.HTTP_200_OK
+        )

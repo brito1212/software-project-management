@@ -1,0 +1,82 @@
+from typing import Any
+from django.shortcuts import render
+from requests import Response
+from .models import Game, Midia, Movie, Serie
+from rest_framework.viewsets import ViewSet
+from rest_framework import permissions, status, serializers
+from .serializers import GameSerializer, MovieSerializer, SerieSerializer
+
+
+class MidiaAbstractView(ViewSet):
+    def get_permissions(self):
+        if self.action == "create":
+            self.permission_classes = [permissions.IsAdminUser]
+        else:
+            self.permission_classes = [permissions.IsAuthenticated]
+        return super().get_permissions()
+
+    def get_midia_seriaizer(self) -> serializers.ModelSerializer:
+        pass
+
+    def get_midia_model(self) -> Midia:
+        pass
+
+    def __init__(self, **kwargs: Any) -> None:
+        self.midia_model = self.get_midia_model()
+        self.midia_serializer = self.get_midia_seriaizer()
+        super().__init__(**kwargs)
+
+    def create(self, request):
+        try:
+            midia = self.midia_serializer(data=request.data)
+            if midia.is_valid():
+                midia.save()
+                return Response(
+                    "Midia criada com sucesso!", status=status.HTTP_201_CREATED
+                )
+            return Response(midia.errors, status=status.HTTP_400_BAD_REQUEST)
+        except Exception as e:
+            Response(
+                f"Failed to create Midia: \n{str(e)}",
+                status=status.HTTP_500_INTERNAL_SERVER_ERROR,
+            )
+
+    def list_by_name(self, request):
+        try:
+
+            name = request.data.get("name", "")
+            midias = self.midia_model.objects.filter(name__icontains=name)
+            serializer = self.midia_serializer(midias, many=True)
+            return Response(serializer.data)
+        except Exception as e:
+            return Response(
+                f"Failed to list Midias: \n{str(e)}",
+                status=status.HTTP_500_INTERNAL_SERVER_ERROR,
+            )
+
+
+class MovieView(MidiaAbstractView):
+
+    def get_midia_seriaizer(self) -> serializers.ModelSerializer:
+        return MovieSerializer
+
+    def get_midia_model(self) -> Midia:
+        return Movie
+
+
+class SerieView(MidiaAbstractView):
+
+    def get_midia_seriaizer(self) -> serializers.ModelSerializer:
+        return SerieSerializer
+
+    def get_midia_model(self) -> Midia:
+        return Serie
+
+
+class GameView(MidiaAbstractView):
+
+    def get_midia_seriaizer(self) -> serializers.ModelSerializer:
+        return GameSerializer
+
+    def get_midia_model(self) -> Midia:
+        return Game

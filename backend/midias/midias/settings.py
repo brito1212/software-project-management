@@ -54,7 +54,7 @@ INSTALLED_THIRD = [
     "corsheaders",
 ]
 
-INSTALLED_APP = ["user"]
+INSTALLED_APP = ["user", "midia"]
 
 INSTALLED_APPS = INSTALLED_INTERNAL + INSTALLED_THIRD + INSTALLED_APP
 
@@ -130,11 +130,11 @@ AUTH_PASSWORD_VALIDATORS = [
 
 LANGUAGE_CODE = "en-us"
 
-TIME_ZONE = "UTC"
+TIME_ZONE = "America/Sao_Paulo"
 
 USE_I18N = True
 
-USE_TZ = True
+USE_TZ = False
 
 
 # Static files (CSS, JavaScript, Images)
