@@ -97,6 +97,8 @@ Para que o frontend consiga se autenticar com o backend, é necessário criar um
     - **Client** type: Confidential.
     - **Authorization grant type**: Resource owner password-based.
     - **Name**: Insira qualquer nome.
+
 **IMPORTANTE**: Copie o valor do `client_secret` pois ele será utilizado no frontend e não poderá ser visualizado novamente. Caso perca este valor, será necessário criar uma nova `application`.
+
 5. Com o `client_id` e o `client_secret` em mãos, anote esses valores e configure o arquivo .env do frontend com esses dados.
 
