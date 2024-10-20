@@ -67,31 +67,10 @@ class ListaView(ViewSet):
             )
 
     def list(self, request):
-
-        def get_genres_names(genres):
-            genres_names = []
-            for genre_id in genres:
-                genre = Genres.objects.filter(id=genre_id).first()
-                genres_names.append(genre.name)
-            return genres_names
-
-        def get_platforms_names(platforms):
-            platforms_names = []
-            for platform_id in platforms:
-                platform = Platforms.objects.filter(id=platform_id).first()
-                platforms_names.append(platform.name)
-            return platforms_names
-
         try:
             listas = Lista.objects.all()
-            serializer = ListaSerializer(listas, many=True)
             if listas:
-                listas = serializer.data
-                for lista in listas:
-                    for midia in lista["midias"]:
-                        # TODO: Por algum motivo o serializer de Midia não está mapeando os nomes de genres e platformsm, apenas id
-                        midia["genres"] = get_genres_names(midia["genres"])
-                        midia["platforms"] = get_platforms_names(midia["platforms"])
+                serializer = ListaSerializer(listas, many=True)
                 return Response(serializer.data)
             return Response(
                 {"message": "Listas not found"}, status=status.HTTP_404_NOT_FOUND
@@ -102,15 +81,25 @@ class ListaView(ViewSet):
                 status=status.HTTP_500_INTERNAL_SERVER_ERROR,
             )
 
-    @action(detail=False, methods=["post"])
-    def list_lista_by_name(self, request):
+    @action(detail=False, methods=["get"])
+    def search(self, request):
         try:
-            name = request.data.get("name", "")
-            listas = Lista.objects.filter(name__contains=name)
-            serializer = ListaSerializer(listas, many=True)
-            return Response(serializer.data)
+            lista_search = request.GET.get('q', '')
+            if lista_search:
+                listas = Lista.objects.filter(name__icontains=lista_search)
+                if listas:
+                    serializer = ListaSerializer(listas, many=True)
+                    return Response(serializer.data)
+                return Response(
+                    {"message": "Listas not found"}, status=status.HTTP_404_NOT_FOUND
+                )
+            return Response(
+                {"message": "No Name given to filter Listas"},
+                status=status.HTTP_404_NOT_FOUND,
+            )
         except Exception as e:
             return Response(
-                f"Failed to list Listas: \n{str(e)}",
+                f"Failed to search Listas: \n{str(e)}",
                 status=status.HTTP_500_INTERNAL_SERVER_ERROR,
             )
+        

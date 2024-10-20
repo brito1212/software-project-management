@@ -1,5 +1,6 @@
 from rest_framework import serializers
 from .models import User
+from lista.serializers import ListaSerializer
 
 
 class RegistrationSerializer(serializers.ModelSerializer):
@@ -18,6 +19,17 @@ class RegistrationSerializer(serializers.ModelSerializer):
 
 
 class UsersSerializer(serializers.ModelSerializer):
+    listas = ListaSerializer(many=True)
+
     class Meta:
         model = User
-        fields = ("id", "email", "username", "first_name")
+        fields = (
+            "id",
+            "email",
+            "username",
+            "first_name",
+            "last_name",
+            "seguidores",
+            "seguindo",
+            "listas",
+        )

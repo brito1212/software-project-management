@@ -13,25 +13,25 @@ class PlatformSerializer(serializers.Serializer):
 
 
 class MidiaSerializer(serializers.ModelSerializer):
-    # genres = GenresSerializer(many=True)
-    # platforms = PlatformSerializer(many=True, read_only=True)
+    genres = serializers.StringRelatedField(many=True, read_only=True)
+    platforms = serializers.StringRelatedField(many=True, read_only=True)
     class Meta:
         model = Midia
         fields = "__all__"
 
 class MovieSerializer(MidiaSerializer):
-    class Meta:
+    class Meta(MidiaSerializer.Meta):
         model = Movie
         fields = "__all__"
 
 
 class SerieSerializer(MidiaSerializer):
-    class Meta:
+    class Meta(MidiaSerializer.Meta):
         model = Serie
         fields = "__all__"
 
 
 class GameSerializer(MidiaSerializer):
-    class Meta:
+    class Meta(MidiaSerializer.Meta):
         model = Game
         fields = "__all__"

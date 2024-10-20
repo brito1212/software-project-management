@@ -10,7 +10,7 @@ from rest_framework.decorators import action
 
 class MidiaAbstractView(ViewSet):
     def get_permissions(self):
-        if self.action == "create":
+        if self.action in ["create", "update"]:
             self.permission_classes = [permissions.IsAdminUser]
         else:
             self.permission_classes = [permissions.IsAuthenticated]
@@ -42,19 +42,6 @@ class MidiaAbstractView(ViewSet):
                 status=status.HTTP_500_INTERNAL_SERVER_ERROR,
             )
 
-    @action(detail=False, methods=["post"])
-    def list_by_name(self, request):
-        try:
-            name = request.data.get("name", "")
-            midias = self.midia_model.objects.filter(name__icontains=name)
-            serializer = self.midia_serializer(midias, many=True)
-            return Response(serializer.data)
-        except Exception as e:
-            return Response(
-                f"Failed to list Midias: \n{str(e)}",
-                status=status.HTTP_500_INTERNAL_SERVER_ERROR,
-            )
-
     def update(self, request):
         try:
             data = request.data
@@ -83,6 +70,45 @@ class MidiaAbstractView(ViewSet):
         except Exception as e:
             return Response(
                 f"Failed to retrieve midias: \n{str(e)}",
+                status=status.HTTP_500_INTERNAL_SERVER_ERROR,
+            )
+
+    @action(detail=True, methods=["get"])
+    def get_by_id(self, request, pk=None):
+        try:
+            midia_id = pk
+            midia = self.midia_model.objects.filter(id=midia_id).first()
+            if midia:
+                serializer = self.midia_serializer(midia, many=True)
+                return Response(serializer.data)
+            return Response(
+                {"message": "Midia not found"}, status=status.HTTP_404_NOT_FOUND
+            )
+        except Exception as e:
+            return Response(
+                f"Failed to list Midias: \n{str(e)}",
+                status=status.HTTP_500_INTERNAL_SERVER_ERROR,
+            )
+
+    @action(detail=False, methods=["get"])
+    def search(self, request):
+        try:
+            title_search = request.GET.get("q", "")
+            if title_search:
+                midias = self.midia_model.objects.filter(title__icontains=title_search)
+                if midias:
+                    serializer = self.midia_serializer(midias, many=True)
+                    return Response(serializer.data)
+                return Response(
+                    {"message": "Midias not found"}, status=status.HTTP_404_NOT_FOUND
+                )
+            return Response(
+                {"message": "No title given to filter"},
+                status=status.HTTP_404_NOT_FOUND,
+            )
+        except Exception as e:
+            return Response(
+                f"Failed to list Midias: \n{str(e)}",
                 status=status.HTTP_500_INTERNAL_SERVER_ERROR,
             )
 

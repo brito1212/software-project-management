@@ -4,9 +4,9 @@ from .models import Lista
 
 # Register your models here.
 class ListaAdmin(admin.ModelAdmin):
-    list_display = ("id", "name", "description", "user")
+    list_display = ("id", "name", "user")
     list_display_links = ("id", "name")
     search_fields = ("name", "user")
 
 
-admin.site.register(Lista)
+admin.site.register(Lista, ListaAdmin)
