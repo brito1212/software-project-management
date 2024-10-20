@@ -19,6 +19,28 @@ class CreateUser(APIView):
         if reg_serializer.is_valid():
             new_user = reg_serializer.save()
             if new_user:
+                host = settings.PROJECT_FRONTEND_URL
+                verify_user_link = f"{host}/signup-success/{new_user.id}"
+
+                subject = "Validação de conta"
+                html_message = render_to_string(
+                    "verify_user_email.html",
+                    {
+                        "username": new_user.first_name,
+                        "verify_user_link": verify_user_link,
+                    },
+                )
+                plain_message = strip_tags(html_message)
+                from_email = settings.EMAIL_HOST_USER
+                to_email = new_user.email
+
+                send_mail(
+                    subject,
+                    plain_message,
+                    from_email,
+                    [to_email],
+                    html_message=html_message,
+                )
                 return Response(status=status.HTTP_201_CREATED)
         return Response(reg_serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
