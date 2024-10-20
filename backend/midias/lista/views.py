@@ -1,12 +1,10 @@
 from django.shortcuts import render
 from .models import Lista
 from .serializers import ListaSerializer
-from rest_framework.views import APIView
 from rest_framework import permissions, status
 from rest_framework.response import Response
 from rest_framework.viewsets import ViewSet
 from rest_framework.decorators import action
-from midia.models import Genres, Platforms
 
 
 # Create your views here.
