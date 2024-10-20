@@ -1,4 +1,5 @@
 from django.urls import path
+from rest_framework.routers import DefaultRouter
 from .views import (
     AllUsers,
     CreateUser,
@@ -6,10 +7,13 @@ from .views import (
     ForgetPassword,
     PasswordReset,
     UpdateUser,
+    User,
 )
 
 app_name = "user"
-urlpatterns = [
+router = DefaultRouter()
+router.register(r"user", User, basename="user")
+urlpatterns = router.urls + [
     path("create/", CreateUser.as_view(), name="create_user"),
     path("all-users/", AllUsers.as_view(), name="all"),
     path("current-user/", CurrentUser.as_view(), name="current"),

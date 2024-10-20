@@ -47,10 +47,10 @@ class User(AbstractBaseUser, PermissionsMixin):
     is_active = models.BooleanField(default=True)
 
     seguidores = models.ManyToManyField(
-        "self", symmetrical=False, related_name="lista_seguidores", blank=True
+        "self", symmetrical=False, related_name="lista_seguindo", blank=True
     )
     seguindo = models.ManyToManyField(
-        "self", symmetrical=False, related_name="lista_seguindo", blank=True
+        "self", symmetrical=False, related_name="lista_seguidores", blank=True
     )
 
     objects = CustomUserManager()

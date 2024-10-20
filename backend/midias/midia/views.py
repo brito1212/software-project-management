@@ -1,10 +1,11 @@
 from typing import Any
 from django.shortcuts import render
-from requests import Response
+from rest_framework.response import Response
 from .models import Game, Midia, Movie, Serie
 from rest_framework.viewsets import ViewSet
 from rest_framework import permissions, status, serializers
 from .serializers import GameSerializer, MovieSerializer, SerieSerializer
+from rest_framework.decorators import action
 
 
 class MidiaAbstractView(ViewSet):
@@ -41,9 +42,9 @@ class MidiaAbstractView(ViewSet):
                 status=status.HTTP_500_INTERNAL_SERVER_ERROR,
             )
 
+    @action(detail=False, methods=["post"])
     def list_by_name(self, request):
         try:
-
             name = request.data.get("name", "")
             midias = self.midia_model.objects.filter(name__icontains=name)
             serializer = self.midia_serializer(midias, many=True)
@@ -51,6 +52,37 @@ class MidiaAbstractView(ViewSet):
         except Exception as e:
             return Response(
                 f"Failed to list Midias: \n{str(e)}",
+                status=status.HTTP_500_INTERNAL_SERVER_ERROR,
+            )
+
+    def update(self, request):
+        try:
+            data = request.data
+            midia = self.midia_model.objects.filter(id=data.get("id")).first()
+            if midia:
+                for key, value in data.items():
+                    setattr(midia, key, value)
+                midia.save()
+                return Response(
+                    {"message": "Midia updated successfully"}, status=status.HTTP_200_OK
+                )
+            return Response(
+                {"message": "Midia not found"}, status=status.HTTP_404_NOT_FOUND
+            )
+        except Exception as e:
+            return Response(
+                f"Failed update midia: \n{str(e)}",
+                status=status.HTTP_500_INTERNAL_SERVER_ERROR,
+            )
+
+    def list(self, request):
+        try:
+            midias = self.midia_model.objects.all()
+            serializer = self.midia_serializer(midias, many=True)
+            return Response(serializer.data, status=status.HTTP_200_OK)
+        except Exception as e:
+            return Response(
+                f"Failed to retrieve midias: \n{str(e)}",
                 status=status.HTTP_500_INTERNAL_SERVER_ERROR,
             )
 
