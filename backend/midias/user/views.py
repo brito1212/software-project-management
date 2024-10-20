@@ -1,14 +1,15 @@
 from django.conf import settings
 from django.shortcuts import render
 from rest_framework.views import APIView
-from rest_framework import status, generics
+from rest_framework import status, generics, permissions
 from rest_framework.response import Response
 from .serializers import RegistrationSerializer, UsersSerializer
-from rest_framework import permissions
 from .models import PasswordResetToken, User
 from django.core.mail import send_mail
 from django.utils.html import strip_tags
 from django.template.loader import render_to_string
+from rest_framework.decorators import action
+from rest_framework.viewsets import ViewSet
 
 
 class CreateUser(APIView):
@@ -53,12 +54,39 @@ class AllUsers(generics.ListAPIView):
     queryset = User.objects.all()
     serializer_class = UsersSerializer
 
+
 class CurrentUser(APIView):
     permission_classes = (permissions.IsAuthenticated,)
 
     def get(self, request):
         serializer = UsersSerializer(self.request.user)
         return Response(serializer.data)
+
+
+class User(ViewSet):
+    permission_classes = (permissions.IsAuthenticated,)
+
+    @action(detail=True, methods=["get"])
+    def get_user_by_id(self, request, pk=None):
+        try:
+            # data = request.data
+            user = User.objects.filter(id=pk).first()
+            if user:
+                serializer = UsersSerializer(user)
+                return Response(serializer.data)
+            return Response(
+                {"message": "User not found"}, status=status.HTTP_404_NOT_FOUND
+            )
+        except Exception as e:
+            return Response(
+                f"Failed to get user: \n{str(e)}",
+                status=status.HTTP_500_INTERNAL_SERVER_ERROR,
+            )
+
+    @action(detail=True, methods=["post"])
+    def follow(self, request):
+
+        return Response({"message": "WIP"}, status=status.HTTP_200_OK)
 
 
 class UpdateUser(APIView):

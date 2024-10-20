@@ -23,4 +23,7 @@ urlpatterns = [
     path("api-auth/", include("user.urls")),
     path("api-auth/", include("rest_framework.urls")),
     path("api-auth/", include("drf_social_oauth2.urls", namespace="drf")),
+    path("midia/", include("midia.urls")),
+    path("lista/", include("lista.urls")),
+    path("review/", include("review.urls")),
 ]
