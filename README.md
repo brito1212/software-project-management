@@ -20,9 +20,9 @@ This repository contains files related to the project of a **Web Platform** wher
    - Contains the project performance calculations (EVAcum, ACAcum, PVACum, CPIAcum, etc.), along with the BAC and PAC indicators.
    - The file with the EVM metric calculations is included in the repository.
 
-5. **Backend**: Folder containing the application's Backend, built with Django. [See the backend README](backend/readme.md)
+5. **Backend**: Folder containing the application's Backend, built with Django. [See the backend README](backend/README.md)
 
-6. **Frontend**: Folder containing the application's Frontend, built with React. [See the frontend README](frontend/readme.md)
+6. **Frontend**: Folder containing the application's Frontend, built with React. [See the frontend README](frontend/README.md)
 
 ### Group Members
 
@@ -62,9 +62,9 @@ Este repositório contém arquivos relacionados ao projeto de uma **Plataforma W
    - Contém os cálculos do desempenho do projeto (EVAcum, ACAcum, PVACum, CPIAcum, etc.), além dos indicadores BAC e PAC.
    - O arquivo com os cálculos das métricas de EVM está incluído no repositório.
 
-5. **Backend**: Pasta contendo o Backend da aplicação, feito em Django. [Consulte o README do backend](backend/readme.md)
+5. **Backend**: Pasta contendo o Backend da aplicação, feito em Django. [Consulte o README do backend](backend/README.md)
 
-6. **Frontend**: Pasta contendo o Frontend da aplicação, feito em React. [Consulte o README do frontend](frontend/readme.md)
+6. **Frontend**: Pasta contendo o Frontend da aplicação, feito em React. [Consulte o README do frontend](frontend/README.md)
 
 
 ### Integrantes
