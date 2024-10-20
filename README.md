@@ -1,3 +1,45 @@
+## Software Project Management (English)
+
+### Project Description
+This repository contains files related to the project of a **Web Platform** where users can share reviews of movies, TV shows, and games, as well as receive recommendations based on an AI algorithm. This project was developed as part of the Software Project Management course.
+
+### Repository Structure
+1. **Requirements Specification**:
+   - Each group member specified 2 CRUDs or 2 reports, creating an integrated and coherent system.
+   - The requirements document is available in `Requirements_Document.docx`.
+
+2. **Size and Effort Estimation**:
+   - Estimation based on the Use Case Points (UCP) technique, taking into account technical and environmental factors.
+   - The file `UCP_calculation.txt` contains the size calculations and the number of actors and entities involved.
+
+3. **Project Schedule**:
+   - The detailed schedule was developed based on the effort estimates, using project management tools.
+   - The schedule was created using ProjectLibre and is available in `projectlibre_schedule.docx`.
+
+4. **EVM Calculation (Earned Value Management)**:
+   - Contains the project performance calculations (EVAcum, ACAcum, PVACum, CPIAcum, etc.), along with the BAC and PAC indicators.
+   - The file with the EVM metric calculations is included in the repository.
+
+5. **Backend**: Folder containing the application's Backend, built with Django. [See the backend README](backend/readme.md)
+
+6. **Frontend**: Folder containing the application's Frontend, built with React. [See the frontend README](frontend/readme.md)
+
+### Group Members
+
+Brenno de Oliveira da Rosa - 2021029935
+
+Felipe Faustino Brito - 2021007366
+
+Felipe Queiroz Flores Quintão Bachetti - 2021005147
+
+Jorge Christino dos Santos Ferreira - 2021014825
+
+Lucas Luan Belarmino Barbosa - 2021017872
+
+
+
+
+
 ## Projeto de Gestão de Software (Portuguese-BR)
 
 ### Descrição do Projeto
@@ -20,8 +62,9 @@ Este repositório contém arquivos relacionados ao projeto de uma **Plataforma W
    - Contém os cálculos do desempenho do projeto (EVAcum, ACAcum, PVACum, CPIAcum, etc.), além dos indicadores BAC e PAC.
    - O arquivo com os cálculos das métricas de EVM está incluído no repositório.
 
-### Observações de Entrega
-- Todos os arquivos do projeto foram organizados e enviados para este repositório GitHub conforme instruções.
+5. **Backend**: Pasta contendo o Backend da aplicação, feito em Django. [Consulte o README do backend](backend/readme.md)
+
+6. **Frontend**: Pasta contendo o Frontend da aplicação, feito em React. [Consulte o README do frontend](frontend/readme.md)
 
 
 ### Integrantes
