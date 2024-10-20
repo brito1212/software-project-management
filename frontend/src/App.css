@@ -1,42 +1,105 @@
-#root {
-  max-width: 1280px;
-  margin: 0 auto;
-  padding: 2rem;
-  text-align: center;
+@import url("https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap");
+
+* {
+  box-sizing: border-box;
 }
 
-.logo {
-  height: 6em;
-  padding: 1.5em;
-  will-change: filter;
-  transition: filter 300ms;
-}
-.logo:hover {
-  filter: drop-shadow(0 0 2em #646cffaa);
-}
-.logo.react:hover {
-  filter: drop-shadow(0 0 2em #61dafbaa);
+:root {
+  --type-first: "Poppins", sans-serif;
+  --main-color: #5551ff;
+  --black: #100f12;
+  --white: #fff;
+  --gray01: #555559;
+  --gray02: #d9d9d9;
+  --gray03: #727278;
 }
 
-@keyframes logo-spin {
-  from {
-    transform: rotate(0deg);
-  }
+body {
+  margin: 0px;
+  font-family: var(--type-first);
+  background-color: var(--black);
+  color: var(--white);
+}
+
+h1,
+h2,
+h3,
+h4,
+p {
+  margin: 0px;
+}
+
+ul,
+li {
+  list-style: none;
+  padding: 0px;
+  margin: 0px;
+}
+
+img {
+  display: block;
+  max-width: 100%;
+}
+
+button,
+input {
+  display: block;
+  font-size: 1rem;
+  font-family: var(--type-first);
+}
+
+a {
+  text-decoration: none;
+}
+
+.btn {
+  padding: 10px 20px;
+  line-height: 31px;
+  border: none;
+  border-radius: 8px;
+  background-color: transparent;
+  color: white;
+  cursor: pointer;
+  font-weight: 600;
+}
+
+.btn:hover {
+  background: var(--main-color);
+}
+
+.primary {
+  background-color: var(--main-color);
+  color: var(--white);
+}
+
+.secondary {
+  background-color: var(--main-color);
+  color: var(--black);
+}
+
+.secondary:hover {
+  background: color-mix(in srgb, var(--main-color) 70%, transparent);
+}
+
+.container {
+  display: flex;
+  gap: 50px;
+  padding: 0px 35px;
+  justify-content: center;
+}
+
+.main-article {
+  display: flex;
+  flex-direction: column;
+  gap: 60px;
+}
+
+.to-left {
+  animation: rightToLeft 1s forwards;
+}
+
+@keyframes rightToLeft {
   to {
-    transform: rotate(360deg);
+    transform: translateX(-24px);
   }
-}
-
-@media (prefers-reduced-motion: no-preference) {
-  a:nth-of-type(2) .logo {
-    animation: logo-spin infinite 20s linear;
-  }
-}
-
-.card {
-  padding: 2em;
-}
-
-.read-the-docs {
-  color: #888;
 }
