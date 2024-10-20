@@ -1,35 +1,93 @@
-import { useState } from 'react'
-import reactLogo from './assets/react.svg'
-import viteLogo from '/vite.svg'
-import './App.css'
+import React from "react";
+import "./App.css";
+import Header from "./components/Header";
+import Aside from "./components/Aside";
+import Carousel from "./components/Carousel";
 
 function App() {
-  const [count, setCount] = useState(0)
+  const [isMenuClosed, setIsMenuClosed] = React.useState(true);
+  const closeMenu = () => {
+    setIsMenuClosed((state) => !state);
+  };
+
+  const trending = [
+    "src/assets/images/joker2.webp",
+    "src/assets/images/batman.jpg",
+    "src/assets/images/god-of-war.jpg",
+  ];
+
+  const movies = [
+    "src/assets/images/45719.jpg",
+    "src/assets/images/107184.jpg",
+    "src/assets/images/107263g.jpg",
+    "src/assets/images/107308g.jpg",
+    "src/assets/images/5167951.jpg",
+    "src/assets/images/530814.jpg",
+  ];
+
+  const series = [
+    "src/assets/images/107200g.jpg",
+    "src/assets/images/107258g.jpg",
+    "src/assets/images/107266g.jpg",
+    "src/assets/images/107282g.jpg",
+    "src/assets/images/107200g.jpg",
+    "src/assets/images/107258g.jpg",
+  ];
+
+  const games = [
+    "src/assets/images/60086.jpg",
+    "src/assets/images/60164.jpg",
+    "src/assets/images/60180.jpg",
+    "src/assets/images/107117.jpg",
+    "src/assets/images/60086.jpg",
+    "src/assets/images/107117.jpg",
+  ];
 
   return (
     <>
-      <div>
-        <a href="https://vitejs.dev" target="_blank">
-          <img src={viteLogo} className="logo" alt="Vite logo" />
-        </a>
-        <a href="https://react.dev" target="_blank">
-          <img src={reactLogo} className="logo react" alt="React logo" />
-        </a>
+      <div className="App">
+        <Header onCloseMenu={closeMenu} />
+        <main className="container">
+          <Aside isMenuClosed={isMenuClosed} />
+          <article className="main-article">
+            <div>
+              <Carousel
+                slides={trending}
+                cardWidth={1240}
+                numPerSlides={1}
+                title={"Destaques"}
+              />
+            </div>
+            <div>
+              <Carousel
+                slides={movies}
+                cardWidth={280}
+                numPerSlides={4}
+                title={"Filmes"}
+              />
+            </div>
+            <div>
+              <Carousel
+                slides={series}
+                cardWidth={280}
+                numPerSlides={4}
+                title={"Series"}
+              />
+            </div>
+            <div>
+              <Carousel
+                slides={games}
+                cardWidth={280}
+                numPerSlides={4}
+                title={"Jogos"}
+              />
+            </div>
+          </article>
+        </main>
+        <footer></footer>
       </div>
-      <h1>Vite + React</h1>
-      <div className="card">
-        <button onClick={() => setCount((count) => count + 1)}>
-          count is {count}
-        </button>
-        <p>
-          Edit <code>src/App.tsx</code> and save to test HMR
-        </p>
-      </div>
-      <p className="read-the-docs">
-        Click on the Vite and React logos to learn more
-      </p>
     </>
-  )
+  );
 }
 
-export default App
+export default App;
