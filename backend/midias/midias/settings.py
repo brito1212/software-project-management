@@ -13,25 +13,31 @@ https://docs.djangoproject.com/en/5.1/ref/settings/
 import os
 from pathlib import Path
 
+from dotenv import load_dotenv
+
+load_dotenv()
+
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
 
+ENVIRONMENT = os.getenv("ENVIRONMENT", "dev")
 
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/5.1/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = "django-insecure-la-i+diqo+j54t4zma_o5^u)te-+6wvbjm$$5j0wxd#o$m9v6_"
+SECRET_KEY = os.getenv("DJANGO_SECRET_KEY")
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+DEBUG = int(os.getenv("DEBUG", default=0))
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = os.getenv("DJANGO_ALLOWED_HOSTS").split(" ")
 
+CORS_ALLOWED_ORIGINS = ["http://localhost:3000", "http://127.0.0.1:3000"]
 
 # Application definition
 
-INSTALLED_APPS = [
+INSTALLED_INTERNAL = [
     "django.contrib.admin",
     "django.contrib.auth",
     "django.contrib.contenttypes",
@@ -40,9 +46,22 @@ INSTALLED_APPS = [
     "django.contrib.staticfiles",
 ]
 
+INSTALLED_THIRD = [
+    "rest_framework",
+    "oauth2_provider",
+    "social_django",
+    "drf_social_oauth2",
+    "corsheaders",
+]
+
+INSTALLED_APP = ["user"]
+
+INSTALLED_APPS = INSTALLED_INTERNAL + INSTALLED_THIRD + INSTALLED_APP
+
 MIDDLEWARE = [
     "django.middleware.security.SecurityMiddleware",
     "django.contrib.sessions.middleware.SessionMiddleware",
+    "corsheaders.middleware.CorsMiddleware",
     "django.middleware.common.CommonMiddleware",
     "django.middleware.csrf.CsrfViewMiddleware",
     "django.contrib.auth.middleware.AuthenticationMiddleware",
@@ -63,6 +82,8 @@ TEMPLATES = [
                 "django.template.context_processors.request",
                 "django.contrib.auth.context_processors.auth",
                 "django.contrib.messages.context_processors.messages",
+                "social_django.context_processors.backends",
+                "social_django.context_processors.login_redirect",
             ],
         },
     },
@@ -84,7 +105,6 @@ DATABASES = {
         "PORT": os.environ.get("DB_PORT", "5432"),
     }
 }
-
 
 # Password validation
 # https://docs.djangoproject.com/en/5.1/ref/settings/#auth-password-validators
@@ -126,3 +146,49 @@ STATIC_URL = "static/"
 # https://docs.djangoproject.com/en/5.1/ref/settings/#default-auto-field
 
 DEFAULT_AUTO_FIELD = "django.db.models.BigAutoField"
+
+
+AUTH_USER_MODEL = "user.User"
+
+AUTHENTICATION_BACKENDS = (
+    "drf_social_oauth2.backends.DjangoOAuth2",
+    "django.contrib.auth.backends.ModelBackend",
+)
+
+REST_FRAMEWORK = {
+    "DEFAULT_AUTHENTICATION_CLASSES": (
+        "oauth2_provider.contrib.rest_framework.OAuth2Authentication",
+        "drf_social_oauth2.authentication.SocialAuthentication",
+    )
+}
+
+
+PROJECT_FRONTEND_URL = os.getenv("PROJECT_FRONTEND_URL")
+
+
+# EMAIL configuration
+EMAIL_BACKEND = "django.core.mail.backends.smtp.EmailBackend"
+EMAIL_HOST = os.getenv("EMAIL_HOST")
+EMAIL_HOST_PASSWORD = os.getenv("EMAIL_HOST_PASSWORD")
+EMAIL_HOST_USER = os.getenv("EMAIL_HOST_USER")
+EMAIL_PORT = os.getenv("EMAIL_PORT")
+EMAIL_USE_SSL = False
+EMAIL_USE_TLS = True
+
+
+# DEV configuration
+if ENVIRONMENT == "dev":
+    DEBUG = True
+
+    print("Running in DEV mode")
+
+    ALLOWED_HOSTS = ["*"]
+    PROJECT_FRONTEND_URL = "http://localhost:3000"
+    STATIC_ROOT = os.path.join(BASE_DIR, "staticfiles")
+
+    EMAIL_HOST = os.getenv(
+        "EMAIL_HOST", default="sandbox.smtp.mailtrap.io"
+    )  # Desenvolvedor, crie uma conta no mailtrap.io e coloque aqui os dados da sua conta
+    EMAIL_HOST_USER = os.getenv("EMAIL_HOST_USER", default="f2c52727a0f4ed")
+    EMAIL_HOST_PASSWORD = os.getenv("EMAIL_HOST_PASSWORD", default="263c8652b75e9c")
+    EMAIL_PORT = os.getenv("EMAIL_PORT", default="2525")
