@@ -1,3 +1,4 @@
+import { Link } from "react-router-dom";
 import styles from "./Header.module.css";
 
 const Header = ({ onCloseMenu }) => {
@@ -21,9 +22,9 @@ const Header = ({ onCloseMenu }) => {
             </svg>
           </label>
         </div>
-        <a href="/" className={styles.logo}>
+        <Link to="/" className={styles.logo}>
           Nome Site
-        </a>
+        </Link>
       </div>
       <form className={styles.center}>
         <input
@@ -41,8 +42,12 @@ const Header = ({ onCloseMenu }) => {
         />
       </form>
       <div className={styles.end}>
-        <button className="btn">Login</button>
-        <button className="btn secondary">Cadastrar</button>
+        <Link to="/login" className="btn">
+          Login
+        </Link>
+        <Link to="/register" className="btn secondary">
+          Cadastrar
+        </Link>
       </div>
     </header>
   );

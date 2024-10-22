@@ -1,3 +1,5 @@
+import { Link } from "react-router-dom";
+
 // Icons
 import React from "react";
 import homeIcon from "../assets/icons/home-icon.svg";
@@ -15,25 +17,35 @@ const Aside = ({ isMenuClosed }) => {
       <div className={styles.explore}>
         <p>Explorar</p>
         <ul>
-          <li className="btn primary">
-            <img src={homeIcon} alt="Home" width="25px" height="25px" />
-            <span>Home</span>
+          <li>
+            <Link to="/" className="btn primary">
+              <img src={homeIcon} alt="Home" width="25px" height="25px" />
+              <span>Home</span>
+            </Link>
           </li>
-          <li className="btn">
-            <img src={listIcon} alt="Lista" width="25px" height="25px" />
-            <span>Lista</span>
+          <li>
+            <Link to="/list" className="btn">
+              <img src={listIcon} alt="Lista" width="25px" height="25px" />
+              <span>Lista</span>
+            </Link>
           </li>
-          <li className="btn">
-            <img src={moviesIcon} alt="Filmes" width="25px" height="25px" />
-            <span>Filmes</span>
+          <li>
+            <Link to="/movies" className="btn">
+              <img src={moviesIcon} alt="Filmes" width="25px" height="25px" />
+              <span>Filmes</span>
+            </Link>
           </li>
-          <li className="btn">
-            <img src={seriesIcon} alt="Séries" width="25px" height="25px" />
-            <span>Séries</span>
+          <li>
+            <Link to="/series" className="btn">
+              <img src={seriesIcon} alt="Séries" width="25px" height="25px" />
+              <span>Séries</span>
+            </Link>
           </li>
-          <li className="btn">
-            <img src={gamesIcon} alt="Jogos" width="25px" height="25px" />
-            <span>Jogos</span>
+          <li>
+            <Link to="/games" className="btn">
+              <img src={gamesIcon} alt="Jogos" width="25px" height="25px" />
+              <span>Jogos</span>
+            </Link>
           </li>
         </ul>
       </div>
@@ -42,30 +54,42 @@ const Aside = ({ isMenuClosed }) => {
         <p>Seguindo</p>
         <ul>
           <li>
-            <div className={styles.photo}></div>
-            <span>Jorge Christino</span>
+            <Link>
+              <div className={styles.photo}></div>
+              <span>Jorge Christino</span>
+            </Link>
           </li>
           <li>
-            <div className={styles.photo}></div>
-            <span>Jorge Christino</span>
+            <Link>
+              <div className={styles.photo}></div>
+              <span>Jorge Christino</span>
+            </Link>
           </li>
           <li>
-            <div className={styles.photo}></div>
-            <span>Jorge Christino</span>
+            <Link>
+              <div className={styles.photo}></div>
+              <span>Jorge Christino</span>
+            </Link>
           </li>
           <li>
-            <div className={styles.photo}></div>
-            <span>Jorge Christino</span>
+            <Link>
+              <div className={styles.photo}></div>
+              <span>Jorge Christino</span>
+            </Link>
           </li>
           <li>
-            <div className={styles.photo}></div>
-            <span>Jorge Christino</span>
+            <Link>
+              <div className={styles.photo}></div>
+              <span>Jorge Christino</span>
+            </Link>
           </li>
-          <li className={styles["load-more"]}>
-            <button className={styles["chevron-down"]}>
-              <img src={chevronDown} />
-            </button>
-            <span>Carregar mais</span>
+          <li>
+            <Link>
+              <div className={styles["chevron-down"]}>
+                <img src={chevronDown} />
+              </div>
+              <span>Carregar mais</span>
+            </Link>
           </li>
         </ul>
       </div>

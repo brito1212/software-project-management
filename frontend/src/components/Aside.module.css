@@ -62,12 +62,12 @@ aside p {
   color: var(--gray03);
 }
 
-aside ul li {
+aside ul li a {
   display: flex;
   flex-direction: row;
   align-items: center;
   gap: 25px;
-  cursor: pointer;
+  width: 100%;
 }
 
 .following .photo {
@@ -81,17 +81,12 @@ aside ul li {
   color: var(--gray01);
 }
 
-.following .load-more {
-  cursor: pointer;
-}
-
 .following .chevron-down {
   background-color: var(--main-color);
   border-radius: 50%;
   width: 45px;
   height: 45px;
   border: none;
-  cursor: pointer;
 }
 
 .following .chevron-down:hover {
