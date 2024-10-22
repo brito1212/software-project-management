@@ -110,7 +110,7 @@ header {
 .center .magnifying-glass {
   width: 70px;
   height: 55px;
-  background: url("assets/icons/search.svg") no-repeat center center;
+  background: url("../assets/icons/search.svg") no-repeat center center;
   text-indent: -150px;
   border: none;
   cursor: pointer;

@@ -7,6 +7,7 @@
 :root {
   --type-first: "Poppins", sans-serif;
   --main-color: #5551ff;
+  --main-color: #5d5be6;
   --black: #100f12;
   --white: #fff;
   --gray01: #555559;
@@ -53,7 +54,7 @@ a {
 }
 
 .btn {
-  padding: 10px 20px;
+  padding: 0.625rem 1.25rem;
   line-height: 31px;
   border: none;
   border-radius: 8px;
@@ -61,6 +62,8 @@ a {
   color: white;
   cursor: pointer;
   font-weight: 600;
+  min-width: 8rem;
+  text-align: center;
 }
 
 .btn:hover {
@@ -77,8 +80,13 @@ a {
   color: var(--black);
 }
 
-.secondary:hover {
+.secondary:hover,
+.primary:hover {
   background: color-mix(in srgb, var(--main-color) 70%, transparent);
+}
+
+.btn-form {
+  width: 100%;
 }
 
 .container {
@@ -97,6 +105,8 @@ a {
 .to-left {
   animation: rightToLeft 1s forwards;
 }
+
+/* Animations */
 
 @keyframes rightToLeft {
   to {
