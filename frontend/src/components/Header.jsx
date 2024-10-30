@@ -45,7 +45,7 @@ const Header = ({ onCloseMenu }) => {
         <Link to="/login" className="btn">
           Login
         </Link>
-        <Link to="/register" className="btn secondary">
+        <Link to="/signup" className="btn secondary">
           Cadastrar
         </Link>
       </div>

@@ -7,7 +7,7 @@ import styles from "./LoginForm.module.css";
 
 const LoginForm = () => {
   return (
-    <section className="animeLeft">
+    <section className="anime-left">
       <h1 className={styles.title}>Sign in</h1>
       <form className={styles.form}>
         <Input label="Email" type="email" name="email" />
