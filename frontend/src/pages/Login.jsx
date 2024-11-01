@@ -2,14 +2,14 @@ import React from "react";
 import { Routes, Route } from "react-router-dom";
 
 import LoginForm from "../components/login/LoginForm";
-
-import styles from "../components/login/LoginForm.module.css";
+import LoginPasswordLost from "../components/login/LoginPasswordLost";
 
 const Login = () => {
   return (
-    <section className={styles.login}>
+    <section className="login">
       <Routes>
         <Route path="/" element={<LoginForm />} />
+        <Route path="/lost" element={<LoginPasswordLost />} />
       </Routes>
     </section>
   );

@@ -38,7 +38,7 @@ const Home = () => {
   ];
 
   return (
-    <article className="main-article">
+    <article className="main-article anime-left">
       <div>
         <Carousel
           slides={trending}
