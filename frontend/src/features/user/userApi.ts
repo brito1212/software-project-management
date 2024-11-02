@@ -23,8 +23,7 @@ export async function createUser(user: UserRegistration) {
 
 export async function loginWithEmailAndPassword(
   username: string,
-  password: string,
-  captchaResponse: string
+  password: string
 ) {
   const body = {
     client_id: backendClientId,
@@ -32,8 +31,8 @@ export async function loginWithEmailAndPassword(
     grant_type: "password",
     username: username,
     password: password,
-    captcha_response: captchaResponse,
   };
+  console.log(body);
   const response = await api.post("api-auth/token/", body);
   return response.data as LoginResponse;
 }

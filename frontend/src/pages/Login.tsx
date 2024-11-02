@@ -1,8 +1,7 @@
-import React from "react";
 import { Routes, Route } from "react-router-dom";
 
-import LoginForm from "../components/login/LoginForm";
-import LoginPasswordLost from "../components/login/LoginPasswordLost";
+import { LoginForm } from "../components/index";
+import { LoginPasswordLost } from "../components/index";
 
 const Login = () => {
   return (

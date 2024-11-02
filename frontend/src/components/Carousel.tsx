@@ -7,7 +7,7 @@ const Carousel = ({ slides, cardWidth, numPerSlides, title }) => {
   const [currentSlide, setCurrentSlide] = React.useState(0);
 
   const totalSlides = slides.length;
-  let percentage =
+  const percentage =
     ((cardWidth + 40) / (totalSlides * cardWidth + 40 * (totalSlides - 1))) *
     100;
 
