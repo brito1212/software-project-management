@@ -189,6 +189,6 @@ if ENVIRONMENT == "dev":
     EMAIL_HOST = os.getenv(
         "EMAIL_HOST", default="sandbox.smtp.mailtrap.io"
     )  # Desenvolvedor, crie uma conta no mailtrap.io e coloque aqui os dados da sua conta
-    EMAIL_HOST_USER = os.getenv("EMAIL_HOST_USER", default="f2c52727a0f4ed")
-    EMAIL_HOST_PASSWORD = os.getenv("EMAIL_HOST_PASSWORD", default="263c8652b75e9c")
+    EMAIL_HOST_USER = os.getenv("EMAIL_HOST_USER", default="78592c2d254d94")
+    EMAIL_HOST_PASSWORD = os.getenv("EMAIL_HOST_PASSWORD", default="9a573f9b9934d7")
     EMAIL_PORT = os.getenv("EMAIL_PORT", default="2525")

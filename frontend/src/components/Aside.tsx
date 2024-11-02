@@ -54,37 +54,37 @@ const Aside = ({ isMenuClosed }) => {
         <p>Seguindo</p>
         <ul>
           <li>
-            <Link>
+            <Link to={""}>
               <div className={styles.photo}></div>
               <span>Jorge Christino</span>
             </Link>
           </li>
           <li>
-            <Link>
+            <Link to={""}>
               <div className={styles.photo}></div>
               <span>Jorge Christino</span>
             </Link>
           </li>
           <li>
-            <Link>
+            <Link to={""}>
               <div className={styles.photo}></div>
               <span>Jorge Christino</span>
             </Link>
           </li>
           <li>
-            <Link>
+            <Link to={""}>
               <div className={styles.photo}></div>
               <span>Jorge Christino</span>
             </Link>
           </li>
           <li>
-            <Link>
+            <Link to={""}>
               <div className={styles.photo}></div>
               <span>Jorge Christino</span>
             </Link>
           </li>
           <li>
-            <Link>
+            <Link to={""}>
               <div className={styles["chevron-down"]}>
                 <img src={chevronDown} />
               </div>
