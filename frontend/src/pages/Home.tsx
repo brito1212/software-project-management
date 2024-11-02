@@ -1,7 +1,7 @@
 import React from "react";
 
 // Components
-import Carousel from "../components/Carousel";
+import { Carousel } from "../components";
 
 const Home = () => {
   const trending = [
