@@ -32,7 +32,6 @@ export async function loginWithEmailAndPassword(
     username: username,
     password: password,
   };
-  console.log(body);
   const response = await api.post("api-auth/token/", body);
   return response.data as LoginResponse;
 }
