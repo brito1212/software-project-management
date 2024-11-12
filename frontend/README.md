@@ -28,7 +28,7 @@ Esse comando irá instalar todas as dependências necessárias listadas no arqui
 
 2. **Execute a aplicação em modo de desenvolvimento:**
 ```bash
-   npm install
+   npm run dev
 ````
 Com o sucesso desse comando, a aplicação estará disponível para desenvolvimento. Siga as instruções exibidas no terminal para acessar o endereço local da aplicação.
 
