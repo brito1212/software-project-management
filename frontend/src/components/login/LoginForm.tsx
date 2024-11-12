@@ -13,8 +13,8 @@ import useForm from "../../hooks/useForm.ts";
 const LoginForm = () => {
   const navigate = useNavigate();
   const dispatch = useAppDispatch();
-  const email = useForm("email");
-  const password = useForm("password");
+  const email = useForm("");
+  const password = useForm("");
 
   async function handleSubmit(event: React.FormEvent) {
     event.preventDefault();
