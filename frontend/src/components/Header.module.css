@@ -8,7 +8,7 @@ header {
   max-height: 100px;
 }
 
-.start {
+.menu-logo-wrapper {
   display: flex;
   flex-direction: row;
   gap: 20px;
@@ -80,13 +80,13 @@ header {
   }
 }
 
-.start .logo {
+.menu-logo-wrapper .logo {
   color: var(--main-color);
   font-size: 2rem;
   font-weight: 600;
 }
 
-.center {
+.search {
   max-width: 600px;
   flex-grow: 2;
   display: flex;
@@ -96,18 +96,18 @@ header {
   border-radius: 8px;
 }
 
-.center .search-field {
+.search .search-field {
   width: 100%;
   padding: 15px 0px 15px 30px;
   border: none;
   background-color: transparent;
 }
 
-.center .search-field:focus {
+.search .search-field:focus {
   outline: none;
 }
 
-.center .magnifying-glass {
+.search .magnifying-glass {
   width: 70px;
   height: 55px;
   background: url("../assets/icons/search.svg") no-repeat center center;
@@ -117,8 +117,26 @@ header {
   box-shadow: none;
 }
 
-.end {
+.login,
+.account {
   display: flex;
   flex-direction: row;
   gap: 20px;
+}
+
+.account {
+  color: var(--white);
+  align-items: center;
+}
+
+.img-user,
+.logout {
+  width: 40px;
+  height: 40px;
+}
+
+.logout-btn {
+  background: transparent;
+  border: none;
+  cursor: pointer;
 }

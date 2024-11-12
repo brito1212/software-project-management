@@ -1,10 +1,21 @@
 import { Link } from "react-router-dom";
+import { useAppDispatch, useAppSelector } from "../app/store";
 import styles from "./Header.module.css";
+import logout from "../assets/icons/logout.svg";
+import profileImage from "../assets/images/profile-image.png";
+import { logoutAction } from "../features/user/userSlice";
 
 const Header = ({ onCloseMenu }) => {
+  const { user } = useAppSelector((state) => state.user);
+  const dispatch = useAppDispatch();
+
+  function handleLogout() {
+    dispatch(logoutAction());
+  }
+
   return (
     <header>
-      <div className={styles.start}>
+      <div className={styles["menu-logo-wrapper"]}>
         <div className={styles.menu}>
           <label>
             <input type="checkbox" onClick={onCloseMenu} />
@@ -26,29 +37,49 @@ const Header = ({ onCloseMenu }) => {
           Nome Site
         </Link>
       </div>
-      <form className={styles.center}>
-        <input
-          name="searchField"
-          id="searchField"
-          className={styles["search-field"]}
-          type="text"
-          placeholder="Pesquisar mídia..."
-        />
-        <input
-          type="submit"
-          id="magnifyingGlass"
-          className={styles["magnifying-glass"]}
-          value="Buscar"
-        />
-      </form>
-      <div className={styles.end}>
-        <Link to="/login" className="btn">
-          Login
-        </Link>
-        <Link to="/signup" className="btn secondary">
-          Cadastrar
-        </Link>
-      </div>
+      {!user ? (
+        <>
+          <div className={styles.login}>
+            <Link to="/login" className="btn">
+              Login
+            </Link>
+            <Link to="/signup" className="btn secondary">
+              Cadastrar
+            </Link>
+          </div>
+        </>
+      ) : (
+        <>
+          <form className={styles.search}>
+            <input
+              name="searchField"
+              id="searchField"
+              className={styles["search-field"]}
+              type="text"
+              placeholder="Pesquisar mídia..."
+            />
+            <input
+              type="submit"
+              id="magnifyingGlass"
+              className={styles["magnifying-glass"]}
+              value="Buscar"
+            />
+          </form>
+          <div className={styles.login}>
+            <Link className={styles.account} to="/account">
+              <img
+                className={styles["img-user"]}
+                src={profileImage}
+                alt="Image"
+              />
+              <span>{user.first_name}</span>
+            </Link>
+            <button className={styles["logout-btn"]} onClick={handleLogout}>
+              <img className={styles.logout} src={logout} alt="Logout" />
+            </button>
+          </div>
+        </>
+      )}
     </header>
   );
 };

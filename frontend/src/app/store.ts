@@ -8,7 +8,7 @@ import { persistReducer, persistStore } from "redux-persist";
 import storage from "redux-persist/lib/storage";
 import toastReducer from "../features/toast/toastSlice";
 import userReducer, { setupAuthListener } from "../features/user/userSlice";
-import { useDispatch } from "react-redux";
+import { TypedUseSelectorHook, useDispatch, useSelector } from "react-redux";
 
 const persistConfig = {
   key: "root",
@@ -46,3 +46,4 @@ export type AppThunk<ReturnType = void> = ThunkAction<
   Action<string>
 >;
 export const useAppDispatch: () => AppDispatch = useDispatch;
+export const useAppSelector: TypedUseSelectorHook<RootState> = useSelector;
