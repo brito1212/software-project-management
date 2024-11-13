@@ -4,6 +4,14 @@ export interface User {
   last_name: string;
   username: string;
   email: string;
+  seguindo: string[];
+  seguidores: string[];
+}
+
+export interface UserUpdating {
+  first_name: string;
+  last_name: string;
+  username: string;
 }
 
 export interface LoginResponse {
