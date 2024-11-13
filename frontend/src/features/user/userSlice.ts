@@ -2,8 +2,13 @@ import { ThunkDispatch, createSlice } from "@reduxjs/toolkit";
 import { removeAuthorizationTokens, setAuthorizationTokens } from "../../api";
 import { AppThunk, RootState } from "../../app/store";
 import { useToastAction } from "../toast/toastSlice";
-import { User, UserRegistration } from "./user.type";
-import { createUser, getUser, loginWithEmailAndPassword } from "./userApi";
+import { User, UserRegistration, UserUpdating } from "./user.type";
+import {
+  createUser,
+  getUser,
+  loginWithEmailAndPassword,
+  updateUser,
+} from "./userApi";
 import { HttpStatusCode } from "axios";
 
 export interface UserState {
@@ -115,6 +120,51 @@ export const emailSingUpAction =
               "error",
               "Erro ao realizar o cadastro, tente novamente.",
               "Erro no cadastro"
+            )
+          );
+        }
+        dispatch(clearUser());
+        errorCallback();
+      });
+  };
+
+export const updateUserAction =
+  (
+    id: number,
+    updating: UserUpdating,
+    callback: () => void,
+    errorCallback: () => void
+  ): AppThunk =>
+  async (dispatch, getState) => {
+    updateUser(id, updating)
+      .then(() => {
+        dispatch(
+          useToastAction(
+            "success",
+            "Atualizado com sucesso!",
+            "Usuário atualizado"
+          )
+        );
+        getUser().then((user) => {
+          user.first_name = updating.first_name;
+          user.last_name = updating.last_name;
+          user.username = updating.username;
+          dispatch(setUser(user));
+        });
+
+        callback();
+      })
+      .catch((error) => {
+        if (error.response?.status === HttpStatusCode.BadRequest) {
+          dispatch(
+            useToastAction("error", error.response.data, "Erro no cadastro")
+          );
+        } else {
+          dispatch(
+            useToastAction(
+              "error",
+              "Erro ao realizar a atualização, tente novamente.",
+              "Erro no atualização"
             )
           );
         }

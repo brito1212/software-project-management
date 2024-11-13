@@ -34,7 +34,7 @@ const Header = ({ onCloseMenu }) => {
           </label>
         </div>
         <Link to="/" className={styles.logo}>
-          Nome Site
+          Mid.IA
         </Link>
       </div>
       {!user ? (
