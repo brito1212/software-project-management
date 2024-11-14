@@ -6,12 +6,8 @@ export interface User {
   email: string;
   seguindo: string[];
   seguidores: string[];
-}
-
-export interface UserUpdating {
-  first_name: string;
-  last_name: string;
-  username: string;
+  profile_image: string;
+  banner: string;
 }
 
 export interface LoginResponse {

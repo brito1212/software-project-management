@@ -52,6 +52,8 @@ class User(AbstractBaseUser, PermissionsMixin):
     seguindo = models.ManyToManyField(
         "self", symmetrical=False, related_name="lista_seguidores", blank=True
     )
+    profile_image = models.ImageField(upload_to='profile_images', blank=True, null=True)
+    banner = models.ImageField(upload_to='banner', blank=True, null=True)
 
     objects = CustomUserManager()
 
