@@ -2,7 +2,7 @@ import { ThunkDispatch, createSlice } from "@reduxjs/toolkit";
 import { removeAuthorizationTokens, setAuthorizationTokens } from "../../api";
 import { AppThunk, RootState } from "../../app/store";
 import { useToastAction } from "../toast/toastSlice";
-import { User, UserRegistration, UserUpdating } from "./user.type";
+import { User, UserRegistration } from "./user.type";
 import {
   createUser,
   getUser,
@@ -131,7 +131,7 @@ export const emailSingUpAction =
 export const updateUserAction =
   (
     id: number,
-    updating: UserUpdating,
+    updating: FormData,
     callback: () => void,
     errorCallback: () => void
   ): AppThunk =>
@@ -146,9 +146,6 @@ export const updateUserAction =
           )
         );
         getUser().then((user) => {
-          user.first_name = updating.first_name;
-          user.last_name = updating.last_name;
-          user.username = updating.username;
           dispatch(setUser(user));
         });
 

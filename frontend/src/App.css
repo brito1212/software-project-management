@@ -66,6 +66,7 @@ a {
   font-weight: 600;
   min-width: 8rem;
   text-align: center;
+  transition: all 0.2s ease;
 }
 
 .btn:hover {
@@ -84,7 +85,7 @@ a {
 
 .secondary:hover,
 .primary:hover {
-  background: color-mix(in srgb, var(--main-color) 70%, transparent);
+  background: var(--main-color02);
 }
 
 .primary-red {
@@ -103,7 +104,6 @@ a {
   outline: none;
   position: relative;
   text-decoration: none;
-  transition: all 0.2s ease;
 }
 
 .primary-red:hover {
