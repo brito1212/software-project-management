@@ -17,6 +17,7 @@ const LoginForm = () => {
   const password = useForm("");
 
   async function handleSubmit(event: React.FormEvent) {
+    console.log("submit");
     event.preventDefault();
 
     dispatch(

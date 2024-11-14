@@ -1,6 +1,7 @@
 import React from 'react';
 import styles from './ViewMedia.module.css';
 import '@fortawesome/fontawesome-free/css/all.min.css';
+import type { Media } from "../../features/media/media.type";
 
 interface CastMember {
   name: string;
@@ -8,18 +9,18 @@ interface CastMember {
   image?: string;
 }
 
-interface ViewMediaProps {
-  title: string;
-  genres: string[];
-  duration: string;
-  classification: string;
-  releaseDate: string;
-  description: string;
-  imdbRating: number;
-  userRating: number;
-  cast: CastMember[];
-  posterUrl: string;
-}
+// interface ViewMediaProps {
+//   title: string;
+//   // genres: string[];
+//   // duration: string;
+//   // classification: string;
+//   // releaseDate: string;
+//   description: string;
+//   // imdbRating: number;
+//   // userRating: number;
+//   cast: CastMember[];
+//   // posterUrl: string;
+// }
 
 const getBadgeClass = (classification) => {
   switch (classification) {
@@ -40,40 +41,40 @@ const getBadgeClass = (classification) => {
   }
 };
 
-const ViewMedia: React.FC<ViewMediaProps> = ({title, genres, duration, classification, releaseDate, description, imdbRating, userRating, cast, posterUrl}) => {
+const ViewMedia: React.FC<Media> = ({title, description}) => {
   return (
     <div className={styles.view_media}>
       <div className={styles.mainSection}>
         <div className={styles.container}>
           <div className={styles.columnPoster}>
             <div className={styles.poster}>
-                <img src={posterUrl} alt={`${title} Poster`} />
+                <img src={ "https://placehold.co/250x350"} alt={`${title} Poster`} />
             </div>
           </div>
           <div className={styles.columnDetails}>
             <div className={styles.media_details}>
               <h1>{title}</h1>
-              <div className={styles.badge_area}>
+              {/* <div className={styles.badge_area}>
                 {genres.map((genre) => (
                   <span className={styles.badge_status}>{genre}</span>
                 ))}
-              </div>
+              </div> */}
               <div className={styles.info}>
-                <span className={`${styles.badge_classification} ${getBadgeClass(classification)}`}>
+                {/* <span className={`${styles.badge_classification} ${getBadgeClass(classification)}`}>
                   {classification}
-                </span>
+                </span> */}
                 <i className="fas fa-hourglass" style={{ color: '#F5D563' }}></i>
-                <span className={styles.duration}>{duration}</span>
+                {/* <span className={styles.duration}>{duration}</span> */}
                 <i className="fas fa-calendar-alt" style={{ color: '#3B57B7' }}></i>
-                <span className={styles.release_date}>{releaseDate}</span>
+                {/* <span className={styles.release_date}>{releaseDate}</span> */}
               </div>
               <p className={styles.description}>{description}</p>
               <div className={styles.ratings}>
                 <div className={styles.imdbContainer}>
                   <i className="fa-brands fa-imdb fa-2xl" style={{ color: '#FFD43B' }}></i>
-                  <span className={styles.imdb_rating}> {imdbRating}/10</span>
+                  {/* <span className={styles.imdb_rating}> {imdbRating}/10</span> */}
                 </div>
-                <span className={styles.user_rating}>User Rating: {userRating}/5</span>
+                {/* <span className={styles.user_rating}>User Rating: {userRating}/5</span> */}
               </div>
               <div className={styles.actions}>
                 <div className={styles.container}>
@@ -92,7 +93,7 @@ const ViewMedia: React.FC<ViewMediaProps> = ({title, genres, duration, classific
       <div className={styles.castSection}>
         <h2>Cast</h2>
         <div className={styles.cast_list}>
-          {cast.map((member, index) => (
+          {/* {cast.map((member, index) => (
             <div key={index} className={styles.cast_member}>
               <div className={styles.cast_image}>
                 {member.image ? <img src={member.image} alt={member.name} /> : <div className={styles.placeholder_image}></div>}
@@ -102,7 +103,7 @@ const ViewMedia: React.FC<ViewMediaProps> = ({title, genres, duration, classific
                 <span className={styles.cast_character}>{member.character}</span>
               </div>
             </div>
-          ))}
+          ))} */}
         </div>
       </div>
     </div>

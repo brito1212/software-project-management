@@ -1,39 +1,56 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
+import { useParams } from "react-router-dom"; // Import useParams
 import ViewMedia from "../components/Media/viewMedia";
 import { useAppDispatch } from "../app/store";
 import { closeModal } from "../features/ui/uiSlice";
-
-const movieData = {
-  title: "Duna: Parte Dois",
-  genres: ["Ação", "Ficção Científica"],
-  duration: "2h 46min",
-  classification: '14',
-  releaseDate: "26 de fevereiro de 2024",
-  description: "Paul Atreides se une a Chani e aos Fremen enquanto busca vingança contra os conspiradores que destruíram sua família. Enfrentando uma escolha entre o amor de sua vida e o destino do universo, ele deve evitar um futuro terrível que só ele pode prever.",
-  imdbRating: 8.5,
-  userRating: 4.5,
-  cast: [
-    { name: "Timothée Chalamet", character: "Paul Atreides" },
-    { name: "Zendaya", character: "Chani" },
-    // Add more cast members as needed
-  ],
-  posterUrl: "https://placehold.co/250x350"
-};
+import { getMedia } from "../features/media/mediaApi";
+import type { Media } from "../features/media/media.type";
 
 const Media = () => {
+  const { id } = useParams<{ id: string }>(); // Extract the id from the URL
   const dispatch = useAppDispatch();
-  React.useEffect(() => {
+  const [movieData, setMediaData] = useState<Media | null>(null);
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState<Error | null>(null);
+
+  useEffect(() => {
     dispatch(closeModal());
-  });
+
+    const fetchMedia = async () => {
+      if (!id) {
+        setError(new Error("No media ID found in the URL."));
+        setLoading(false);
+        return;
+      }
+
+      try {
+        setLoading(true);
+        const media = await getMedia(id); // Pass the ID to getMedia
+        setMediaData(media);
+      } catch (err) {
+        setError(err as Error);
+      } finally {
+        setLoading(false);
+      }
+    };
+
+    fetchMedia();
+  }, [dispatch, id]);
+
+  if (loading) return <p>Loading...</p>;
+  if (error) return <p>Error: {error.message}</p>;
+
   return (
-    <>
-      <div
-        className="anime-left"
-        style={{ display: "flex", flexDirection: "column", gap: "50px" }}
-      >
+    <div
+      className="anime-left"
+      style={{ display: "flex", flexDirection: "column", gap: "50px" }}
+    >
+      {movieData ? (
         <ViewMedia {...movieData} />
-      </div>
-    </>
+      ) : (
+        <p>No media data available.</p>
+      )}
+    </div>
   );
 };
 

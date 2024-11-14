@@ -8,6 +8,7 @@ import { persistReducer, persistStore } from "redux-persist";
 import storage from "redux-persist/lib/storage";
 import toastReducer from "../features/toast/toastSlice";
 import userReducer, { setupAuthListener } from "../features/user/userSlice";
+import mediaReducer from "../features/media/mediaSlice";
 import uiReducer from "../features/ui/uiSlice";
 import { TypedUseSelectorHook, useDispatch, useSelector } from "react-redux";
 
@@ -17,6 +18,7 @@ const persistConfig = {
 };
 
 const reducers = combineReducers({
+  media: mediaReducer,
   user: userReducer,
   toast: toastReducer,
   ui: uiReducer,
