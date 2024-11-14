@@ -192,3 +192,9 @@ if ENVIRONMENT == "dev":
     EMAIL_HOST_USER = os.getenv("EMAIL_HOST_USER", default="78592c2d254d94")
     EMAIL_HOST_PASSWORD = os.getenv("EMAIL_HOST_PASSWORD", default="9a573f9b9934d7")
     EMAIL_PORT = os.getenv("EMAIL_PORT", default="2525")
+
+# URL base de aquivos de imagens
+MEDIA_URL = '/images/'
+
+# Caminho onde os arquivos de mídia serão salvos
+MEDIA_ROOT = os.path.join(BASE_DIR, 'images')

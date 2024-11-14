@@ -31,7 +31,13 @@ const Carousel = ({ slides, cardWidth, numPerSlides, title }) => {
   return (
     <>
       <h1 className={styles.title}>{title}</h1>
-      <section className={styles.carousel}>
+      <section
+        className={
+          cardWidth == 1240
+            ? `${styles.carousel} ${styles.main}`
+            : styles.carousel
+        }
+      >
         <button className={styles.prev} onClick={prevSlide}>
           <img src={chevron} />
         </button>
