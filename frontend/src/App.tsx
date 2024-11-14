@@ -6,6 +6,7 @@ import Home from "./pages/Home";
 import Login from "./pages/Login";
 import SignUp from "./pages/SignUp";
 import Profile from "./pages/Profile";
+import Media from "./pages/Media";
 
 // Components
 import Header from "./components/Header";
@@ -32,6 +33,7 @@ function App() {
               <Route path="/" element={<Home />} />
               <Route path="/login/*" element={<Login />} />
               <Route path="/signup" element={<SignUp />} />
+              <Route path="/media" element={<Media />} />
               <Route
                 path="/account"
                 element={
@@ -51,3 +53,4 @@ function App() {
 }
 
 export default App;
+
