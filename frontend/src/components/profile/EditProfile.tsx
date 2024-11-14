@@ -4,6 +4,9 @@ import styles from "./EditProfile.module.css";
 import { useAppDispatch, useAppSelector } from "../../app/store";
 import { closeModal } from "../../features/ui/uiSlice";
 import { updateUserAction } from "../../features/user/userSlice";
+import profileImage from "../../assets/images/profile-image.png";
+import bannerDefault from "../../assets/images/banner-default.jpg";
+import { baseURL } from "../../api";
 
 interface Image {
   preview: string;
@@ -12,22 +15,42 @@ interface Image {
 
 const EditProfile = () => {
   const { user } = useAppSelector((state) => state.user);
-
   const dispatch = useAppDispatch();
+
+  const bannerImage = user?.banner ? `${baseURL}${user.banner}` : bannerDefault;
+
+  const userImage = user?.profile_image
+    ? `${baseURL}${user.profile_image}`
+    : profileImage;
 
   const [firstName, setFirstName] = useState(user?.first_name);
   const [lastName, setLastName] = useState(user?.last_name);
   const [username, setUsername] = useState(user?.username);
   const [img, setImg] = React.useState<Image>({
-    preview: "",
+    preview: userImage,
+    raw: null as unknown as File,
+  });
+  const [banner, setBanner] = React.useState<Image>({
+    preview: bannerImage,
     raw: null as unknown as File,
   });
 
   function handleImgChange({ target }) {
-    setImg({
-      preview: URL.createObjectURL(target.files[0]),
-      raw: target.files[0],
-    });
+    if (target.files[0]) {
+      setImg({
+        preview: URL.createObjectURL(target.files[0]),
+        raw: target.files[0],
+      });
+    }
+  }
+
+  function handleBannerChange({ target }) {
+    if (target.files[0]) {
+      setBanner({
+        preview: URL.createObjectURL(target.files[0]),
+        raw: target.files[0],
+      });
+    }
   }
 
   function handleCloseModal(e) {
@@ -37,15 +60,16 @@ const EditProfile = () => {
 
   async function handleUpdate(e) {
     e.preventDefault();
-    const userUpdated = {
-      first_name: firstName,
-      last_name: lastName,
-      username: username,
-    };
+    const formData = new FormData();
+    if (img.raw != null) formData.append("profile_image", img.raw);
+    if (banner.raw != null) formData.append("banner", banner.raw);
+    formData.append("first_name", firstName || "");
+    formData.append("last_name", lastName || "");
+    formData.append("username", username || "");
     dispatch(
       updateUserAction(
         user?.id,
-        userUpdated,
+        formData,
         () => dispatch(closeModal()),
         () => {}
       )
@@ -58,26 +82,32 @@ const EditProfile = () => {
       <button className={styles.close} onClick={handleCloseModal}>
         <span>X</span>
       </button>
-      <div className={styles["upload-photo"]}>
-        <div>
-          {img.preview && (
-            <div
-              className={styles.preview}
-              style={{ backgroundImage: `url('${img.preview}')` }}
-            ></div>
-          )}
-        </div>
-        <div>
-          <label htmlFor="img">Mudar foto</label>
-          <input
-            className={styles.file}
-            type="file"
-            name="img"
-            id="img"
-            onChange={handleImgChange}
-          ></input>
-        </div>
-      </div>
+
+      <label className={styles.label}>Banner</label>
+      <label
+        htmlFor="banner"
+        style={{ backgroundImage: `url('${banner.preview}')` }}
+      ></label>
+      <input
+        className={styles.file}
+        type="file"
+        name="banner"
+        id="banner"
+        onChange={handleBannerChange}
+      ></input>
+
+      <label className={styles.label}>Foto de perfil</label>
+      <label
+        htmlFor="img"
+        style={{ backgroundImage: `url('${img.preview}')` }}
+      ></label>
+      <input
+        className={styles.file}
+        type="file"
+        name="img"
+        id="img"
+        onChange={handleImgChange}
+      ></input>
 
       <div className={styles.name}>
         <Input
@@ -103,7 +133,7 @@ const EditProfile = () => {
         onChange={(e) => setUsername(e.target.value)}
       />
       <div className={styles.buttons}>
-        <button className="btn primary-red" onClick={handleUpdate}>
+        <button className="btn primary" onClick={handleUpdate}>
           Salvar
         </button>
         <button className="btn outline" onClick={handleCloseModal}>
