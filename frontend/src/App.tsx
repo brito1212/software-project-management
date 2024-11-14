@@ -5,6 +5,7 @@ import { BrowserRouter, Routes, Route } from "react-router-dom";
 import Home from "./pages/Home";
 import Login from "./pages/Login";
 import SignUp from "./pages/SignUp";
+import Profile from "./pages/Profile";
 
 // Components
 import Header from "./components/Header";
@@ -12,6 +13,7 @@ import Aside from "./components/Aside";
 
 // CSS
 import "./App.css";
+import ProtectedRoute from "./components/helper/ProtectedRoute";
 
 function App() {
   const [isMenuClosed, setIsMenuClosed] = React.useState(true);
@@ -30,6 +32,14 @@ function App() {
               <Route path="/" element={<Home />} />
               <Route path="/login/*" element={<Login />} />
               <Route path="/signup" element={<SignUp />} />
+              <Route
+                path="/account"
+                element={
+                  <ProtectedRoute>
+                    <Profile />
+                  </ProtectedRoute>
+                }
+              />
             </Routes>
           </main>
         </BrowserRouter>

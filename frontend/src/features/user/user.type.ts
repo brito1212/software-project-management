@@ -4,6 +4,10 @@ export interface User {
   last_name: string;
   username: string;
   email: string;
+  seguindo: string[];
+  seguidores: string[];
+  profile_image: string;
+  banner: string;
 }
 
 export interface LoginResponse {

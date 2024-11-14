@@ -47,8 +47,13 @@ export async function refreshUser(refreshToken: string) {
   return response.data as LoginResponse;
 }
 
-export async function updateUser(userId: string, data: object) {
-  const response = await api.patch(`api-auth/update/${userId}`, data);
+export async function updateUser(userId: number, data: FormData) {
+  const config = {
+    headers: {
+      "Content-Type": "multipart/form-data",
+    },
+  };
+  const response = await api.post(`api-auth/update/${userId}`, data, config);
   return response.data;
 }
 

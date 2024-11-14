@@ -63,7 +63,7 @@ class CurrentUser(APIView):
         return Response(serializer.data)
 
 
-class User(ViewSet):
+class UserView(ViewSet):
     permission_classes = (permissions.IsAuthenticated,)
 
     @action(detail=True, methods=["get"])

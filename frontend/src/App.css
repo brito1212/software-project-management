@@ -7,12 +7,14 @@
 :root {
   --type-first: "Poppins", sans-serif;
   --main-color: #5551ff;
-  --main-color: #5d5be6;
+  --main-color02: #3835fc;
   --black: #100f12;
   --white: #fff;
   --gray01: #555559;
   --gray02: #d9d9d9;
   --gray03: #727278;
+  --red: #d44949;
+  --red02: #fc8d8d;
 }
 
 body {
@@ -64,6 +66,7 @@ a {
   font-weight: 600;
   min-width: 8rem;
   text-align: center;
+  transition: all 0.2s ease;
 }
 
 .btn:hover {
@@ -82,7 +85,58 @@ a {
 
 .secondary:hover,
 .primary:hover {
-  background: color-mix(in srgb, var(--main-color) 70%, transparent);
+  background: var(--main-color02);
+}
+
+.primary-red {
+  display: flex;
+  align-items: center;
+  gap: 5px;
+  align-self: end;
+  justify-content: space-around;
+  flex-grow: 2;
+  background-color: var(--red);
+  border: 1px solid var(--red);
+  color: var(--white);
+  border-radius: 8px;
+  cursor: pointer;
+  font-size: 16px;
+  outline: none;
+  position: relative;
+  text-decoration: none;
+}
+
+.primary-red:hover {
+  background-color: var(--red02);
+  border: 1px solid var(--red02);
+}
+
+.primary-red:hover.primary-red svg {
+  fill: var(--red);
+}
+
+.outline {
+  display: flex;
+  align-items: center;
+  gap: 5px;
+  align-self: end;
+  justify-content: space-around;
+  flex-grow: 2;
+  background-color: var(--white);
+  border: 1px solid var(--main-color);
+  color: var(--main-color);
+  border-radius: 8px;
+  cursor: pointer;
+  font-size: 16px;
+  outline: none;
+  position: relative;
+  text-decoration: none;
+  transition: all 0.2s ease;
+}
+
+.outline:hover {
+  color: var(--white);
+  background-color: var(--main-color);
 }
 
 .btn-form {

@@ -1,27 +1,35 @@
-# React + TypeScript + Vite
+# Frontend React+Vite Midias
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+Este guia explica como configurar o ambiente para o desenvolvimento do frontend de nossa aplicação. A aplicação é construída utilizando [React com TypeScript](https://react.dev/) e [Vite](https://vitejs.dev/), e o gerenciamento de pacotes é feito com o [npm](https://www.npmjs.com/), que depende do [Node.js](https://nodejs.org/).
 
-Currently, two official plugins are available:
+## Ferramentas Utilizadas
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react/README.md) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+### React com TypeScript
+O [React](https://react.dev/) é uma biblioteca JavaScript popular para construção de interfaces de usuário. Neste projeto, usamos [TypeScript](https://www.typescriptlang.org/), uma extensão do JavaScript que adiciona tipagem estática, facilitando o desenvolvimento seguro e escalável.
 
-## Expanding the ESLint configuration
+### Vite
+[Vite](https://vitejs.dev/) é um build tool (ferramenta de construção) moderna que proporciona uma experiência de desenvolvimento rápida e otimizada. Ele é focado na velocidade e eficiência, proporcionando tempo de atualização rápida e menor configuração em comparação com outras ferramentas.
 
-If you are developing a production application, we recommend updating the configuration to enable type aware lint rules:
+## Gerenciamento de Dependências com npm
 
-- Configure the top-level `parserOptions` property like this:
+O gerenciamento de dependências da aplicação é feito com o [npm (Node Package Manager)](https://www.npmjs.com/). O **npm** é o gerenciador de pacotes do [Node.js](https://nodejs.org/), uma plataforma JavaScript de execução assíncrona que permite o desenvolvimento de aplicações web e backend. Portanto, **ter o Node.js instalado é um pré-requisito para esta aplicação**.
 
-```js
-   parserOptions: {
-    ecmaVersion: 'latest',
-    sourceType: 'module',
-    project: ['./tsconfig.json', './tsconfig.node.json'],
-    tsconfigRootDir: __dirname,
-   },
-```
+Se o Node.js não estiver instalado, você pode seguir as instruções na [página oficial do Node.js](https://nodejs.org/en/download/) para realizar a instalação no seu sistema operacional.
 
-- Replace `plugin:@typescript-eslint/recommended` to `plugin:@typescript-eslint/recommended-type-checked` or `plugin:@typescript-eslint/strict-type-checked`
-- Optionally add `plugin:@typescript-eslint/stylistic-type-checked`
-- Install [eslint-plugin-react](https://github.com/jsx-eslint/eslint-plugin-react) and add `plugin:react/recommended` & `plugin:react/jsx-runtime` to the `extends` list
+## Instalação de Dependências
+
+Após configurar o ambiente com Node.js, siga os passos abaixo para preparar o projeto:
+
+1. **Instale as dependências da aplicação:**
+```bash
+   npm install
+````
+Esse comando irá instalar todas as dependências necessárias listadas no arquivo `package.json`.
+
+2. **Execute a aplicação em modo de desenvolvimento:**
+```bash
+   npm run dev
+````
+Com o sucesso desse comando, a aplicação estará disponível para desenvolvimento. Siga as instruções exibidas no terminal para acessar o endereço local da aplicação.
+
+Pronto! O ambiente de desenvolvimento do frontend da aplicação está configurado e pronto para uso.

@@ -7,12 +7,12 @@ from .views import (
     ForgetPassword,
     PasswordReset,
     UpdateUser,
-    User,
+    UserView,
 )
 
 app_name = "user"
 router = DefaultRouter()
-router.register(r"user", User, basename="user")
+router.register(r"user", UserView, basename="user")
 urlpatterns = router.urls + [
     path("create/", CreateUser.as_view(), name="create_user"),
     path("all-users/", AllUsers.as_view(), name="all"),

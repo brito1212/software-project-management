@@ -56,31 +56,31 @@ const Aside = ({ isMenuClosed }) => {
           <li>
             <Link to={""}>
               <div className={styles.photo}></div>
-              <span>Jorge Christino</span>
+              <span>Nome Sobrenome</span>
             </Link>
           </li>
           <li>
             <Link to={""}>
               <div className={styles.photo}></div>
-              <span>Jorge Christino</span>
+              <span>Nome Sobrenome</span>
             </Link>
           </li>
           <li>
             <Link to={""}>
               <div className={styles.photo}></div>
-              <span>Jorge Christino</span>
+              <span>Nome Sobrenome</span>
             </Link>
           </li>
           <li>
             <Link to={""}>
               <div className={styles.photo}></div>
-              <span>Jorge Christino</span>
+              <span>Nome Sobrenome</span>
             </Link>
           </li>
           <li>
             <Link to={""}>
               <div className={styles.photo}></div>
-              <span>Jorge Christino</span>
+              <span>Nome Sobrenome</span>
             </Link>
           </li>
           <li>
