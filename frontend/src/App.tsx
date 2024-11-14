@@ -35,7 +35,7 @@ function App() {
               <Route path="/signup" element={<SignUp />} />
               <Route path="/media" element={<Media />} />
               {/* <Route path="/media/movie/:id" element={<Media />} /> */}
-              <Route path="/media/movie/get_by_id/:id" element={<Media />} />
+              <Route path="/media/movie/:id" element={<Media />} />
               <Route
                 path="/account"
                 element={
@@ -55,4 +55,3 @@ function App() {
 }
 
 export default App;
-

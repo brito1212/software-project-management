@@ -1,7 +1,8 @@
-import React from 'react';
-import styles from './ViewMedia.module.css';
-import '@fortawesome/fontawesome-free/css/all.min.css';
+import React from "react";
+import styles from "./ViewMedia.module.css";
+// import '@fortawesome/fontawesome-free/css/all.min.css';
 import type { Media } from "../../features/media/media.type";
+import { baseURL } from "../../api";
 
 interface CastMember {
   name: string;
@@ -24,31 +25,35 @@ interface CastMember {
 
 const getBadgeClass = (classification) => {
   switch (classification) {
-    case 'L':
+    case "L":
       return styles.badge_green;
-    case '10':
+    case "10":
       return styles.badge_blue;
-    case '12':
+    case "12":
       return styles.badge_yellow;
-    case '14':
+    case "14":
       return styles.badge_orange;
-    case '16':
+    case "16":
       return styles.badge_red;
-    case '18':
+    case "18":
       return styles.badge_black;
     default:
-      return '';
+      return "";
   }
 };
 
-const ViewMedia: React.FC<Media> = ({title, description}) => {
+const ViewMedia: React.FC<Media> = ({ title, description, banner }) => {
+  const bannerImage = banner
+    ? `${baseURL}${banner}`
+    : "https://placehold.co/250x350";
+
   return (
     <div className={styles.view_media}>
       <div className={styles.mainSection}>
         <div className={styles.container}>
           <div className={styles.columnPoster}>
             <div className={styles.poster}>
-                <img src={ "https://placehold.co/250x350"} alt={`${title} Poster`} />
+              <img src={bannerImage} alt={`${title} Poster`} />
             </div>
           </div>
           <div className={styles.columnDetails}>
@@ -63,27 +68,40 @@ const ViewMedia: React.FC<Media> = ({title, description}) => {
                 {/* <span className={`${styles.badge_classification} ${getBadgeClass(classification)}`}>
                   {classification}
                 </span> */}
-                <i className="fas fa-hourglass" style={{ color: '#F5D563' }}></i>
+                <i
+                  className="fas fa-hourglass"
+                  style={{ color: "#F5D563" }}
+                ></i>
                 {/* <span className={styles.duration}>{duration}</span> */}
-                <i className="fas fa-calendar-alt" style={{ color: '#3B57B7' }}></i>
+                <i
+                  className="fas fa-calendar-alt"
+                  style={{ color: "#3B57B7" }}
+                ></i>
                 {/* <span className={styles.release_date}>{releaseDate}</span> */}
               </div>
               <p className={styles.description}>{description}</p>
               <div className={styles.ratings}>
                 <div className={styles.imdbContainer}>
-                  <i className="fa-brands fa-imdb fa-2xl" style={{ color: '#FFD43B' }}></i>
+                  <i
+                    className="fa-brands fa-imdb fa-2xl"
+                    style={{ color: "#FFD43B" }}
+                  ></i>
                   {/* <span className={styles.imdb_rating}> {imdbRating}/10</span> */}
                 </div>
                 {/* <span className={styles.user_rating}>User Rating: {userRating}/5</span> */}
               </div>
               <div className={styles.actions}>
                 <div className={styles.container}>
-                    <div className={styles.column}>
-                        <button className={styles.review_button}>Create Review</button>
-                    </div>
-                    <div className={styles.column}>
-                        <button className={styles.add_to_list_button}>Add to List</button>
-                    </div>
+                  <div className={styles.column}>
+                    <button className={styles.review_button}>
+                      Create Review
+                    </button>
+                  </div>
+                  <div className={styles.column}>
+                    <button className={styles.add_to_list_button}>
+                      Add to List
+                    </button>
+                  </div>
                 </div>
               </div>
             </div>
