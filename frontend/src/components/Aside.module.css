@@ -9,7 +9,7 @@ aside {
   z-index: 100;
   gap: 15px;
   width: 300px;
-  padding: 0px 45px 0px 15px;
+  padding: 0px 45px 20px 15px;
   transition: all 1s ease-in-out;
   animation: fadeIn 1s forwards;
 }
@@ -77,6 +77,12 @@ aside ul li a {
   border-radius: 50%;
 }
 
+.following .photo img {
+  width: 45px;
+  height: 45px;
+  border-radius: 50%;
+}
+
 .following ul li span {
   color: var(--gray01);
 }
@@ -90,5 +96,12 @@ aside ul li a {
 }
 
 .following .chevron-down:hover {
-  background: color-mix(in srgb, var(--main-color) 70%, transparent);
+  background: var(--main-color02);
+}
+
+.message {
+  font-size: 15px;
+  color: var(--gray01);
+  text-align: center;
+  padding: 50px 0;
 }

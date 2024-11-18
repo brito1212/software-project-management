@@ -9,12 +9,15 @@ import styles from "../components/login/LoginForm.module.css";
 
 import { emailSingUpAction } from "../features/user/userSlice";
 import { UserRegistration } from "../features/user/user.type";
-import { useAppDispatch } from "../app/store";
+import { useAppDispatch, useAppSelector } from "../app/store";
 import useForm from "../hooks/useForm";
 
 const SignUp = () => {
   const navigate = useNavigate();
   const dispatch = useAppDispatch();
+  const { message } = useAppSelector((state) => state.toast);
+  const [error, setError] = React.useState(false);
+
   const first_name = useForm();
   const last_name = useForm();
   const username = useForm();
@@ -36,7 +39,7 @@ const SignUp = () => {
         registrationData,
         () => navigate("../login"),
         () => {
-          console.log("erro");
+          setError(true);
         }
       )
     );
@@ -57,6 +60,7 @@ const SignUp = () => {
           <Input label="Username" type="text" name="username" {...username} />
           <Input label="Email" type="email" name="email" {...email} />
           <Input label="Senha" type="password" name="password" {...password} />
+          {error && <p className={styles.error}>{message}</p>}
           <button className="btn primary btn-form">Cadastrar</button>
         </form>
       </section>

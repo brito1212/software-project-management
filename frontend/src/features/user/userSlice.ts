@@ -71,7 +71,7 @@ export const loginAction =
               dispatch(
                 useToastAction(
                   "error",
-                  error.response.data.error,
+                  "Por favor, preencha os campos.",
                   "Erro no Login."
                 )
               );
@@ -111,9 +111,23 @@ export const emailSingUpAction =
       })
       .catch((error) => {
         if (error.response?.status === HttpStatusCode.BadRequest) {
-          dispatch(
-            useToastAction("error", error.response.data, "Erro no cadastro")
-          );
+          if (error.response.data.email[0] === "This field may not be blank.") {
+            dispatch(
+              useToastAction(
+                "error",
+                "Por favor, preencha os dados.",
+                "Erro no cadastro"
+              )
+            );
+          } else {
+            dispatch(
+              useToastAction(
+                "error",
+                "Esse email já existe, tente novamente.",
+                "Erro no cadastro"
+              )
+            );
+          }
         } else {
           dispatch(
             useToastAction(
@@ -154,7 +168,11 @@ export const updateUserAction =
       .catch((error) => {
         if (error.response?.status === HttpStatusCode.BadRequest) {
           dispatch(
-            useToastAction("error", error.response.data, "Erro no cadastro")
+            useToastAction(
+              "error",
+              "Por favor, preencha os campos.",
+              "Erro no cadastro"
+            )
           );
         } else {
           dispatch(
@@ -165,7 +183,7 @@ export const updateUserAction =
             )
           );
         }
-        dispatch(clearUser());
+        // dispatch(clearUser());
         errorCallback();
       });
   };

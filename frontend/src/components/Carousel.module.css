@@ -1,14 +1,12 @@
-/* CAROUSEL */
 .title {
-  margin-left: 50px;
+  margin-left: 60px;
   margin-bottom: 20px;
 }
 
 .carousel {
   display: flex;
   flex-direction: row;
-  height: 100%;
-  height: 420px;
+  height: 320px;
   justify-content: start;
 }
 
@@ -18,9 +16,8 @@
 
 .wrapper {
   display: flex;
-  gap: 40px;
   overflow: hidden;
-  width: 1240px;
+  width: 1260px;
   justify-content: space-between;
 }
 
@@ -28,20 +25,6 @@
   display: flex;
   gap: 40px;
   transition: transform 0.4s ease;
-}
-
-.card {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  text-align: center;
-  width: 280px;
-}
-
-.card > img {
-  display: block;
-  width: 100%;
-  height: 100%;
 }
 
 .prev,
@@ -75,5 +58,5 @@
 
 .prev:hover,
 .next:hover {
-  background: color-mix(in srgb, var(--main-color) 70%, transparent);
+  background: var(--main-color02);
 }

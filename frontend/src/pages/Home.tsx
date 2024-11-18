@@ -3,74 +3,105 @@ import React from "react";
 // Components
 import { Carousel } from "../components";
 
+import {
+  TRENDING_ALL_GET,
+  TRENDING_GAMES_POST,
+  TRENDING_MOVIES_GET,
+  TRENDING_SERIES_GET,
+} from "../api/fetchApi";
+import useFetch from "../hooks/useFetch";
+
 const Home = () => {
-  const trending = [
-    "src/assets/images/joker2.webp",
-    "src/assets/images/batman.jpg",
-    "src/assets/images/god-of-war.jpg",
-  ];
+  const {
+    data: trending,
+    error: errorTrending,
+    loading: loadingTrending,
+    request: requestTrending,
+  } = useFetch();
 
-  const movies = [
-    "src/assets/images/45719.jpg",
-    "src/assets/images/107184.jpg",
-    "src/assets/images/107263g.jpg",
-    "src/assets/images/107308g.jpg",
-    "src/assets/images/5167951.jpg",
-    "src/assets/images/530814.jpg",
-  ];
+  const {
+    data: movies,
+    error: errorMovies,
+    loading: loadingMovies,
+    request: requestMovies,
+  } = useFetch();
 
-  const series = [
-    "src/assets/images/107200g.jpg",
-    "src/assets/images/107258g.jpg",
-    "src/assets/images/107266g.jpg",
-    "src/assets/images/107282g.jpg",
-    "src/assets/images/107200g.jpg",
-    "src/assets/images/107258g.jpg",
-  ];
+  const {
+    data: series,
+    error: errorSeries,
+    loading: loadingSeries,
+    request: requestSeries,
+  } = useFetch();
 
-  const games = [
-    "src/assets/images/60086.jpg",
-    "src/assets/images/60164.jpg",
-    "src/assets/images/60180.jpg",
-    "src/assets/images/107117.jpg",
-    "src/assets/images/60086.jpg",
-    "src/assets/images/107117.jpg",
-  ];
+  const {
+    data: games,
+    error: errorGames,
+    loading: loadingGames,
+    request: requestGames,
+  } = useFetch();
 
+  const error = errorTrending || errorMovies || errorSeries || errorGames;
+  const loading =
+    loadingTrending || loadingMovies || loadingSeries || loadingGames;
+
+  React.useEffect(() => {
+    const getTrending = TRENDING_ALL_GET();
+    requestTrending(getTrending.url, getTrending.options);
+
+    const getMovies = TRENDING_MOVIES_GET();
+    requestMovies(getMovies.url, getMovies.options);
+
+    const getSeries = TRENDING_SERIES_GET();
+    requestSeries(getSeries.url, getSeries.options);
+
+    const getGames = TRENDING_GAMES_POST();
+    requestGames(getGames.url, getGames.options);
+  }, [requestTrending, requestMovies, requestSeries, requestGames]);
+
+  if (error) return <div>Error...</div>;
+  if (loading) return <div>Loading...</div>;
   return (
     <article className="main-article anime-left">
-      <div>
-        <Carousel
-          slides={trending}
-          cardWidth={1240}
-          numPerSlides={1}
-          title={"Destaques"}
-        />
-      </div>
-      <div>
-        <Carousel
-          slides={movies}
-          cardWidth={280}
-          numPerSlides={4}
-          title={"Filmes"}
-        />
-      </div>
-      <div>
-        <Carousel
-          slides={series}
-          cardWidth={280}
-          numPerSlides={4}
-          title={"Series"}
-        />
-      </div>
-      <div>
-        <Carousel
-          slides={games}
-          cardWidth={280}
-          numPerSlides={4}
-          title={"Jogos"}
-        />
-      </div>
+      {trending && (
+        <div>
+          <Carousel
+            slides={trending.results}
+            cardWidth={220}
+            numPerSlides={5}
+            title={"Destaques"}
+          />
+        </div>
+      )}
+      {movies && (
+        <div>
+          <Carousel
+            slides={movies.results}
+            cardWidth={220}
+            numPerSlides={5}
+            title={"Filmes"}
+          />
+        </div>
+      )}
+      {series && (
+        <div>
+          <Carousel
+            slides={series.results}
+            cardWidth={220}
+            numPerSlides={5}
+            title={"Séries"}
+          />
+        </div>
+      )}
+      {games && (
+        <div>
+          <Carousel
+            slides={games}
+            cardWidth={220}
+            numPerSlides={5}
+            title={"Jogos"}
+          />
+        </div>
+      )}
     </article>
   );
 };

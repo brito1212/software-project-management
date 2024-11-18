@@ -10,6 +10,7 @@ import Profile from "./pages/Profile";
 // Components
 import Header from "./components/Header";
 import Aside from "./components/Aside";
+import Footer from "./components/Footer";
 
 // CSS
 import "./App.css";
@@ -32,6 +33,7 @@ function App() {
               <Route path="/" element={<Home />} />
               <Route path="/login/*" element={<Login />} />
               <Route path="/signup" element={<SignUp />} />
+              <Route path="/media/*" element={<></>} />
               <Route
                 path="/account"
                 element={
@@ -40,11 +42,18 @@ function App() {
                   </ProtectedRoute>
                 }
               />
+              <Route
+                path="/list"
+                element={
+                  <ProtectedRoute>
+                    <></>
+                  </ProtectedRoute>
+                }
+              />
             </Routes>
           </main>
         </BrowserRouter>
-
-        <footer></footer>
+        <Footer />
       </div>
     </>
   );

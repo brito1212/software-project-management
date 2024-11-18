@@ -6,6 +6,15 @@ header {
   gap: 10px;
   padding: 20px 35px;
   max-height: 100px;
+  background-color: var(--black);
+  position: sticky;
+  top: 0;
+  z-index: 100;
+  transition: all 0.2s ease;
+}
+
+.border-bottom-header {
+  border-bottom: 2px solid #fff;
 }
 
 .menu-logo-wrapper {
@@ -84,6 +93,7 @@ header {
   color: var(--main-color);
   font-size: 2rem;
   font-weight: 600;
+  letter-spacing: 5px;
 }
 
 .search {

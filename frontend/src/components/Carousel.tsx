@@ -1,6 +1,7 @@
 import React from "react";
 import chevron from "../assets/icons/chevron-down.svg";
 import styles from "./Carousel.module.css";
+import MediaCard from "./media/MediaCard";
 
 const Carousel = ({ slides, cardWidth, numPerSlides, title }) => {
   const [position, setPosition] = React.useState(0);
@@ -33,7 +34,7 @@ const Carousel = ({ slides, cardWidth, numPerSlides, title }) => {
       <h1 className={styles.title}>{title}</h1>
       <section
         className={
-          cardWidth == 1240
+          cardWidth == 1260
             ? `${styles.carousel} ${styles.main}`
             : styles.carousel
         }
@@ -47,13 +48,12 @@ const Carousel = ({ slides, cardWidth, numPerSlides, title }) => {
             style={{ transform: `translateX(${position}%)` }}
           >
             {slides.map((slide, index) => (
-              <div
+              <MediaCard
                 key={index}
-                className={styles.card}
-                style={{ width: `${cardWidth}px` }}
-              >
-                <img src={`${slide}`} />
-              </div>
+                slide={slide}
+                cardWidth={cardWidth}
+                type={slide.media_type}
+              />
             ))}
           </div>
         </div>

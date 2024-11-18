@@ -1,6 +1,5 @@
 .title {
   font-size: 3rem;
-  margin-bottom: 1rem;
   color: var(--main-color);
 }
 
@@ -11,4 +10,9 @@
 
 .lost:hover {
   color: var(--gray01);
+}
+
+.error {
+  color: var(--red);
+  margin-bottom: 10px;
 }

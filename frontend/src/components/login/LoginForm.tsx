@@ -7,7 +7,7 @@ import { Input } from "../index";
 import styles from "./LoginForm.module.css";
 
 import { loginAction } from "../../features/user/userSlice";
-import { useAppDispatch } from "../../app/store";
+import { useAppDispatch, useAppSelector } from "../../app/store";
 import useForm from "../../hooks/useForm.ts";
 
 const LoginForm = () => {
@@ -15,6 +15,9 @@ const LoginForm = () => {
   const dispatch = useAppDispatch();
   const email = useForm("");
   const password = useForm("");
+
+  const { message } = useAppSelector((state) => state.toast);
+  const [error, setError] = React.useState(false);
 
   async function handleSubmit(event: React.FormEvent) {
     event.preventDefault();
@@ -25,7 +28,7 @@ const LoginForm = () => {
         password.value,
         () => navigate("/"),
         () => {
-          console.log("erro");
+          setError(true);
         }
       )
     );
@@ -37,6 +40,7 @@ const LoginForm = () => {
       <form className={styles.form} onSubmit={handleSubmit}>
         <Input label="Email" type="email" name="email" {...email} />
         <Input label="Senha" type="password" name="password" {...password} />
+        {error && <p className={styles.error}>{message}</p>}
         <button className="btn primary btn-form">Entrar</button>
       </form>
       <Link className={styles.lost} to="/login/lost">

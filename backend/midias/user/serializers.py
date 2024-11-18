@@ -6,7 +6,7 @@ from lista.serializers import ListaSerializer
 class RegistrationSerializer(serializers.ModelSerializer):
     class Meta:
         model = User
-        fields = ("email", "username", "password", "first_name", "profile_image", "banner")
+        fields = ("email", "username", "password", "first_name", "last_name", "profile_image", "banner")
         extra_kwargs = {"password": {"write_only": True}}
 
     def create(self, validated_data):

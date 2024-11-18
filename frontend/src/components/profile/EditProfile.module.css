@@ -142,3 +142,7 @@ label {
 .label {
   margin-bottom: 6px;
 }
+
+.error {
+  color: var(--red);
+}
