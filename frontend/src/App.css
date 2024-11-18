@@ -14,7 +14,7 @@
   --gray02: #d9d9d9;
   --gray03: #727278;
   --red: #d44949;
-  --red02: #fc8d8d;
+  --red02: #af2828;
 }
 
 body {
@@ -113,6 +113,14 @@ a {
 
 .primary-red:hover.primary-red svg {
   fill: var(--red);
+}
+
+.red {
+  background-color: var(--red);
+}
+
+.red:hover {
+  background-color: var(--red02);
 }
 
 .outline {
