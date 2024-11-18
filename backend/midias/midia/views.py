@@ -79,7 +79,7 @@ class MidiaAbstractView(ViewSet):
             midia_id = pk
             midia = self.midia_model.objects.filter(id=midia_id).first()
             if midia:
-                serializer = self.midia_serializer(midia, many=True)
+                serializer = self.midia_serializer(midia, many=False)
                 return Response(serializer.data)
             return Response(
                 {"message": "Midia not found"}, status=status.HTTP_404_NOT_FOUND

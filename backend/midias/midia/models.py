@@ -75,8 +75,7 @@ class Midia(models.Model):
     genres = models.ManyToManyField(Genres, related_name="+")
     platforms = models.ManyToManyField(Platforms, related_name="+")
     studio = models.CharField(max_length=100)
-    # imagem em base 4 ???????
-    banner = models.TextField()
+    banner = models.ImageField(upload_to='banner', blank=True, null=True)
 
     def __str__(self):
         return self.title
