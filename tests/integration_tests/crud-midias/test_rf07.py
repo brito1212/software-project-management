@@ -15,7 +15,7 @@ login_admin(test)
 
 # Abre a página de adição de jogos
 table = 'game'
-test.driver.find_element(By.XPATH, f'a[href="/admin/midia/{table}/add/"]').click()
+test.driver.find_element(By.CSS_SELECTOR, f'a[href="/admin/midia/{table}/add/"]').click()
 
 # Preenche os campos
 today = datetime.date.today().strftime("%Y-%m-%d")
