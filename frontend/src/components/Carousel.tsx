@@ -1,6 +1,7 @@
 import React from "react";
 import chevron from "../assets/icons/chevron-down.svg";
 import styles from "./Carousel.module.css";
+import { useNavigate } from "react-router-dom";
 
 const Carousel = ({ slides, cardWidth, numPerSlides, title }) => {
   const [position, setPosition] = React.useState(0);
@@ -28,6 +29,12 @@ const Carousel = ({ slides, cardWidth, numPerSlides, title }) => {
       setCurrentSlide((prev) => prev + 1);
     }
   };
+
+  const navigate = useNavigate();
+  const openMedia = () => {
+    navigate("/midia/movie/1/get_by_id");
+  };
+
   return (
     <>
       <h1 className={styles.title}>{title}</h1>
@@ -51,6 +58,7 @@ const Carousel = ({ slides, cardWidth, numPerSlides, title }) => {
                 key={index}
                 className={styles.card}
                 style={{ width: `${cardWidth}px` }}
+                onClick={openMedia}
               >
                 <img src={`${slide}`} />
               </div>
