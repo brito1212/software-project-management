@@ -33,9 +33,8 @@ function App() {
               <Route path="/" element={<Home />} />
               <Route path="/login/*" element={<Login />} />
               <Route path="/signup" element={<SignUp />} />
-              <Route path="/media" element={<Media />} />
-              {/* <Route path="/media/movie/:id" element={<Media />} /> */}
-              <Route path="/media/movie/:id" element={<Media />} />
+              <Route path="/midia" element={<Media />} />
+              <Route path="/midia/movie/:id/get_by_id" element={<Media />} />
               <Route
                 path="/account"
                 element={

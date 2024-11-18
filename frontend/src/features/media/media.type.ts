@@ -5,6 +5,10 @@ export interface Media {
     description: string;
     studio: string;
     banner: string;
+    genres: string[];
+    duration: string;
+    director: string;
+    cast: string[]
   }
   
   export enum Provider {

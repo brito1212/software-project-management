@@ -6,16 +6,18 @@ import type { Media } from "../features/media/media.type";
 import { fetchMedia } from "../features/media/mediaSlice";
 
 const Media = () => {
-  const { id } = useParams<{ id: string }>(); // Extract the id from the URL
+  const { id } = useParams<{ id: string }>();
   const dispatch = useAppDispatch();
   const { media, loading, error } = useAppSelector((state) => state.media);
+
+  console.log("ID from route:", id);
 
   useEffect(() => {
     dispatch(fetchMedia(id));
   }, [dispatch, id]);
 
   if (loading) return <p>Loading...</p>;
-  if (error) return <p>Error: {error}</p>;
+  if (error) return <p>Error: {error.message}</p>;
 
   return (
     <div

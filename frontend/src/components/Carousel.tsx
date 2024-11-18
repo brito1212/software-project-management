@@ -32,7 +32,7 @@ const Carousel = ({ slides, cardWidth, numPerSlides, title }) => {
 
   const navigate = useNavigate();
   const openMedia = () => {
-    navigate("/media/movie/get_by_id/2");
+    navigate("/midia/movie/1/get_by_id");
   };
 
   return (

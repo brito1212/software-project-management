@@ -1,27 +1,7 @@
 import React from "react";
 import styles from "./ViewMedia.module.css";
-// import '@fortawesome/fontawesome-free/css/all.min.css';
 import type { Media } from "../../features/media/media.type";
 import { baseURL } from "../../api";
-
-interface CastMember {
-  name: string;
-  character: string;
-  image?: string;
-}
-
-// interface ViewMediaProps {
-//   title: string;
-//   // genres: string[];
-//   // duration: string;
-//   // classification: string;
-//   // releaseDate: string;
-//   description: string;
-//   // imdbRating: number;
-//   // userRating: number;
-//   cast: CastMember[];
-//   // posterUrl: string;
-// }
 
 const getBadgeClass = (classification) => {
   switch (classification) {
@@ -42,10 +22,19 @@ const getBadgeClass = (classification) => {
   }
 };
 
-const ViewMedia: React.FC<Media> = ({ title, description, banner }) => {
+const separateName = (member) => {
+  const [actorName, characterName] = member.split(';');
+  return {
+    actorName: actorName?.trim(),
+    characterName: characterName?.trim(),
+  };
+};
+
+const ViewMedia: React.FC<Media> = ({ title, description, banner, genres, duration, publish_date, director, studio, cast}) => {
   const bannerImage = banner
     ? `${baseURL}${banner}`
-    : "https://placehold.co/250x350";
+    : "https://placehold.co/300x400";
+  const formattedDate = new Date(publish_date).toLocaleDateString("en-GB");
 
   return (
     <div className={styles.view_media}>
@@ -58,48 +47,52 @@ const ViewMedia: React.FC<Media> = ({ title, description, banner }) => {
           </div>
           <div className={styles.columnDetails}>
             <div className={styles.media_details}>
-              <h1>{title}</h1>
-              {/* <div className={styles.badge_area}>
-                {genres.map((genre) => (
-                  <span className={styles.badge_status}>{genre}</span>
+            <p className={styles.title}>{title}</p>
+              <div className={styles.badge_area}>
+                {genres.map((genre, index) => (
+                  <span key={index} className={styles.badge_status}>{genre}</span>
                 ))}
-              </div> */}
+              </div>
               <div className={styles.info}>
                 {/* <span className={`${styles.badge_classification} ${getBadgeClass(classification)}`}>
                   {classification}
                 </span> */}
                 <i
                   className="fas fa-hourglass"
-                  style={{ color: "#F5D563" }}
+                  style={{ color: "#3B57B7" }}
                 ></i>
-                {/* <span className={styles.duration}>{duration}</span> */}
+                <span className={styles.duration}>{duration}</span>
                 <i
                   className="fas fa-calendar-alt"
                   style={{ color: "#3B57B7" }}
                 ></i>
-                {/* <span className={styles.release_date}>{releaseDate}</span> */}
+                <span className={styles.release_date}>{formattedDate}</span>
+                <i
+                  className="fa-solid fa-clapperboard"
+                  style={{ color: "#3B57B7" }}
+                ></i>
+                <span className={styles.director_name}>{director}</span>
+                <i
+                  className="fa-solid fa-video"
+                  style={{ color: "#3B57B7" }}
+                ></i>
+                <span className={styles.studio_name}>{studio}</span>
               </div>
+              <p className={styles.descriptionTitle}>{"DESCRIÇÃO"}</p>
               <p className={styles.description}>{description}</p>
               <div className={styles.ratings}>
-                <div className={styles.imdbContainer}>
-                  <i
-                    className="fa-brands fa-imdb fa-2xl"
-                    style={{ color: "#FFD43B" }}
-                  ></i>
-                  {/* <span className={styles.imdb_rating}> {imdbRating}/10</span> */}
-                </div>
                 {/* <span className={styles.user_rating}>User Rating: {userRating}/5</span> */}
               </div>
               <div className={styles.actions}>
-                <div className={styles.container}>
+                <div className={styles.container_buttons}>
                   <div className={styles.column}>
                     <button className={styles.review_button}>
-                      Create Review
+                      <i className="fa-regular fa-star"></i> Criar Review
                     </button>
                   </div>
                   <div className={styles.column}>
                     <button className={styles.add_to_list_button}>
-                      Add to List
+                      <i className="fa-solid fa-plus"></i> Adicionar na Lista
                     </button>
                   </div>
                 </div>
@@ -109,19 +102,22 @@ const ViewMedia: React.FC<Media> = ({ title, description, banner }) => {
         </div>
       </div>
       <div className={styles.castSection}>
-        <h2>Cast</h2>
+        <p className={styles.subtitle}>{"Elenco:"}</p>
         <div className={styles.cast_list}>
-          {/* {cast.map((member, index) => (
-            <div key={index} className={styles.cast_member}>
-              <div className={styles.cast_image}>
-                {member.image ? <img src={member.image} alt={member.name} /> : <div className={styles.placeholder_image}></div>}
-              </div>
-              <div className={styles.cast_info}>
-                <span className={styles.cast_name}>{member.name}</span>
-                <span className={styles.cast_character}>{member.character}</span>
-              </div>
-            </div>
-          ))} */}
+          {cast.map((member, index) => {
+              const { actorName, characterName } = separateName(member);
+              return (
+                <div key={index} className={styles.cast_member}>
+                  <div className={styles.cast_image}>
+                    {<div className={styles.placeholder_image}></div>}
+                  </div>
+                  <div className={styles.cast_info}>
+                    <span className={styles.cast_name}>{actorName}</span>
+                    <span className={styles.cast_character}>{characterName}</span>
+                  </div>
+                </div>
+              );
+          })}
         </div>
       </div>
     </div>

@@ -50,7 +50,7 @@ export const fetchMedia = (id) => async (dispatch) => {
     const media = await getMedia(id);
     dispatch(fetchSuccess(media));
   } catch (error) {
-    dispatch(fetchError(error.message));
+    dispatch(fetchError(error));
   }
 };
 

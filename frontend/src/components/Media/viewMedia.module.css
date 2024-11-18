@@ -1,16 +1,16 @@
 .view_media {
     display: flex;
     color: #fff;
-    padding: 20px;
+    padding: 10px;
     border-radius: 8px;
-    max-width: 800px;
+    max-width: 1000px;
     margin: auto;
     flex-direction: column;
 }
 
 .poster img {
     border-radius: 8px;
-    width: 200px;
+    width: 300px;
     height: auto;
 }
 
@@ -38,9 +38,16 @@
 }
 
 .description {
-    font-size: 14px;
+    font-size: 12px;
     line-height: 1.6;
     margin-bottom: 20px;
+}
+
+.descriptionTitle {
+    font-size: 14px;
+    line-height: 1.6;
+    margin-bottom: 2px;
+    color: #727278
 }
 
 .ratings {
@@ -53,13 +60,23 @@
     display: flex;
     gap: 10px;
     margin-bottom: 20px;
+    justify-content: center;
 }
 
-.review_button, .add_to_list_button {
-    background-color: #555;
-    border: none;
+.review_button:hover, .add_to_list_button:hover {
+    background-color: #5551FF;
+    border: solid #5551FF 0.1em;
     color: #fff;
-    padding: 8px 12px;
+    padding: 8px 30px;
+    border-radius: 4px;
+    cursor: pointer;
+}
+
+.add_to_list_button, .review_button {
+    background-color: #00000000;
+    border: solid #5551FF 0.1em;
+    color: #5551FF;
+    padding: 8px 30px;
     border-radius: 4px;
     cursor: pointer;
 }
@@ -71,7 +88,7 @@
 }
 
 .cast_member {
-    text-align: center;
+    display: flex;
 }
 
 .cast_image img, .placeholder_image {
@@ -82,8 +99,10 @@
 }
 
 .cast_info {
+    display: grid;
     font-size: 12px;
     margin-top: 5px;
+    margin-left: 10px
 }
 
 .cast_name {
@@ -95,7 +114,7 @@
 }
 
 .columnPoster {
-    flex: 1;
+    flex: 1.2;
     padding: 10px;
 }
 .columnDetails {
@@ -107,8 +126,15 @@
     gap: 10px;
 }
 
+.container_buttons {
+    display: flex;
+    gap: 10px;
+    justify-content: center;
+}
+
 .badge_area {
     display: flex;
+    margin-bottom: 10px;
 }
 .badge_status {
     font-size: 0.55em;
@@ -134,6 +160,14 @@
     margin-right: 20px;
 }
 .release_date{
+    margin-left: 7px;
+    margin-right: 20px;
+}
+.director_name{
+    margin-left: 7px;
+    margin-right: 20px;
+}
+.studio_name{
     margin-left: 7px;
 }
 
@@ -175,4 +209,16 @@
 .imdbRating {
     font-size: 1.25em;
     color: white;
+}
+
+.title{
+    font-size: 2em;
+    margin-bottom: 15px;
+    font-family:'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif
+}
+
+.subtitle{
+    font-size: 1em;
+    margin-bottom: 10px;
+    color: #727278;
 }
