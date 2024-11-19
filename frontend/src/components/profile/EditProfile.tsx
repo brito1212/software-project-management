@@ -8,6 +8,8 @@ import profileImage from "../../assets/images/profile-image.png";
 import bannerDefault from "../../assets/images/banner-default.jpg";
 import { baseURL } from "../../api";
 
+import stylesEditProfile from "../forms/Input.module.css";
+
 interface Image {
   preview: string;
   raw: File;
@@ -115,6 +117,7 @@ const EditProfile = () => {
           type="text"
           name="first_name"
           value={firstName}
+          styles={stylesEditProfile}
           onChange={(e) => setFirstName(e.target.value)}
         />
         <Input
@@ -122,6 +125,7 @@ const EditProfile = () => {
           type="text"
           name="last_name"
           value={lastName}
+          styles={stylesEditProfile}
           onChange={(e) => setLastName(e.target.value)}
         />
       </div>
@@ -130,6 +134,7 @@ const EditProfile = () => {
         type="text"
         name="username"
         value={username}
+        styles={stylesEditProfile}
         onChange={(e) => setUsername(e.target.value)}
       />
       <div className={styles.buttons}>
