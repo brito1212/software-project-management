@@ -12,6 +12,8 @@ import { UserRegistration } from "../features/user/user.type";
 import { useAppDispatch, useAppSelector } from "../app/store";
 import useForm from "../hooks/useForm";
 
+import stylesSignUp from "../components/forms/Input.module.css";
+
 const SignUp = () => {
   const navigate = useNavigate();
   const dispatch = useAppDispatch();
@@ -50,16 +52,41 @@ const SignUp = () => {
       <section className="anime-left">
         <h1 className={styles.title}>Sign up</h1>
         <form className={styles.form} onSubmit={handleSubmit}>
-          <Input label="Nome" type="text" name="first_name" {...first_name} />
+          <Input
+            label="Nome"
+            type="text"
+            name="first_name"
+            styles={stylesSignUp}
+            {...first_name}
+          />
           <Input
             label="Sobrenome"
             type="text"
             name="last_name"
+            styles={stylesSignUp}
             {...last_name}
           />
-          <Input label="Username" type="text" name="username" {...username} />
-          <Input label="Email" type="email" name="email" {...email} />
-          <Input label="Senha" type="password" name="password" {...password} />
+          <Input
+            label="Username"
+            type="text"
+            name="username"
+            styles={stylesSignUp}
+            {...username}
+          />
+          <Input
+            label="Email"
+            type="email"
+            name="email"
+            styles={stylesSignUp}
+            {...email}
+          />
+          <Input
+            label="Senha"
+            type="password"
+            name="password"
+            styles={stylesSignUp}
+            {...password}
+          />
           {error && <p className={styles.error}>{message}</p>}
           <button className="btn primary btn-form">Cadastrar</button>
         </form>

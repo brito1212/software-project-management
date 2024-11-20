@@ -1,3 +1,5 @@
+import { Lista } from "../lista/lista.type";
+
 export interface User {
   id: number;
   first_name: string;
@@ -6,6 +8,7 @@ export interface User {
   email: string;
   seguindo: User[];
   seguidores: User[];
+  listas: Lista[];
   profile_image: string;
   banner: string;
 }

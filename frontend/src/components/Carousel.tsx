@@ -1,6 +1,7 @@
 import React from "react";
 import chevron from "../assets/icons/chevron-down.svg";
 import styles from "./Carousel.module.css";
+import { useNavigate } from "react-router-dom";
 import MediaCard from "./media/MediaCard";
 
 const Carousel = ({ slides, cardWidth, numPerSlides, title }) => {
@@ -29,6 +30,12 @@ const Carousel = ({ slides, cardWidth, numPerSlides, title }) => {
       setCurrentSlide((prev) => prev + 1);
     }
   };
+
+  const navigate = useNavigate();
+  const openMedia = () => {
+    navigate("/midia/movie/2");
+  };
+
   return (
     <>
       <h1 className={styles.title}>{title}</h1>

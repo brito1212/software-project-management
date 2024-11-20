@@ -1,0 +1,15 @@
+.form {
+  width: 500px;
+  background-color: var(--white);
+  padding: 30px;
+  border-radius: 8px;
+  color: var(--gray01);
+  position: relative;
+}
+
+.buttons {
+  margin-top: 25px;
+  display: flex;
+  width: 256px;
+  gap: 25px;
+}

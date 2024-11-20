@@ -1,0 +1,42 @@
+.title {
+  color: var(--gray03);
+  margin-top: 12px;
+}
+
+.review_container {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  padding: 10px;
+  border-radius: 5px;
+  background: #3A3B3C;
+  margin-top: 18px;
+  padding: 12px;
+  padding: 36px;
+}
+
+.user_image {
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+}
+
+.review_header{
+    display: flex;
+    gap: 10px;
+    align-items: center;
+}
+
+.date {
+  color: #8F8F99;
+}
+
+.username{
+    color: #5551FF;
+}
+
+.trash_icon {
+  cursor: pointer;
+  align-self: left;
+  color: rgb(138, 60, 60);
+}
