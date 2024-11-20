@@ -23,19 +23,41 @@
 .list-container .columns {
   display: flex;
   flex-direction: column;
-  gap: 0.5rem;
+  gap: 25px;
 }
 
 .list-wrapper {
   display: grid;
   grid-template-columns: 2fr 1fr;
-  border: 1px solid var(--main-color);
   border-radius: 8px;
   padding: 2rem;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  gap: 25px;
+  border: 1px solid var(--main-color);
+}
+
+.list-wrapper:hover {
+  background-color: var(--light-black);
+  border-color: var(--light-black);
 }
 
 .banner {
-  width: 220px;
-  height: 320px;
-  border: 1px solid #fff;
+  width: 150px;
+  height: 215px;
+}
+
+.midias-container {
+  display: flex;
+  position: relative;
+}
+
+.media {
+  margin-left: -50px;
+}
+
+.noMedias {
+  position: absolute;
+  top: 56px;
+  left: 115px;
 }

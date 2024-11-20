@@ -26,14 +26,15 @@ class ListaView(ViewSet):
                 status=status.HTTP_500_INTERNAL_SERVER_ERROR,
             )
 
-    def update(self, request):
+    def partial_update(self, request, pk=None):
         try:
             data = request.data
-            lista = Lista.objects.filter(id=data.get("id")).first()
-            if lista:
-                for key, value in data.items():
-                    setattr(lista, key, value)
-                lista.save()
+            lista = Lista.objects.filter(id=pk).first()
+            print(lista)
+            listaSerializer = ListaSerializer(lista, data=request.data)
+            print(listaSerializer)
+            if listaSerializer.is_valid():
+                listaSerializer.save()
                 return Response(
                     {"message": "Lista updated successfully"}, status=status.HTTP_200_OK
                 )
@@ -46,10 +47,10 @@ class ListaView(ViewSet):
                 status=status.HTTP_500_INTERNAL_SERVER_ERROR,
             )
 
-    def destroy(self, request):
+    def destroy(self, request, pk=None):
         try:
             data = request.data
-            lista = Lista.objects.filter(id=data.get("id")).first()
+            lista = Lista.objects.filter(id=pk).first()
             if lista:
                 lista.delete()
                 return Response(

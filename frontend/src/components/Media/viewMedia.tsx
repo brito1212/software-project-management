@@ -3,10 +3,14 @@ import styles from "./ViewMedia.module.css";
 import type { Media } from "../../features/media/media.type";
 import { baseURL } from "../../api";
 import { CreateReview } from "../review/CreateReview";
-import ListReview from "../review/listReview";
+import ListReview from "../review/ListReview";
 import { closeModal } from "../../features/ui/uiSlice";
 import { useAppDispatch, useAppSelector } from "../../app/store";
-import { updateListaAction } from "../../features/lista/listaSlice";
+import {
+  createListaAction,
+  updateListaAction,
+} from "../../features/lista/listaSlice";
+import { Link, useNavigate } from "react-router-dom";
 
 const getBadgeClass = (classification) => {
   switch (classification) {
@@ -57,28 +61,54 @@ const ViewMedia: React.FC<Media> = ({
     setShowReview((showReview) => !showReview);
   };
   const dispatch = useAppDispatch();
+  const navigate = useNavigate();
 
   useEffect(() => {
     dispatch(closeModal());
   }, [dispatch]);
+  const { user } = useAppSelector((state) => state.user);
   const { media } = useAppSelector((state) => state.media);
   const { listas } = useAppSelector((state) => state.user.user);
-  const [idLista, setIdLista] = useState(1);
+  const [showListas, setShowListas] = React.useState(false);
 
-  function addToLista() {
-    const lista = listas.find((lista) => lista.id == idLista);
+  function addToLista(id: number) {
+    const lista = listas.find((lista) => lista.id == id);
     const data = {
-      id: idLista,
-      midias: lista.midias.append(media),
+      id: lista.id,
+      name: lista.name,
+      description: lista.description,
+      midias: [...lista.midias, media],
     };
+    console.log(data);
     dispatch(
       updateListaAction(
         data,
         () => {
-          console.log("boom");
+          navigate(`/list/${lista.id}`);
         },
         () => {
           console.log("ruim");
+        }
+      )
+    );
+  }
+
+  function handleCreateList() {
+    console.log(user?.listas);
+    const newLista = {
+      name: "Minha Lista",
+      description: "Adicione uma descrição...",
+      midias: [],
+      user: user?.id,
+    };
+    dispatch(
+      createListaAction(
+        newLista,
+        () => {
+          navigate("/list");
+        },
+        () => {
+          console.log("erro");
         }
       )
     );
@@ -156,7 +186,7 @@ const ViewMedia: React.FC<Media> = ({
                     <div className={styles.column}>
                       <button
                         className={styles.add_to_list_button}
-                        onClick={addToLista}
+                        onClick={() => setShowListas(!showListas)}
                       >
                         <i className="fa-solid fa-plus"></i> Adicionar na Lista
                       </button>
@@ -164,6 +194,32 @@ const ViewMedia: React.FC<Media> = ({
                   </div>
                 </div>
               </div>
+              <ul
+                className={
+                  showListas
+                    ? `${styles.config} ${styles["dropdown-anime"]}`
+                    : `${styles.config}`
+                }
+              >
+                {listas.length !== 0 ? (
+                  listas.map((lista) => (
+                    <li key={lista.id}>
+                      <button
+                        className={styles.btnAddLista}
+                        onClick={() => addToLista(lista.id)}
+                      >
+                        <span>{lista.name}</span>
+                      </button>
+                    </li>
+                  ))
+                ) : (
+                  <li>
+                    <Link to="#" onClick={handleCreateList}>
+                      <span>Criar lista</span>
+                    </Link>
+                  </li>
+                )}
+              </ul>
             </div>
           </div>
         </div>

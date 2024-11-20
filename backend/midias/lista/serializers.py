@@ -4,7 +4,7 @@ from midia.serializers import MidiaSerializer
 
 
 class ListaSerializer(serializers.ModelSerializer):
-    midias = MidiaSerializer(many=True, read_only=True)
+    midias = MidiaSerializer(many=True, read_only=False)
     class Meta:
         model = Lista
         fields = "__all__"

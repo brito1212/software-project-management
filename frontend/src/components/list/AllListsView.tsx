@@ -3,6 +3,8 @@ import addIcon from "../../assets/icons/add-icon.svg";
 import styles from "./AllListsView.module.css";
 import { useAppDispatch, useAppSelector } from "../../app/store";
 import { createListaAction } from "../../features/lista/listaSlice";
+import { baseURL } from "../../api";
+import moviesIcon from "../../assets/icons/movies-icon.svg";
 
 const AllListsView = () => {
   const dispatch = useAppDispatch();
@@ -12,8 +14,8 @@ const AllListsView = () => {
   function handleCreateList() {
     console.log(user?.listas);
     const newLista = {
-      name: "Nome Lista",
-      description: "Descricao",
+      name: "Minha Lista",
+      description: "Adicione uma descrição...",
       midias: [],
       user: user?.id,
     };
@@ -21,8 +23,7 @@ const AllListsView = () => {
       createListaAction(
         newLista,
         () => {
-          navigate("/1");
-          console.log("deubom");
+          navigate("/list");
         },
         () => {
           console.log("erro");
@@ -37,17 +38,55 @@ const AllListsView = () => {
         <h1>Minhas Listas</h1>
         {user?.listas.length != 0 ? (
           user?.listas.map((lista) => (
-            <div className={styles["list-wrapper"]} key={lista.id}>
+            <div
+              className={styles["list-wrapper"]}
+              key={lista.id}
+              onClick={() => navigate(`/list/${lista.id}`)}
+            >
               <div className={styles["midias-container"]}>
-                {lista.midias.map((midia) => (
-                  <div key={midia.id}>
+                <div>
+                  <img
+                    className={styles.banner}
+                    src={
+                      lista.midias[0]?.banner
+                        ? `${baseURL}${lista.midias[0]?.banner}`
+                        : "https://fakeimg.pl/220x320?text=+"
+                    }
+                    alt={lista.midias[0]?.title}
+                  />
+                </div>
+                <div className={styles.media}>
+                  <img
+                    className={styles.banner}
+                    src={
+                      lista.midias[1]?.banner
+                        ? `${baseURL}${lista.midias[1]?.banner}`
+                        : "https://fakeimg.pl/220x320?text=+"
+                    }
+                    alt={lista.midias[1]?.title}
+                  />
+                </div>
+                <div className={styles.media}>
+                  <img
+                    className={styles.banner}
+                    src={
+                      lista.midias[2]?.banner
+                        ? `${baseURL}${lista.midias[2]?.banner}`
+                        : "https://fakeimg.pl/220x320?text=+"
+                    }
+                    alt={lista.midias[2]?.title}
+                  />
+                </div>
+                {lista.midias.length == 0 && (
+                  <div className={styles.noMedias}>
                     <img
-                      className={styles.banner}
-                      src={midia.banner}
-                      alt={midia.name}
+                      src={moviesIcon}
+                      alt="Filmes"
+                      width="100px"
+                      height="100px"
                     />
                   </div>
-                ))}
+                )}
               </div>
               <div className={styles["lista-info"]}>
                 <h3>{lista.name}</h3>

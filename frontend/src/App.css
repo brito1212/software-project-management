@@ -9,10 +9,12 @@
   --main-color: #5551ff;
   --main-color02: #3835fc;
   --black: #100f12;
+  --light-black: #141414;
   --white: #fff;
   --gray01: #555559;
   --gray02: #d9d9d9;
   --gray03: #727278;
+  --gray04: #bdbcbc;
   --red: #d44949;
   --red02: #af2828;
 }
@@ -175,6 +177,27 @@ a {
   box-shadow: 0 0 40px rgba(8, 7, 16, 0.6);
   padding: 1rem 2rem 2rem 2rem;
   margin-top: 5rem;
+}
+
+.modal {
+  position: fixed;
+  width: 100vw;
+  height: 100vh;
+  top: 0px;
+  left: 0px;
+  background: rgba(0, 0, 0, 0.4);
+  display: flex;
+  z-index: 100;
+  padding: 2rem calc(4rem + 15px) 2rem 4rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+@media (max-width: 640px) {
+  .modal {
+    padding: 2rem calc(2rem + 15px) 2rem 2rem;
+  }
 }
 
 /* Animations */
