@@ -1,7 +1,11 @@
-import { Media } from "../media/media.type";
-
 export interface Lista {
   name: string;
   description: string;
-  midias: Media;
+  midias: MediaList[];
+}
+
+export interface MidiaList {
+  id: number;
+  title: string;
+  banner: string;
 }

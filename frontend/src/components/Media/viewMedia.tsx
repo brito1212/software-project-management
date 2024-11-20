@@ -11,6 +11,7 @@ import {
   updateListaAction,
 } from "../../features/lista/listaSlice";
 import { Link, useNavigate } from "react-router-dom";
+import { MidiaList } from "../../features/lista/lista.type";
 
 const getBadgeClass = (classification) => {
   switch (classification) {
@@ -77,18 +78,15 @@ const ViewMedia: React.FC<Media> = ({
       id: lista.id,
       name: lista.name,
       description: lista.description,
-      midias: [...lista.midias, media],
+      midias: [...lista.midias.map((midia) => midia.id), media?.id],
     };
-    console.log(data);
     dispatch(
       updateListaAction(
         data,
         () => {
           navigate(`/list/${lista.id}`);
         },
-        () => {
-          console.log("ruim");
-        }
+        () => {}
       )
     );
   }
@@ -214,9 +212,9 @@ const ViewMedia: React.FC<Media> = ({
                   ))
                 ) : (
                   <li>
-                    <Link to="#" onClick={handleCreateList}>
+                    <button to="#" onClick={handleCreateList}>
                       <span>Criar lista</span>
-                    </Link>
+                    </button>
                   </li>
                 )}
               </ul>

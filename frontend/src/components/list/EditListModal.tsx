@@ -27,6 +27,7 @@ const EditListModal = ({ lista }) => {
       id: lista.id,
       name,
       description,
+      midias: lista.midias.map((midia) => midia.id),
     };
     dispatch(
       updateListaAction(
@@ -34,9 +35,7 @@ const EditListModal = ({ lista }) => {
         () => {
           dispatch(closeModal());
         },
-        () => {
-          console.log("error");
-        }
+        () => {}
       )
     );
   }

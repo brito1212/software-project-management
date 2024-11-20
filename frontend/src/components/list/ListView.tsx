@@ -1,5 +1,5 @@
 import React from "react";
-import { Link, useParams } from "react-router-dom";
+import { Link, useNavigate, useParams } from "react-router-dom";
 import { useAppDispatch, useAppSelector } from "../../app/store";
 import { closeModal, openModal } from "../../features/ui/uiSlice";
 import EditListModal from "./EditListModal";
@@ -19,6 +19,7 @@ const ListView = () => {
   const [moreOptions, setMoreOptions] = React.useState(false);
 
   const dispatch = useAppDispatch();
+  const navigate = useNavigate();
 
   function handleEditLista() {
     dispatch(openModal("edit"));
@@ -77,13 +78,17 @@ const ListView = () => {
                       width="15px"
                       height="15px"
                     />
-                    <span>Apgar lista</span>
+                    <span>Apagar lista</span>
                   </Link>
                 </li>
               </ul>
               {lista.midias.length !== 0 ? (
                 lista.midias.map((midia) => (
-                  <div key={midia.id} className={styles.midia}>
+                  <div
+                    key={midia.id}
+                    className={styles.midia}
+                    onClick={() => navigate(`/midia/movie/${midia.id}`)}
+                  >
                     <img src={`${baseURL}${midia.banner}`} alt={midia.title} />
                     <p>{midia.title}</p>
                   </div>

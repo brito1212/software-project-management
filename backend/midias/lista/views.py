@@ -1,6 +1,6 @@
 from django.shortcuts import render
 from .models import Lista
-from .serializers import ListaSerializer
+from .serializers import ListaSerializer, ListaSerializerRead, ListaSerializerUpdate
 from rest_framework import permissions, status
 from rest_framework.response import Response
 from rest_framework.viewsets import ViewSet
@@ -30,9 +30,7 @@ class ListaView(ViewSet):
         try:
             data = request.data
             lista = Lista.objects.filter(id=pk).first()
-            print(lista)
-            listaSerializer = ListaSerializer(lista, data=request.data)
-            print(listaSerializer)
+            listaSerializer = ListaSerializerUpdate(lista, data=request.data)
             if listaSerializer.is_valid():
                 listaSerializer.save()
                 return Response(
@@ -69,7 +67,7 @@ class ListaView(ViewSet):
         try:
             listas = Lista.objects.all()
             if listas:
-                serializer = ListaSerializer(listas, many=True)
+                serializer = ListaSerializerRead(listas, many=True)
                 return Response(serializer.data)
             return Response(
                 {"message": "Listas not found"}, status=status.HTTP_404_NOT_FOUND

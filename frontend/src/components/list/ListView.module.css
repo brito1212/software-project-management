@@ -95,6 +95,7 @@
   align-items: center;
   gap: 15px;
   width: 220px;
+  cursor: pointer;
 }
 
 .midia img {

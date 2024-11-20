@@ -45,47 +45,50 @@ const AllListsView = () => {
             >
               <div className={styles["midias-container"]}>
                 <div>
-                  <img
-                    className={styles.banner}
-                    src={
-                      lista.midias[0]?.banner
-                        ? `${baseURL}${lista.midias[0]?.banner}`
-                        : "https://fakeimg.pl/220x320?text=+"
-                    }
-                    alt={lista.midias[0]?.title}
-                  />
+                  {lista.midias[0] ? (
+                    <img
+                      className={styles.banner}
+                      src={`${baseURL}${lista.midias[0]?.banner}`}
+                      alt={lista.midias[0]?.title}
+                    />
+                  ) : (
+                    <div></div>
+                  )}
                 </div>
                 <div className={styles.media}>
-                  <img
-                    className={styles.banner}
-                    src={
-                      lista.midias[1]?.banner
-                        ? `${baseURL}${lista.midias[1]?.banner}`
-                        : "https://fakeimg.pl/220x320?text=+"
-                    }
-                    alt={lista.midias[1]?.title}
-                  />
+                  {lista.midias[1] ? (
+                    <img
+                      className={styles.banner}
+                      src={`${baseURL}${lista.midias[1]?.banner}`}
+                      alt={lista.midias[1]?.title}
+                    />
+                  ) : (
+                    <></>
+                  )}
                 </div>
                 <div className={styles.media}>
-                  <img
-                    className={styles.banner}
-                    src={
-                      lista.midias[2]?.banner
-                        ? `${baseURL}${lista.midias[2]?.banner}`
-                        : "https://fakeimg.pl/220x320?text=+"
-                    }
-                    alt={lista.midias[2]?.title}
-                  />
+                  {lista.midias[2] ? (
+                    <img
+                      className={styles.banner}
+                      src={`${baseURL}${lista.midias[2]?.banner}`}
+                      alt={lista.midias[2]?.title}
+                    />
+                  ) : (
+                    <></>
+                  )}
                 </div>
                 {lista.midias.length == 0 && (
-                  <div className={styles.noMedias}>
-                    <img
-                      src={moviesIcon}
-                      alt="Filmes"
-                      width="100px"
-                      height="100px"
-                    />
-                  </div>
+                  <>
+                    <div className={styles.banner}></div>
+                    <div className={styles.noMedias}>
+                      <img
+                        src={moviesIcon}
+                        alt="Filmes"
+                        width="100px"
+                        height="100px"
+                      />
+                    </div>
+                  </>
                 )}
               </div>
               <div className={styles["lista-info"]}>

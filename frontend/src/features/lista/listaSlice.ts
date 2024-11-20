@@ -74,7 +74,6 @@ export const updateListaAction =
       description: data.description,
       midias: data.midias,
     };
-    console.log(lista);
     updateLista(data.id, lista)
       .then(() => {
         dispatch(
