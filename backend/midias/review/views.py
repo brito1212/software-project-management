@@ -6,7 +6,7 @@ from rest_framework.response import Response
 from midia.models import Midia
 
 from .models import Review, Comment
-from .serializers import CommentSerializer, ReviewSerializer
+from .serializers import CommentSerializer, ReviewSerializer, ReviewSerializerRead
 
 
 class ReviewView(ViewSet):
@@ -27,10 +27,10 @@ class ReviewView(ViewSet):
                 status=status.HTTP_500_INTERNAL_SERVER_ERROR,
             )
 
-    def update(self, request):
+    def update(self, request, pk=None):
         try:
             data = request.data
-            review = Review.objects.filter(id=data.get("id")).first()
+            review = Review.objects.filter(id=pk).first()
             if review:
                 for key, value in data.items():
                     setattr(review, key, value)
@@ -48,11 +48,16 @@ class ReviewView(ViewSet):
                 status=status.HTTP_500_INTERNAL_SERVER_ERROR,
             )
 
-    def destroy(self, request):
+    def destroy(self, request, pk=None):
         try:
-            data = request.data
-            review = Review.objects.filter(id=data.get("id")).first()
+            current_user = request.user
+            review = Review.objects.filter(id=pk).first()
             if review:
+                if review.user.id != current_user.id:
+                    return Response(
+                        {"message": "Somente o autor de uma review podem deletá-la"},
+                        status=status.HTTP_401_UNAUTHORIZED,
+                    )
                 review.delete()
                 return Response(
                     {"message": "Review deleted successfully"},
@@ -69,17 +74,14 @@ class ReviewView(ViewSet):
 
     def list(self, request):
         try:
-            data = request.data
-            midia_id = data.get("midia")
+            midia_id = request.GET.get("midiaId", "")
             midia = Midia.objects.filter(id=midia_id).first()
             if midia:
                 reviews = Review.objects.filter(midia=midia)
                 if reviews:
-                    serializer = ReviewSerializer(reviews, many=True)
+                    serializer = ReviewSerializerRead(reviews, many=True)
                     return Response(serializer.data, status=status.HTTP_200_OK)
-                return Response(
-                    {"message": "Reviews not found"}, status=status.HTTP_404_NOT_FOUND
-                )
+                return Response([], status=status.HTTP_404_NOT_FOUND)
             return Response(
                 {"message": "Midia not found"}, status=status.HTTP_404_NOT_FOUND
             )
@@ -108,10 +110,10 @@ class CommentView(ViewSet):
                 status=status.HTTP_500_INTERNAL_SERVER_ERROR,
             )
 
-    def update(self, request):
+    def update(self, request, pk=None):
         try:
             data = request.data
-            comment = Comment.objects.filter(id=data.get("id")).first()
+            comment = Comment.objects.filter(id=pk).first()
             if comment:
                 for key, value in data.items():
                     setattr(comment, key, value)

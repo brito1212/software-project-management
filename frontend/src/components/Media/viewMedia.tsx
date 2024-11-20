@@ -1,7 +1,10 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import styles from "./ViewMedia.module.css";
 import type { Media } from "../../features/media/media.type";
 import { baseURL } from "../../api";
+import { CreateReview } from "../review/CreateReview";
+import ListReview from "../review/listReview";
+import { closeModal } from "../../features/ui/uiSlice";
 import { useAppDispatch, useAppSelector } from "../../app/store";
 import { updateListaAction } from "../../features/lista/listaSlice";
 
@@ -47,7 +50,17 @@ const ViewMedia: React.FC<Media> = ({
     ? `${baseURL}${banner}`
     : "https://placehold.co/300x400";
   const formattedDate = new Date(publish_date).toLocaleDateString("en-GB");
+
+  const [showReview, setShowReview] = React.useState(false);
+
+  const showCreateReview = () => {
+    setShowReview((showReview) => !showReview);
+  };
   const dispatch = useAppDispatch();
+
+  useEffect(() => {
+    dispatch(closeModal());
+  }, [dispatch]);
   const { media } = useAppSelector((state) => state.media);
   const { listas } = useAppSelector((state) => state.user.user);
   const [idLista, setIdLista] = useState(1);
@@ -72,95 +85,118 @@ const ViewMedia: React.FC<Media> = ({
   }
 
   return (
-    <div className={styles.view_media}>
-      <div className={styles.mainSection}>
-        <div className={styles.container}>
-          <div className={styles.columnPoster}>
-            <div className={styles.poster}>
-              <img src={bannerImage} alt={`${title} Poster`} />
-            </div>
-          </div>
-          <div className={styles.columnDetails}>
-            <div className={styles.media_details}>
-              <p className={styles.title}>{title}</p>
-              <div className={styles.badge_area}>
-                {genres.map((genre, index) => (
-                  <span key={index} className={styles.badge_status}>
-                    {genre}
-                  </span>
-                ))}
+    <>
+      <div className={styles.view_media}>
+        <div className={styles.mainSection}>
+          <div className={styles.container}>
+            <div className={styles.columnPoster}>
+              <div className={styles.poster}>
+                <img src={bannerImage} alt={`${title} Poster`} />
               </div>
-              <div className={styles.info}>
-                {/* <span className={`${styles.badge_classification} ${getBadgeClass(classification)}`}>
+            </div>
+            <div className={styles.columnDetails}>
+              <div className={styles.media_details}>
+                <p className={styles.title}>{title}</p>
+                <div className={styles.badge_area}>
+                  {genres.map((genre, index) => (
+                    <span key={index} className={styles.badge_status}>
+                      {genre}
+                    </span>
+                  ))}
+                </div>
+                <div className={styles.info}>
+                  {/* <span className={`${styles.badge_classification} ${getBadgeClass(classification)}`}>
                   {classification}
                 </span> */}
-                <i
-                  className="fas fa-hourglass"
-                  style={{ color: "#3B57B7" }}
-                ></i>
-                <span className={styles.duration}>{duration}</span>
-                <i
-                  className="fas fa-calendar-alt"
-                  style={{ color: "#3B57B7" }}
-                ></i>
-                <span className={styles.release_date}>{formattedDate}</span>
-                <i
-                  className="fa-solid fa-clapperboard"
-                  style={{ color: "#3B57B7" }}
-                ></i>
-                <span className={styles.director_name}>{director}</span>
-                <i
-                  className="fa-solid fa-video"
-                  style={{ color: "#3B57B7" }}
-                ></i>
-                <span className={styles.studio_name}>{studio}</span>
-              </div>
-              <p className={styles.descriptionTitle}>{"DESCRIÇÃO"}</p>
-              <p className={styles.description}>{description}</p>
-              <div className={styles.ratings}>
-                {/* <span className={styles.user_rating}>User Rating: {userRating}/5</span> */}
-              </div>
-              <div className={styles.actions}>
-                <div className={styles.container_buttons}>
-                  <div className={styles.column}>
-                    <button className={styles.review_button}>
-                      <i className="fa-regular fa-star"></i> Criar Review
-                    </button>
-                  </div>
-                  <div className={styles.column}>
-                    <button
-                      className={styles.add_to_list_button}
-                      onClick={addToLista}
-                    >
-                      <i className="fa-solid fa-plus"></i> Adicionar na Lista
-                    </button>
+                  <i
+                    className="fas fa-hourglass"
+                    style={{ color: "#3B57B7" }}
+                  ></i>
+                  <span className={styles.duration}>{duration}</span>
+                  <i
+                    className="fas fa-calendar-alt"
+                    style={{ color: "#3B57B7" }}
+                  ></i>
+                  <span className={styles.release_date}>{formattedDate}</span>
+                  <i
+                    className="fa-solid fa-clapperboard"
+                    style={{ color: "#3B57B7" }}
+                  ></i>
+                  <span className={styles.director_name}>{director}</span>
+                  <i
+                    className="fa-solid fa-video"
+                    style={{ color: "#3B57B7" }}
+                  ></i>
+                  <span className={styles.studio_name}>{studio}</span>
+                </div>
+                <p className={styles.descriptionTitle}>{"DESCRIÇÃO"}</p>
+                <p className={styles.description}>{description}</p>
+                <div className={styles.ratings}>
+                  {/* <span className={styles.user_rating}>User Rating: {userRating}/5</span> */}
+                </div>
+                <div className={styles.actions}>
+                  <div className={styles.container_buttons}>
+                    <div className={styles.column}>
+                      {!showReview ? (
+                        <button
+                          className={styles.review_button}
+                          onClick={showCreateReview}
+                        >
+                          <i className="fa-regular fa-star"></i> Criar Review
+                        </button>
+                      ) : (
+                        <button
+                          className={styles.review_button}
+                          onClick={showCreateReview}
+                        >
+                          Mais Informações
+                        </button>
+                      )}
+                    </div>
+                    <div className={styles.column}>
+                      <button
+                        className={styles.add_to_list_button}
+                        onClick={addToLista}
+                      >
+                        <i className="fa-solid fa-plus"></i> Adicionar na Lista
+                      </button>
+                    </div>
                   </div>
                 </div>
               </div>
             </div>
           </div>
         </div>
-      </div>
-      <div className={styles.castSection}>
-        <p className={styles.subtitle}>{"Elenco:"}</p>
-        <div className={styles.cast_list}>
-          {cast.map((member, index) => {
-            const { actorName, characterName } = separateName(member);
-            return (
-              <div key={index} className={styles.cast_member}>
-                <div className={styles.cast_image}>
-                  {<div className={styles.placeholder_image}></div>}
-                </div>
-                <div className={styles.cast_info}>
-                  <span className={styles.cast_name}>{actorName}</span>
-                  <span className={styles.cast_character}>{characterName}</span>
-                </div>
+        <div className={styles.castSection}>
+          {showReview ? (
+            <CreateReview />
+          ) : (
+            <>
+              <p className={styles.subtitle}>{"Elenco:"}</p>
+              <div className={styles.cast_list}>
+                {cast.map((member, index) => {
+                  const { actorName, characterName } = separateName(member);
+                  return (
+                    <div key={index} className={styles.cast_member}>
+                      <div className={styles.cast_image}>
+                        {<div className={styles.placeholder_image}></div>}
+                      </div>
+                      <div className={styles.cast_info}>
+                        <span className={styles.cast_name}>{actorName}</span>
+                        <span className={styles.cast_character}>
+                          {characterName}
+                        </span>
+                      </div>
+                    </div>
+                  );
+                })}
               </div>
-            );
-          })}
+              <ListReview></ListReview>
+            </>
+          )}
         </div>
       </div>
-    </div>
+    </>
   );
 };
 
