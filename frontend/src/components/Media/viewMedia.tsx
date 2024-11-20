@@ -1,8 +1,11 @@
-import React from "react";
+import React, { useEffect } from "react";
 import styles from "./ViewMedia.module.css";
 import type { Media } from "../../features/media/media.type";
 import { baseURL } from "../../api";
 import { CreateReview } from "../review/CreateReview";
+import ListReview from "../review/listReview";
+import { closeModal } from "../../features/ui/uiSlice";
+import { useAppDispatch } from "../../app/store";
 
 
 
@@ -44,12 +47,19 @@ const ViewMedia: React.FC<Media> = ({ title, description, banner, genres, durati
 
   const [ showReview, setShowReview ] = React.useState(false);
 
+  const dispatch = useAppDispatch();
+
   const showCreateReview = () => {
-    console.log("Create Review");
     setShowReview((showReview) => !showReview);
   }
 
+  useEffect(() => {
+    dispatch(closeModal());
+  }, [dispatch]);
+
   return (
+    <>
+    
     <div className={styles.view_media}>
       <div className={styles.mainSection}>
         <div className={styles.container}>
@@ -143,11 +153,14 @@ const ViewMedia: React.FC<Media> = ({ title, description, banner, genres, durati
                   );
               })
             }
-            </div></>
+            </div>
+            <ListReview></ListReview>
+            </>
           )
         }
       </div>
     </div>
+    </>
   );
 };
 

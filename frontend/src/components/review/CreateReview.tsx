@@ -1,17 +1,26 @@
 import React, { useState } from 'react'
 import Input from '../forms/Input'
-import { useAppDispatch } from '../../app/store';
+import { useAppDispatch, useAppSelector } from '../../app/store';
 import useForm from '../../hooks/useForm';
 
 import stylesReview from './CreateReview.module.css'
 
 import { Rating } from 'react-simple-star-rating'
+import { createReviewAction } from '../../features/review/reviewSlice';
+import { Review } from '../../features/review/review.type';
+import { useNavigate } from 'react-router-dom';
+import { useSelector } from 'react-redux';
+import { selectUser } from '../../features/user/userSlice';
 
 export const CreateReview = () => {
+  const navigate = useNavigate();
   const dispatch = useAppDispatch();
+
+  const user = useSelector(selectUser)
+  const { media, loading, error } = useAppSelector((state) => state.media);
+
   const title = useForm("");
   const [content, setContent] = useState("")
-
   const [rating, setRating] = useState(0)
 
   // Catch Rating value
@@ -20,12 +29,26 @@ export const CreateReview = () => {
   }
 
   async function handleSubmit(event: React.FormEvent) {
-    console.log("submit");
     event.preventDefault();
     console.log("Rating:", rating)
     console.log("Title:", title.value)
     console.log("Content:", content)
-    // dispatch();
+
+    const reviewData: Review = {
+      rate: rating,
+      title: title.value,
+      content: content,
+      midia: media?.id,
+      user: user?.id,
+      comments: []
+    }
+    dispatch(
+      createReviewAction(
+        reviewData,
+        () => navigate(0),
+        () => console.log("erro")
+      )
+    );
   }
 
   return (

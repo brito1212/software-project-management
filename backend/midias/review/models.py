@@ -9,6 +9,7 @@ from user.models import User
 # Create your models here.
 class Review(models.Model):
     class Rating(models.IntegerChoices):
+        ZERO = 0
         ONE = 1
         TWO = 2
         THREE = 3
@@ -20,6 +21,7 @@ class Review(models.Model):
     content = models.TextField()
     midia = models.ForeignKey(Midia, on_delete=models.CASCADE, related_name="reviews")
     user = models.ForeignKey(User, on_delete=models.CASCADE, related_name="reviews")
+    created_at = models.DateTimeField(auto_now_add=True)
 
     def __str__(self):
         return self.title
@@ -29,6 +31,7 @@ class Comment(models.Model):
     content = models.TextField()
     review = models.ForeignKey(Review, on_delete=models.CASCADE, related_name="comments")
     user = models.ForeignKey(User, on_delete=models.CASCADE, related_name="comments")
+    created_at = models.DateTimeField(auto_now_add=True)
 
     def __str__(self):
         return self.content
