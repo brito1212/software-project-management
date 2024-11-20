@@ -1,0 +1,37 @@
+.form {
+  width: 500px;
+  background-color: var(--white);
+  padding: 30px;
+  border-radius: 8px;
+  color: var(--gray01);
+  position: relative;
+}
+
+.input,
+.textarea {
+  border: 2px solid var(--gray02);
+  display: block;
+  width: 100%;
+  font-size: 1rem;
+  padding: 0.8rem;
+  border-radius: 0.4rem;
+  background: var(--gray02);
+  transition: 0.1s;
+  margin: 20px 0;
+}
+
+.textarea {
+  resize: none;
+  font-family: "Poppins", sans-serif;
+  height: 145px;
+}
+
+.input:focus,
+.input:hover,
+.textarea:focus,
+.textarea:hover {
+  outline: none;
+  border-color: var(--main-color);
+  background: var(--gray04);
+  box-shadow: 0 0 0 3px var(--light-primary);
+}

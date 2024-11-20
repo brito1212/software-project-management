@@ -15,6 +15,7 @@ import Aside from "./components/Aside";
 // CSS
 import "./App.css";
 import ProtectedRoute from "./components/helper/ProtectedRoute";
+import List from "./pages/List";
 
 function App() {
   const [isMenuClosed, setIsMenuClosed] = React.useState(true);
@@ -35,6 +36,7 @@ function App() {
               <Route path="/signup" element={<SignUp />} />
               <Route path="/midia" element={<Media />} />
               <Route path="/midia/movie/:id" element={<Media />} />
+              <Route path="/list/*" element={<List />} />
               <Route
                 path="/account"
                 element={

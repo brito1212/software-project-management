@@ -1,6 +1,6 @@
 from django.shortcuts import render
 from .models import Lista
-from .serializers import ListaSerializer
+from .serializers import ListaSerializer, ListaSerializerRead, ListaSerializerUpdate
 from rest_framework import permissions, status
 from rest_framework.response import Response
 from rest_framework.viewsets import ViewSet
@@ -26,14 +26,13 @@ class ListaView(ViewSet):
                 status=status.HTTP_500_INTERNAL_SERVER_ERROR,
             )
 
-    def update(self, request):
+    def partial_update(self, request, pk=None):
         try:
             data = request.data
-            lista = Lista.objects.filter(id=data.get("id")).first()
-            if lista:
-                for key, value in data.items():
-                    setattr(lista, key, value)
-                lista.save()
+            lista = Lista.objects.filter(id=pk).first()
+            listaSerializer = ListaSerializerUpdate(lista, data=request.data)
+            if listaSerializer.is_valid():
+                listaSerializer.save()
                 return Response(
                     {"message": "Lista updated successfully"}, status=status.HTTP_200_OK
                 )
@@ -46,10 +45,10 @@ class ListaView(ViewSet):
                 status=status.HTTP_500_INTERNAL_SERVER_ERROR,
             )
 
-    def destroy(self, request):
+    def destroy(self, request, pk=None):
         try:
             data = request.data
-            lista = Lista.objects.filter(id=data.get("id")).first()
+            lista = Lista.objects.filter(id=pk).first()
             if lista:
                 lista.delete()
                 return Response(
@@ -68,7 +67,7 @@ class ListaView(ViewSet):
         try:
             listas = Lista.objects.all()
             if listas:
-                serializer = ListaSerializer(listas, many=True)
+                serializer = ListaSerializerRead(listas, many=True)
                 return Response(serializer.data)
             return Response(
                 {"message": "Listas not found"}, status=status.HTTP_404_NOT_FOUND
