@@ -36,23 +36,6 @@
   margin-bottom: 20px;
 }
 
-.close {
-  position: absolute;
-  background-color: var(--red);
-  color: var(--white);
-  border-radius: 50%;
-  width: 40px;
-  height: 40px;
-  font-weight: 600;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  border: none;
-  cursor: pointer;
-  top: 20px;
-  right: 20px;
-}
-
 .name {
   display: flex;
   flex-direction: row;

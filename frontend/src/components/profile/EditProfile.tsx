@@ -7,6 +7,7 @@ import { updateUserAction } from "../../features/user/userSlice";
 import profileImage from "../../assets/images/profile-image.png";
 import bannerDefault from "../../assets/images/banner-default.jpg";
 import { baseURL } from "../../api";
+import Close from "../helper/Close";
 
 import stylesEditProfile from "../forms/Input.module.css";
 
@@ -81,10 +82,7 @@ const EditProfile = () => {
   return (
     <form className={`${styles.form} anime-left`}>
       <h2 className={styles.title}>Editar Perfil</h2>
-      <button className={styles.close} onClick={handleCloseModal}>
-        <span>X</span>
-      </button>
-
+      <Close handleClose={handleCloseModal} />
       <label className={styles.label}>Banner</label>
       <label
         htmlFor="banner"

@@ -11,8 +11,6 @@ const Media = () => {
   const dispatch = useAppDispatch();
   const { media, loading, error } = useAppSelector((state) => state.media);
 
-  console.log("ID from route:", id);
-
   useEffect(() => {
     dispatch(fetchMedia(id));
   }, [dispatch, id]);
@@ -22,13 +20,13 @@ const Media = () => {
 
   return (
     <>
-    <DeleteReview/>
-    <div
-      className="anime-left"
-      style={{ display: "flex", flexDirection: "column", gap: "50px" }}
-    >
-      {media ? <ViewMedia {...media} /> : <p>No media data available.</p>}
-    </div>
+      <DeleteReview />
+      <div
+        className="anime-left"
+        style={{ display: "flex", flexDirection: "column", gap: "50px" }}
+      >
+        {media ? <ViewMedia {...media} /> : <p>No media data available.</p>}
+      </div>
     </>
   );
 };
