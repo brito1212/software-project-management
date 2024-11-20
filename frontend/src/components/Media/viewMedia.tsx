@@ -1,7 +1,9 @@
-import React from "react";
+import React, { useState } from "react";
 import styles from "./ViewMedia.module.css";
 import type { Media } from "../../features/media/media.type";
 import { baseURL } from "../../api";
+import { useAppDispatch, useAppSelector } from "../../app/store";
+import { updateListaAction } from "../../features/lista/listaSlice";
 
 const getBadgeClass = (classification) => {
   switch (classification) {
@@ -23,18 +25,51 @@ const getBadgeClass = (classification) => {
 };
 
 const separateName = (member) => {
-  const [actorName, characterName] = member.split(';');
+  const [actorName, characterName] = member.split(";");
   return {
     actorName: actorName?.trim(),
     characterName: characterName?.trim(),
   };
 };
 
-const ViewMedia: React.FC<Media> = ({ title, description, banner, genres, duration, publish_date, director, studio, cast}) => {
+const ViewMedia: React.FC<Media> = ({
+  title,
+  description,
+  banner,
+  genres,
+  duration,
+  publish_date,
+  director,
+  studio,
+  cast,
+}) => {
   const bannerImage = banner
     ? `${baseURL}${banner}`
     : "https://placehold.co/300x400";
   const formattedDate = new Date(publish_date).toLocaleDateString("en-GB");
+  const dispatch = useAppDispatch();
+  const { media } = useAppSelector((state) => state.media);
+  const { listas } = useAppSelector((state) => state.user.user);
+  const [idLista, setIdLista] = useState(1);
+
+  function addToLista() {
+    const lista = listas.find((lista) => lista.id == idLista);
+    const data = {
+      id: idLista,
+      midias: lista.midias.append(media),
+    };
+    dispatch(
+      updateListaAction(
+        data,
+        () => {
+          console.log("boom");
+        },
+        () => {
+          console.log("ruim");
+        }
+      )
+    );
+  }
 
   return (
     <div className={styles.view_media}>
@@ -47,10 +82,12 @@ const ViewMedia: React.FC<Media> = ({ title, description, banner, genres, durati
           </div>
           <div className={styles.columnDetails}>
             <div className={styles.media_details}>
-            <p className={styles.title}>{title}</p>
+              <p className={styles.title}>{title}</p>
               <div className={styles.badge_area}>
                 {genres.map((genre, index) => (
-                  <span key={index} className={styles.badge_status}>{genre}</span>
+                  <span key={index} className={styles.badge_status}>
+                    {genre}
+                  </span>
                 ))}
               </div>
               <div className={styles.info}>
@@ -91,7 +128,10 @@ const ViewMedia: React.FC<Media> = ({ title, description, banner, genres, durati
                     </button>
                   </div>
                   <div className={styles.column}>
-                    <button className={styles.add_to_list_button}>
+                    <button
+                      className={styles.add_to_list_button}
+                      onClick={addToLista}
+                    >
                       <i className="fa-solid fa-plus"></i> Adicionar na Lista
                     </button>
                   </div>
@@ -105,18 +145,18 @@ const ViewMedia: React.FC<Media> = ({ title, description, banner, genres, durati
         <p className={styles.subtitle}>{"Elenco:"}</p>
         <div className={styles.cast_list}>
           {cast.map((member, index) => {
-              const { actorName, characterName } = separateName(member);
-              return (
-                <div key={index} className={styles.cast_member}>
-                  <div className={styles.cast_image}>
-                    {<div className={styles.placeholder_image}></div>}
-                  </div>
-                  <div className={styles.cast_info}>
-                    <span className={styles.cast_name}>{actorName}</span>
-                    <span className={styles.cast_character}>{characterName}</span>
-                  </div>
+            const { actorName, characterName } = separateName(member);
+            return (
+              <div key={index} className={styles.cast_member}>
+                <div className={styles.cast_image}>
+                  {<div className={styles.placeholder_image}></div>}
                 </div>
-              );
+                <div className={styles.cast_info}>
+                  <span className={styles.cast_name}>{actorName}</span>
+                  <span className={styles.cast_character}>{characterName}</span>
+                </div>
+              </div>
+            );
           })}
         </div>
       </div>
