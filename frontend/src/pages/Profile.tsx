@@ -4,6 +4,7 @@ import ListProfile from "../components/profile/ListProfile";
 import EditProfileModal from "../components/profile/EditProfileModal";
 import { useAppDispatch } from "../app/store";
 import { closeModal } from "../features/ui/uiSlice";
+import ProtectedRoute from "../components/helper/ProtectedRoute";
 
 const Profile = () => {
   const dispatch = useAppDispatch();
@@ -11,7 +12,7 @@ const Profile = () => {
     dispatch(closeModal());
   });
   return (
-    <>
+    <ProtectedRoute>
       <EditProfileModal />
       <div
         className="anime-left"
@@ -20,7 +21,7 @@ const Profile = () => {
         <UserProfile />
         <ListProfile />
       </div>
-    </>
+    </ProtectedRoute>
   );
 };
 

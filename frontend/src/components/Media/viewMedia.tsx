@@ -212,7 +212,10 @@ const ViewMedia: React.FC<Media> = ({
                   ))
                 ) : (
                   <li>
-                    <button to="#" onClick={handleCreateList}>
+                    <button
+                      className={styles.btnAddLista}
+                      onClick={handleCreateList}
+                    >
                       <span>Criar lista</span>
                     </button>
                   </li>
