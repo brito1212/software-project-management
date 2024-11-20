@@ -30,7 +30,7 @@ class ListaView(ViewSet):
         try:
             data = request.data
             lista = Lista.objects.filter(id=pk).first()
-            listaSerializer = ListaSerializerUpdate(lista, data=request.data)
+            listaSerializer = ListaSerializerUpdate(lista, data=request.data, partial=True)
             if listaSerializer.is_valid():
                 listaSerializer.save()
                 return Response(

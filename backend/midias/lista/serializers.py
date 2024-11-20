@@ -18,12 +18,24 @@ class ListaSerializerRead(serializers.ModelSerializer):
 
 
 class ListaSerializer(serializers.ModelSerializer):
-    midias = MidiaSerializer(many=True, read_only=True)
+    midias = MidiaSerializer(many=True, read_only=True, required=False)
     class Meta:
         model = Lista
         fields = "__all__"
 
 class ListaSerializerUpdate(serializers.ModelSerializer):
+    midias = serializers.PrimaryKeyRelatedField(
+        many=True, 
+        queryset=Midia.objects.all(), 
+        required=False  # Permite que o campo seja omitido ou vazio
+    )
     class Meta:
         model = Lista
         fields = "__all__"
+    def update(self, instance, validated_data):
+        midias_data = validated_data.pop('midias', None)
+
+        if midias_data is not None:
+            instance.midias.set(midias_data)
+
+        return super().update(instance, validated_data)
