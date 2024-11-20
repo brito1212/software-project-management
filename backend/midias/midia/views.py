@@ -12,6 +12,7 @@ from .serializers import (
     MovieSerializer,
     MovieSerializerFromAPI,
     SerieSerializer,
+    SerieSerializerFromAPI,
 )
 from rest_framework.decorators import action
 
@@ -194,6 +195,44 @@ class SerieView(MidiaAbstractView):
 
     def get_midia_model(self) -> Midia:
         return Serie
+    
+    @action(detail=False, methods=["get"])
+    def fill_database(self, request):
+        try:
+            url = settings.MOVIE_AND_SERIE_API_URL.format(midia_type="tv")
+            headers = {
+                "accept": "application/json",
+                "Authorization": "Bearer " + settings.MOVIE_AND_SERIE_API_ACCESS_TOKEN,
+            }
+
+            response = requests.get(url, headers=headers)
+            data = response.json()
+            results = data.get("results", [])
+            for result in results:
+                url_details = settings.MOVIE_AND_SERIE_DETAILS_API_URL.format(
+                    midia_type="tv", midia_id=result.get("id")
+                )
+                response_details = requests.get(url_details, headers=headers)
+                data_details = response_details.json()
+
+                serializer = SerieSerializerFromAPI(data=data_details)
+                if serializer.is_valid():
+                    if not Serie.objects.filter(title=data_details["name"]).exists():
+                        movie = serializer.save()
+                        print(f"Serie salva: {movie.title}")
+                    else: 
+                        print(f"Serie {data_details['name']} já existe no banco")
+                else:
+                    print(serializer.errors)
+            return Response(
+                "DB filled successfully with new TV Shows!", status=status.HTTP_200_OK
+            )
+
+        except Exception as e:
+            return Response(
+                f"Failed to fill DB: \n{str(e)}",
+                status=status.HTTP_500_INTERNAL_SERVER_ERROR,
+            )
 
 
 class GameView(MidiaAbstractView):

@@ -1,13 +1,7 @@
 from django.conf import settings
-from .models import Game, Midia, Movie, Platforms, Serie
+from .models import Game, Midia, Movie, Serie
 from rest_framework import serializers
 from datetime import time
-
-
-class PlatformSerializer(serializers.Serializer):
-    class Meta:
-        model = Platforms
-        fields = ["name"]
 
 
 class MidiaSerializer(serializers.ModelSerializer):
@@ -56,6 +50,52 @@ class MovieSerializerFromAPI(serializers.Serializer):
         movie.director = director_data
         movie.save()
         return movie
+
+
+class SerieSerializerFromAPI(serializers.Serializer):
+    name = serializers.CharField()  # title
+    first_air_date = serializers.DateField()  # publish_date
+    overview = serializers.CharField()  # description
+    genres = serializers.ListField(child=serializers.DictField())  # genres
+    production_companies = serializers.ListField(
+        child=serializers.DictField()
+    )  # studio
+    poster_path = serializers.CharField()  # banner
+    networks = serializers.ListField(child=serializers.DictField())  # platforms
+
+    created_by = serializers.ListField(child=serializers.DictField())
+    number_of_episodes = serializers.IntegerField()
+    number_of_seasons = serializers.IntegerField()
+
+    class Meta:
+        model = Serie
+        fields = "__all__"
+
+    def create(self, validated_data):
+        # Processa os dados para criar um filme
+        genres_data = validated_data.pop("genres", [])
+        created_by_data = validated_data.pop("created_by", [])
+        production_companies_data = validated_data.pop("production_companies", [])
+        networks_data = validated_data.pop("networks", [])
+        first_air_date = validated_data.pop("first_air_date", None)
+
+        serie_data = {
+            "title": validated_data.get("name"),
+            "description": validated_data.get("overview"),
+            "seasons": validated_data.get("number_of_seasons"),
+            "episodes": validated_data.get("number_of_episodes"),
+            "publish_date": first_air_date.isoformat(),
+            "banner": settings.MOVIE_AND_SERIE_IMAGES_URL
+            + validated_data.get("poster_path"),
+        }
+        serie = Serie.objects.create(**serie_data)
+        serie.studio = production_companies_data[0]["name"]
+        serie.genres = [genre["name"] for genre in genres_data]
+        serie.created_by = created_by_data[0]["name"] if created_by_data else None
+        serie.platforms = [network["name"] for network in networks_data]
+
+        serie.save()
+        return serie
 
 
 class MovieSerializer(MidiaSerializer):

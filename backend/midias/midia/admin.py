@@ -1,5 +1,6 @@
 from django.contrib import admin
-from .models import Game, Movie, Platforms, Serie
+from .models import Game, Movie, Serie
+
 
 # Register your models here.
 class MidiaAdmin(admin.ModelAdmin):
@@ -9,9 +10,6 @@ class MidiaAdmin(admin.ModelAdmin):
     list_display_links = ["id", "title"]
 
 
-
-
 admin.site.register(Movie, MidiaAdmin)
 admin.site.register(Serie, MidiaAdmin)
 admin.site.register(Game, MidiaAdmin)
-admin.site.register(Platforms)

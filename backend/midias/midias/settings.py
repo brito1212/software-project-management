@@ -198,8 +198,10 @@ if ENVIRONMENT == "dev":
     )
     MOVIE_AND_SERIE_DETAILS_API_URL = "https://api.themoviedb.org/3/{midia_type}/{midia_id}?language=pt-BR"
     MOVIE_AND_SERIE_CREDITS_API_URL = "https://api.themoviedb.org/3/{midia_type}/{movie_id}/credits?language=pt-BR"
+
     MOVIE_AND_SERIE_API_ACCESS_TOKEN = "eyJhbGciOiJIUzI1NiJ9.eyJhdWQiOiI0Y2U2ZWIxNzQ5MGZhYTg4ZDk1ZDZjMzNkZGFhOGRjZiIsIm5iZiI6MTczMTY0NzM5Mi45NDUxOTU0LCJzdWIiOiI2NzM2YzlkZmQ0ZmZiYTFlOGIyYjBmZDIiLCJzY29wZXMiOlsiYXBpX3JlYWQiXSwidmVyc2lvbiI6MX0.dW6hm-dndISRLFUO9wodh--g7gF4qpBuAKFkKzS-e2g"
     MOVIE_AND_SERIE_IMAGES_URL = "https://image.tmdb.org/t/p/w500/"
+    
     GAME_API_URL = "https://api.igdb.com/v4/games"
 
 
