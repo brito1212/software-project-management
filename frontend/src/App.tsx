@@ -34,7 +34,7 @@ function App() {
               <Route path="/login/*" element={<Login />} />
               <Route path="/signup" element={<SignUp />} />
               <Route path="/midia" element={<Media />} />
-              <Route path="/midia/movie/:id/get_by_id" element={<Media />} />
+              <Route path="/midia/movie/:id" element={<Media />} />
               <Route
                 path="/account"
                 element={

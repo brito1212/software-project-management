@@ -1,7 +1,14 @@
-import React from "react";
+import React, { useEffect } from "react";
 import styles from "./ViewMedia.module.css";
 import type { Media } from "../../features/media/media.type";
 import { baseURL } from "../../api";
+import { CreateReview } from "../review/CreateReview";
+import ListReview from "../review/listReview";
+import { closeModal } from "../../features/ui/uiSlice";
+import { useAppDispatch } from "../../app/store";
+
+
+
 
 const getBadgeClass = (classification) => {
   switch (classification) {
@@ -30,13 +37,29 @@ const separateName = (member) => {
   };
 };
 
+
+
 const ViewMedia: React.FC<Media> = ({ title, description, banner, genres, duration, publish_date, director, studio, cast}) => {
   const bannerImage = banner
     ? `${baseURL}${banner}`
     : "https://placehold.co/300x400";
   const formattedDate = new Date(publish_date).toLocaleDateString("en-GB");
 
+  const [ showReview, setShowReview ] = React.useState(false);
+
+  const dispatch = useAppDispatch();
+
+  const showCreateReview = () => {
+    setShowReview((showReview) => !showReview);
+  }
+
+  useEffect(() => {
+    dispatch(closeModal());
+  }, [dispatch]);
+
   return (
+    <>
+    
     <div className={styles.view_media}>
       <div className={styles.mainSection}>
         <div className={styles.container}>
@@ -86,9 +109,16 @@ const ViewMedia: React.FC<Media> = ({ title, description, banner, genres, durati
               <div className={styles.actions}>
                 <div className={styles.container_buttons}>
                   <div className={styles.column}>
-                    <button className={styles.review_button}>
-                      <i className="fa-regular fa-star"></i> Criar Review
-                    </button>
+                     { !showReview ? (
+                        <button className={styles.review_button} onClick={showCreateReview}>
+                          <i className="fa-regular fa-star"></i> Criar Review
+                        </button>
+                      ) : (
+                        <button className={styles.review_button} onClick={showCreateReview}>
+                          Mais Informações
+                        </button>
+                      )
+                      }
                   </div>
                   <div className={styles.column}>
                     <button className={styles.add_to_list_button}>
@@ -102,25 +132,35 @@ const ViewMedia: React.FC<Media> = ({ title, description, banner, genres, durati
         </div>
       </div>
       <div className={styles.castSection}>
-        <p className={styles.subtitle}>{"Elenco:"}</p>
-        <div className={styles.cast_list}>
-          {cast.map((member, index) => {
-              const { actorName, characterName } = separateName(member);
-              return (
-                <div key={index} className={styles.cast_member}>
-                  <div className={styles.cast_image}>
-                    {<div className={styles.placeholder_image}></div>}
-                  </div>
-                  <div className={styles.cast_info}>
-                    <span className={styles.cast_name}>{actorName}</span>
-                    <span className={styles.cast_character}>{characterName}</span>
-                  </div>
-                </div>
-              );
-          })}
-        </div>
+        {
+          showReview ? (
+            <CreateReview />
+          ) : (
+          <><p className={styles.subtitle}>{"Elenco:"}</p>
+            <div className={styles.cast_list}>
+              {cast.map((member, index) => {
+                  const { actorName, characterName } = separateName(member);
+                  return (
+                    <div key={index} className={styles.cast_member}>
+                      <div className={styles.cast_image}>
+                        {<div className={styles.placeholder_image}></div>}
+                      </div>
+                      <div className={styles.cast_info}>
+                        <span className={styles.cast_name}>{actorName}</span>
+                        <span className={styles.cast_character}>{characterName}</span>
+                      </div>
+                    </div>
+                  );
+              })
+            }
+            </div>
+            <ListReview></ListReview>
+            </>
+          )
+        }
       </div>
     </div>
+    </>
   );
 };
 

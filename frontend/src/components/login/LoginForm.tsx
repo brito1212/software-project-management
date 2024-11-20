@@ -10,6 +10,8 @@ import { loginAction } from "../../features/user/userSlice";
 import { useAppDispatch } from "../../app/store";
 import useForm from "../../hooks/useForm.ts";
 
+import stylesLogin from "../forms/Input.module.css";
+
 const LoginForm = () => {
   const navigate = useNavigate();
   const dispatch = useAppDispatch();
@@ -36,8 +38,8 @@ const LoginForm = () => {
     <section className="anime-left">
       <h1 className={styles.title}>Sign in</h1>
       <form className={styles.form} onSubmit={handleSubmit}>
-        <Input label="Email" type="email" name="email" {...email} />
-        <Input label="Senha" type="password" name="password" {...password} />
+        <Input label="Email" type="email" name="email" styles={stylesLogin} {...email} />
+        <Input label="Senha" type="password" name="password" styles={stylesLogin} {...password} />
         <button className="btn primary btn-form">Entrar</button>
       </form>
       <Link className={styles.lost} to="/login/lost">

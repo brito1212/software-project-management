@@ -1,0 +1,53 @@
+.wrapper {
+    margin-bottom: 1rem;
+    flex-grow: 1;
+  }
+  
+.input, .textarea {
+    border: 2px solid var(--gray01);
+    display: block;
+    width: 100%;
+    font-size: 1rem;
+    padding: 0.8rem;
+    border-radius: 0.4rem;
+    background: var(--gray01);
+    transition: 0.1s;
+    color: white;
+}
+.textarea{
+    margin-bottom: 20px;
+    resize: none;
+    font-family: 'Poppins';
+}
+
+.input:focus,
+.input:hover, 
+.textarea:focus, 
+.textarea:hover {
+    outline: none;
+    border-color: var(--main-color);
+    box-shadow: 0 0 0 3px var(--light-primary);
+}
+
+.label {
+    display: none;
+}
+
+.error {
+    color: red;
+}
+
+.button{
+    margin: 0 auto;
+}
+
+.textarea{
+    height: 300px;
+}
+
+.rate{
+    display: flex;
+    margin-bottom: 12px;
+    gap: 10px;
+    align-items: center;
+}
