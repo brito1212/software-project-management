@@ -1,5 +1,5 @@
 from django.contrib import admin
-from .models import Game, Genres, Movie, Platforms, Serie
+from .models import Game, Movie, Platforms, Serie
 
 # Register your models here.
 class MidiaAdmin(admin.ModelAdmin):
@@ -15,4 +15,3 @@ admin.site.register(Movie, MidiaAdmin)
 admin.site.register(Serie, MidiaAdmin)
 admin.site.register(Game, MidiaAdmin)
 admin.site.register(Platforms)
-admin.site.register(Genres)

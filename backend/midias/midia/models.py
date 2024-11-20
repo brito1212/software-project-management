@@ -3,37 +3,6 @@ from django.db import models
 from django.contrib.postgres.fields import ArrayField
 
 
-class Genres(models.Model):
-    class Genres_type(models.TextChoices):
-        ACAO = "Ação"
-        TERROR = "Terror"
-        FICCAO_CIENTIFICA = "Ficção Científica"
-        AVENTURA = "Aventura"
-        DRAMA = "Drama"
-        COMEDIA = "Comédia"
-        ROMANCE = "Romance"
-        SUSPENSE = "Suspense"
-        MUSICAL = "Musical"
-        RPG = "RPG"
-        FAROESTE = "Faroeste"
-        POLICIAL = "Policial"
-        FANTASIA = "Fantasia"
-        DOCUMENTARIO = "Documentário"
-        ROGUELIKE = "Roguelike"
-        MOBA = "MOBA"
-        TPS = "TPS"
-        APOCALIPSE = "Apocalipse"
-        ARCADE = "Arcade"
-        RETRO = "Retro"
-        ONLINE = "Online"
-        OFFLINE = "Offline"
-
-    name = models.CharField(max_length=100, choices=Genres_type.choices)
-
-    def __str__(self):
-        return self.name
-
-
 class Platforms(models.Model):
     class Platforms_type(models.TextChoices):
         PC = "PC"
@@ -72,10 +41,10 @@ class Midia(models.Model):
     title = models.CharField(max_length=100)
     publish_date = models.DateField()
     description = models.TextField()
-    genres = models.ManyToManyField(Genres, related_name="+")
+    genres = ArrayField(models.CharField(max_length=100), blank=True, null=True)
     platforms = models.ManyToManyField(Platforms, related_name="+")
     studio = models.CharField(max_length=100)
-    banner = models.ImageField(upload_to='banner', blank=True, null=True)
+    banner = models.CharField(max_length=300, null=True, blank=True)
 
     def __str__(self):
         return self.title
@@ -84,7 +53,7 @@ class Midia(models.Model):
 class Movie(Midia):
     duration = models.TimeField()
     director = models.CharField(max_length=100)
-    cast = ArrayField(models.CharField(max_length=100), blank=True)
+    cast = ArrayField(models.CharField(max_length=100), blank=True, null=True)
 
 
 class Serie(Midia):

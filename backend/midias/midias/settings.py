@@ -193,8 +193,18 @@ if ENVIRONMENT == "dev":
     EMAIL_HOST_PASSWORD = os.getenv("EMAIL_HOST_PASSWORD", default="9a573f9b9934d7")
     EMAIL_PORT = os.getenv("EMAIL_PORT", default="2525")
 
+    MOVIE_AND_SERIE_API_URL = (
+        "https://api.themoviedb.org/3/trending/{midia_type}/day?language=pt-BR"
+    )
+    MOVIE_AND_SERIE_DETAILS_API_URL = "https://api.themoviedb.org/3/{midia_type}/{midia_id}?language=pt-BR"
+    MOVIE_AND_SERIE_CREDITS_API_URL = "https://api.themoviedb.org/3/{midia_type}/{movie_id}/credits?language=pt-BR"
+    MOVIE_AND_SERIE_API_ACCESS_TOKEN = "eyJhbGciOiJIUzI1NiJ9.eyJhdWQiOiI0Y2U2ZWIxNzQ5MGZhYTg4ZDk1ZDZjMzNkZGFhOGRjZiIsIm5iZiI6MTczMTY0NzM5Mi45NDUxOTU0LCJzdWIiOiI2NzM2YzlkZmQ0ZmZiYTFlOGIyYjBmZDIiLCJzY29wZXMiOlsiYXBpX3JlYWQiXSwidmVyc2lvbiI6MX0.dW6hm-dndISRLFUO9wodh--g7gF4qpBuAKFkKzS-e2g"
+    MOVIE_AND_SERIE_IMAGES_URL = "https://image.tmdb.org/t/p/w500/"
+    GAME_API_URL = "https://api.igdb.com/v4/games"
+
+
 # URL base de aquivos de imagens
-MEDIA_URL = '/images/'
+MEDIA_URL = "/images/"
 
 # Caminho onde os arquivos de mídia serão salvos
-MEDIA_ROOT = os.path.join(BASE_DIR, 'images')
+MEDIA_ROOT = os.path.join(BASE_DIR, "images")
