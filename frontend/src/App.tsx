@@ -37,14 +37,7 @@ function App() {
               <Route path="/midia" element={<Media />} />
               <Route path="/midia/movie/:id" element={<Media />} />
               <Route path="/list/*" element={<List />} />
-              <Route
-                path="/account"
-                element={
-                  <ProtectedRoute>
-                    <Profile />
-                  </ProtectedRoute>
-                }
-              />
+              <Route path="/account" element={<Profile />} />
             </Routes>
           </main>
         </BrowserRouter>

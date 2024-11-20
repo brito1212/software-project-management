@@ -9,6 +9,8 @@ import editIcon from "../../assets/icons/pencil-edit-icon.svg";
 import deleteIcon from "../../assets/icons/x-symbol.svg";
 import { baseURL } from "../../api";
 import DeleteListModal from "./DeleteListModal";
+import Close from "../helper/Close";
+import { updateListaAction } from "../../features/lista/listaSlice";
 
 const ListView = () => {
   const { id } = useParams<{ id: string }>();
@@ -27,6 +29,27 @@ const ListView = () => {
 
   function handleDeleteLista() {
     dispatch(openModal("delete"));
+  }
+
+  function handleDeleteMidia(idMidia) {
+    const data = {
+      id: lista.id,
+      midias: [
+        ...lista.midias
+          .filter((midia) => midia.id != idMidia)
+          .map((midia) => midia.id),
+      ],
+    };
+    console.log(data);
+    dispatch(
+      updateListaAction(
+        data,
+        () => {
+          navigate(`/list/${lista.id}`);
+        },
+        () => {}
+      )
+    );
   }
 
   React.useEffect(() => {
@@ -89,6 +112,13 @@ const ListView = () => {
                     className={styles.midia}
                     onClick={() => navigate(`/midia/movie/${midia.id}`)}
                   >
+                    <Close
+                      handleClose={(e) => {
+                        e.stopPropagation();
+                        handleDeleteMidia(midia.id);
+                      }}
+                      extraClass={styles.closeMidia}
+                    />
                     <img src={`${baseURL}${midia.banner}`} alt={midia.title} />
                     <p>{midia.title}</p>
                   </div>
