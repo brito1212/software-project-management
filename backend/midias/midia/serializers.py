@@ -1,7 +1,7 @@
 from django.conf import settings
 from .models import Game, Midia, Movie, Serie
 from rest_framework import serializers
-from datetime import time
+from datetime import time, datetime, timedelta, timezone
 
 
 class MidiaSerializer(serializers.ModelSerializer):
@@ -96,6 +96,63 @@ class SerieSerializerFromAPI(serializers.Serializer):
 
         serie.save()
         return serie
+
+
+class GameSerializerFromAPI(serializers.Serializer):
+    name = serializers.CharField()  # title
+    first_release_date = serializers.IntegerField()  # publish_date
+    summary = serializers.CharField()  # description
+    genres = serializers.ListField(child=serializers.DictField())  # genres
+    platforms = serializers.ListField(child=serializers.DictField())  # platforms
+
+    involved_companies = serializers.ListField(child=serializers.DictField())
+    cover = serializers.DictField()
+
+    normally = serializers.IntegerField()
+
+    class Meta:
+        model = Game
+        fields = "__all__"
+
+    def create(self, validated_data):
+        genres_data = validated_data.pop("genres", [])
+        platforms_data = validated_data.pop("platforms", [])
+        involved_companies_data = validated_data.pop("involved_companies", [])
+        cover_data = validated_data.pop("cover", {})
+
+        dt = datetime.fromtimestamp(
+            validated_data.get("first_release_date"), tz=timezone.utc
+        )
+
+        game_data = {
+            "title": validated_data.get("name"),
+            "publish_date": dt.strftime('%Y-%m-%d'),
+            "description": validated_data.get("summary"),
+            "banner": settings.GAME_API_IMAGES_URL + cover_data["image_id"] + ".png",
+            "avarage_playtime": timedelta(seconds=validated_data.get("normally")),
+        }
+
+        game = Game.objects.create(**game_data)
+        game.genres = [genre["name"] for genre in genres_data]
+        game.platforms = [platform["name"] for platform in platforms_data]
+        game.studio = next(
+            (
+                company["company"]["name"]
+                for company in involved_companies_data
+                if company["developer"]
+            ),
+            None,
+        )
+        game.publisher = next(
+            (
+                company["company"]["name"]
+                for company in involved_companies_data
+                if company["publisher"]
+            ),
+            None,
+        )
+        game.save()
+        return game
 
 
 class MovieSerializer(MidiaSerializer):

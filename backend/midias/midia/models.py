@@ -18,7 +18,7 @@ class Midia(models.Model):
 
 
 class Movie(Midia):
-    duration = models.TimeField()
+    duration = models.DurationField()
     director = models.CharField(max_length=100)
     cast = ArrayField(models.CharField(max_length=100), blank=True, null=True)
 
@@ -31,6 +31,4 @@ class Serie(Midia):
 
 class Game(Midia):
     publisher = models.CharField(max_length=100)
-    release_date = models.DateField()
-    avarage_price = models.DecimalField(max_digits=10, decimal_places=2)
-    avarage_playtime = models.TimeField()
+    avarage_playtime = models.DurationField()

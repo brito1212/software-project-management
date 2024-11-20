@@ -9,6 +9,7 @@ from rest_framework.viewsets import ViewSet
 from rest_framework import permissions, status, serializers
 from .serializers import (
     GameSerializer,
+    GameSerializerFromAPI,
     MovieSerializer,
     MovieSerializerFromAPI,
     SerieSerializer,
@@ -195,7 +196,7 @@ class SerieView(MidiaAbstractView):
 
     def get_midia_model(self) -> Midia:
         return Serie
-    
+
     @action(detail=False, methods=["get"])
     def fill_database(self, request):
         try:
@@ -220,7 +221,7 @@ class SerieView(MidiaAbstractView):
                     if not Serie.objects.filter(title=data_details["name"]).exists():
                         movie = serializer.save()
                         print(f"Serie salva: {movie.title}")
-                    else: 
+                    else:
                         print(f"Serie {data_details['name']} já existe no banco")
                 else:
                     print(serializer.errors)
@@ -242,3 +243,43 @@ class GameView(MidiaAbstractView):
 
     def get_midia_model(self) -> Midia:
         return Game
+
+    @action(detail=False, methods=["get"])
+    def fill_database(self, request):
+        try:
+            url = settings.GAME_API_URL
+            headers = {
+                "Client-ID": settings.GAME_API_CLIENT_ID,
+                "Authorization": "Bearer " + settings.GAME_API_ACCESS_TOKEN,
+            }
+            data = settings.GAME_API_BODY
+            response = requests.post(url, headers=headers, data=data)
+            results = response.json()
+            for result in results:
+                url_playtime = settings.GAME_API_URL_TIME_TO_BEAT
+                data_playtime = settings.GAME_API_BODY_TIME_TO_BEAT.format(
+                    game_id=result.get("id")
+                )
+                response = requests.post(url_playtime, headers=headers, data=data_playtime)
+                playtime = response.json()
+                if playtime:
+                    result["normally"] = playtime[0].get("normally", 0)
+                else:
+                    result["normally"] = 0
+                serializer = GameSerializerFromAPI(data=result)
+                if serializer.is_valid():
+                    if not Game.objects.filter(title=result["name"]).exists():
+                        game = serializer.save()
+                        print(f"Game salvo: {game.title}")
+                    else:
+                        print(f"Game {result['name']} já existe no banco")
+                else:
+                    print(serializer.errors)
+            return Response(
+                "DB filled successfully with new Games!", status=status.HTTP_200_OK
+            )
+        except Exception as e:
+            return Response(
+                f"Failed to fill DB: \n{str(e)}",
+                status=status.HTTP_500_INTERNAL_SERVER_ERROR,
+            )
