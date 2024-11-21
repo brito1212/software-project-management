@@ -25,7 +25,7 @@ driver.find_element(By.CSS_SELECTOR, 'a[href="/admin/review/review/"]').click()
 time.sleep(5)
 
 # Seleciona o elemento especificado na tabela
-driver.find_element(By.CSS_SELECTOR, 'a[href="/admin/review/review/1/change/"]').click()
+driver.find_element(By.CSS_SELECTOR, 'a[href="/admin/review/review/8/change/"]').click()
 time.sleep(3)
 # Preenche os campos do formulário
 driver.find_element(By.NAME, 'title').clear()
@@ -46,3 +46,5 @@ time.sleep(3)
 # Clica no botão de salvar
 driver.find_element(By.NAME, '_save').click()
 time.sleep(3)
+
+driver.quit()
