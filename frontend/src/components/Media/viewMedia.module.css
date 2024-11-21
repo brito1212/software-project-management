@@ -139,6 +139,11 @@
   display: flex;
   margin-bottom: 10px;
 }
+.badge_area_plat {
+  display: flex;
+  margin-top: 10px;
+  justify-content: center;
+}
 .badge_status {
   font-size: 0.55em;
   padding: 5px 10px;
@@ -172,6 +177,7 @@
 }
 .studio_name {
   margin-left: 7px;
+  margin-right: 20px;
 }
 
 .badge_classification {

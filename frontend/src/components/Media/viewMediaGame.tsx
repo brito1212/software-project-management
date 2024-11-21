@@ -32,24 +32,17 @@ const getBadgeClass = (classification) => {
   }
 };
 
-const separateName = (member) => {
-  const [actorName, characterName] = member.split(";");
-  return {
-    actorName: actorName?.trim(),
-    characterName: characterName?.trim(),
-  };
-};
-
-const ViewMedia: React.FC<Media> = ({
+const ViewMediaGame: React.FC<Media> = ({
   title,
   description,
   banner,
   genres,
-  duration,
   publish_date,
-  director,
   studio,
-  cast,
+  publisher,
+  avarage_playtime,
+  avarage_price,
+  platforms
 }) => {
   const bannerImage = banner
     ? `${baseURL}${banner}`
@@ -121,6 +114,13 @@ const ViewMedia: React.FC<Media> = ({
               <div className={styles.poster}>
                 <img src={bannerImage} alt={`${title} Poster`} />
               </div>
+              <div className={styles.badge_area_plat}>
+                {platforms.map((platform, index) => (
+                  <span key={index} className={styles.badge_status}>
+                    {platform}
+                  </span>
+                ))}
+              </div>
             </div>
             <div className={styles.columnDetails}>
               <div className={styles.media_details}>
@@ -140,22 +140,27 @@ const ViewMedia: React.FC<Media> = ({
                     className="fas fa-hourglass"
                     style={{ color: "#3B57B7" }}
                   ></i>
-                  <span className={styles.duration}>{duration}</span>
+                  <span className={styles.duration}>{avarage_playtime}</span>
                   <i
                     className="fas fa-calendar-alt"
                     style={{ color: "#3B57B7" }}
                   ></i>
                   <span className={styles.release_date}>{formattedDate}</span>
                   <i
-                    className="fa-solid fa-clapperboard"
-                    style={{ color: "#3B57B7" }}
-                  ></i>
-                  <span className={styles.director_name}>{director}</span>
-                  <i
-                    className="fa-solid fa-video"
+                    className="fa-solid fa-gamepad"
                     style={{ color: "#3B57B7" }}
                   ></i>
                   <span className={styles.studio_name}>{studio}</span>
+                  <i
+                    className="fa-solid fa-building"
+                    style={{ color: "#3B57B7" }}
+                  ></i>
+                  <span className={styles.studio_name}>{publisher}</span>
+                  <i
+                    className="fa-solid fa-dollar-sign"
+                    style={{ color: "#3B57B7" }}
+                  ></i>
+                  <span className={styles.studio_name}>{avarage_price}</span>
                 </div>
                 <p className={styles.descriptionTitle}>{"DESCRIÇÃO"}</p>
                 <p className={styles.description}>{description}</p>
@@ -212,10 +217,7 @@ const ViewMedia: React.FC<Media> = ({
                   ))
                 ) : (
                   <li>
-                    <button
-                      className={styles.btnAddLista}
-                      onClick={handleCreateList}
-                    >
+                    <button to="#" onClick={handleCreateList}>
                       <span>Criar lista</span>
                     </button>
                   </li>
@@ -229,25 +231,6 @@ const ViewMedia: React.FC<Media> = ({
             <CreateReview />
           ) : (
             <>
-              <p className={styles.subtitle}>{"Elenco:"}</p>
-              <div className={styles.cast_list}>
-                {cast.map((member, index) => {
-                  const { actorName, characterName } = separateName(member);
-                  return (
-                    <div key={index} className={styles.cast_member}>
-                      <div className={styles.cast_image}>
-                        {<div className={styles.placeholder_image}></div>}
-                      </div>
-                      <div className={styles.cast_info}>
-                        <span className={styles.cast_name}>{actorName}</span>
-                        <span className={styles.cast_character}>
-                          {characterName}
-                        </span>
-                      </div>
-                    </div>
-                  );
-                })}
-              </div>
               <ListReview></ListReview>
             </>
           )}
@@ -257,4 +240,4 @@ const ViewMedia: React.FC<Media> = ({
   );
 };
 
-export default ViewMedia;
+export default ViewMediaGame;
