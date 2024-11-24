@@ -12,6 +12,7 @@ class Midia(models.Model):
     platforms = ArrayField(models.CharField(max_length=100), blank=True, null=True)
     studio = models.CharField(max_length=100)
     banner = models.CharField(max_length=300, null=True, blank=True)
+    media_type = models.CharField(max_length=50, null=True, blank=True)
 
     def __str__(self):
         return self.title

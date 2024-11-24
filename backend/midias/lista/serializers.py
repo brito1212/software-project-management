@@ -8,7 +8,7 @@ class ListaSerializerRead(serializers.ModelSerializer):
     class MidiaSerializer(serializers.ModelSerializer):
         class Meta:
             model = Midia
-            fields = ['id', 'title', 'banner']
+            fields = ['id', 'title', 'banner', "media_type"]
 
     midias = MidiaSerializer(many=True)
 

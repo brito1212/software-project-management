@@ -51,9 +51,6 @@ const ViewMedia: React.FC<Media> = ({
   studio,
   cast,
 }) => {
-  const bannerImage = banner
-    ? `${baseURL}${banner}`
-    : "https://placehold.co/300x400";
   const formattedDate = new Date(publish_date).toLocaleDateString("en-GB");
 
   const [showReview, setShowReview] = React.useState(false);
@@ -119,7 +116,7 @@ const ViewMedia: React.FC<Media> = ({
           <div className={styles.container}>
             <div className={styles.columnPoster}>
               <div className={styles.poster}>
-                <img src={bannerImage} alt={`${title} Poster`} />
+                <img src={media?.banner} alt={`${title} Poster`} />
               </div>
             </div>
             <div className={styles.columnDetails}>

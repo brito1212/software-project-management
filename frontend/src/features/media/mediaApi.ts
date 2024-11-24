@@ -7,9 +7,14 @@ export async function getMedia(id: string) {
   return media;
 }
 
-export async function getAllMedias() {
-  const response = await api.get("/api-auth/all-medias/");
+export async function fillDatabase() {
+  await api.get(`/midia/movie/fill_database`);
+  await api.get(`/midia/serie/fill_database`);
+  await api.get(`/midia/game/fill_database`);
+}
 
-  const media = response.data as Media;
+export async function getAllMedias(type_media: string) {
+  const response = await api.get(`/midia/${type_media}`);
+  const media = response.data;
   return media;
 }

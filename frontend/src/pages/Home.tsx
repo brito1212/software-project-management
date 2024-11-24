@@ -2,80 +2,49 @@ import React from "react";
 
 // Components
 import { Carousel } from "../components";
-
-import {
-  TRENDING_ALL_GET,
-  TRENDING_GAMES_POST,
-  TRENDING_MOVIES_GET,
-  TRENDING_SERIES_GET,
-} from "../api/fetchApi";
-import useFetch from "../hooks/useFetch";
+import { getAllMedias } from "../features/media/mediaApi";
 
 const Home = () => {
-  const {
-    data: trending,
-    error: errorTrending,
-    loading: loadingTrending,
-    request: requestTrending,
-  } = useFetch();
+  const [movies, setMovies] = React.useState(null);
+  const [series, setSeries] = React.useState(null);
+  const [games, setGames] = React.useState(null);
 
-  const {
-    data: movies,
-    error: errorMovies,
-    loading: loadingMovies,
-    request: requestMovies,
-  } = useFetch();
+  const [error, setError] = React.useState<string | null>(null);
+  const [loading, setLoading] = React.useState<boolean>(false);
 
-  const {
-    data: series,
-    error: errorSeries,
-    loading: loadingSeries,
-    request: requestSeries,
-  } = useFetch();
-
-  const {
-    data: games,
-    error: errorGames,
-    loading: loadingGames,
-    request: requestGames,
-  } = useFetch();
-
-  const error = errorTrending || errorMovies || errorSeries || errorGames;
-  const loading =
-    loadingTrending || loadingMovies || loadingSeries || loadingGames;
+  async function getMovies() {
+    try {
+      setError(null);
+      setLoading(true);
+      // await fillDatabase();
+      const resMovies = await getAllMedias("movie");
+      const resSeries = await getAllMedias("serie");
+      const resGames = await getAllMedias("game");
+      setMovies(resMovies);
+      setSeries(resSeries);
+      setGames(resGames);
+    } catch (error) {
+      setError((error as Error).message);
+    } finally {
+      setLoading(false);
+    }
+  }
 
   React.useEffect(() => {
-    const getTrending = TRENDING_ALL_GET();
-    requestTrending(getTrending.url, getTrending.options);
+    getMovies();
+  }, []);
 
-    const getMovies = TRENDING_MOVIES_GET();
-    requestMovies(getMovies.url, getMovies.options);
-
-    const getSeries = TRENDING_SERIES_GET();
-    requestSeries(getSeries.url, getSeries.options);
-
-    const getGames = TRENDING_GAMES_POST();
-    requestGames(getGames.url, getGames.options);
-  }, [requestTrending, requestMovies, requestSeries, requestGames]);
-
-  if (error) return <div>Error...</div>;
+  if (error) return <div>{error}</div>;
   if (loading) return <div>Loading...</div>;
   return (
     <article className="main-article anime-left">
-      {trending && (
-        <div>
-          <Carousel
-            slides={trending.results}
-            cardWidth={220}
-            numPerSlides={5}
-            title={"Destaques"}
-          />
-        </div>
-      )}
+      <h1 style={{ marginLeft: "60px", fontSize: "2rem" }}>
+        Principais Destaques
+      </h1>
       {movies && (
         <div>
           <Carousel
-            slides={movies.results}
+            slides={movies}
             cardWidth={220}
             numPerSlides={5}
             title={"Filmes"}
@@ -85,7 +54,7 @@ const Home = () => {
       {series && (
         <div>
           <Carousel
-            slides={series.results}
+            slides={series}
             cardWidth={220}
             numPerSlides={5}
             title={"Séries"}

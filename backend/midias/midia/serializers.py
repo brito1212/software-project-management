@@ -42,6 +42,7 @@ class MovieSerializerFromAPI(serializers.Serializer):
             "publish_date": release_date.isoformat(),
             "banner": settings.MOVIE_AND_SERIE_IMAGES_URL
             + validated_data.get("poster_path"),
+            "media_type": "movie"
         }
         movie = Movie.objects.create(**movie_data)
         movie.studio = validated_data.get("production_companies")[0]["name"]
@@ -55,7 +56,7 @@ class MovieSerializerFromAPI(serializers.Serializer):
 class SerieSerializerFromAPI(serializers.Serializer):
     name = serializers.CharField()  # title
     first_air_date = serializers.DateField()  # publish_date
-    overview = serializers.CharField()  # description
+    overview = serializers.CharField(allow_blank=True)  # description
     genres = serializers.ListField(child=serializers.DictField())  # genres
     production_companies = serializers.ListField(
         child=serializers.DictField()
@@ -87,6 +88,7 @@ class SerieSerializerFromAPI(serializers.Serializer):
             "publish_date": first_air_date.isoformat(),
             "banner": settings.MOVIE_AND_SERIE_IMAGES_URL
             + validated_data.get("poster_path"),
+            "media_type": "serie"
         }
         serie = Serie.objects.create(**serie_data)
         serie.studio = production_companies_data[0]["name"]
@@ -130,6 +132,7 @@ class GameSerializerFromAPI(serializers.Serializer):
             "description": validated_data.get("summary"),
             "banner": settings.GAME_API_IMAGES_URL + cover_data["image_id"] + ".png",
             "avarage_playtime": timedelta(seconds=validated_data.get("normally")),
+            "media_type": "game"
         }
 
         game = Game.objects.create(**game_data)

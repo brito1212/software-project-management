@@ -1,4 +1,4 @@
-import { Link } from "react-router-dom";
+import { Link, useLocation } from "react-router-dom";
 
 // Icons
 import homeIcon from "../assets/icons/home-icon.svg";
@@ -13,6 +13,7 @@ import { useAppSelector } from "../app/store";
 
 const Aside = ({ isMenuClosed }) => {
   const { user } = useAppSelector((state) => state.user);
+  const location = useLocation();
 
   return (
     <aside className={isMenuClosed ? styles.close : ""}>
@@ -20,31 +21,46 @@ const Aside = ({ isMenuClosed }) => {
         <p>Explorar</p>
         <ul>
           <li>
-            <Link to="/" className="btn primary">
+            <Link
+              to="/"
+              className={location.pathname == "/" ? "btn primary" : "btn"}
+            >
               <img src={homeIcon} alt="Home" width="25px" height="25px" />
               <span>Home</span>
             </Link>
           </li>
           <li>
-            <Link to="/list" className="btn">
+            <Link
+              to="/list"
+              className={location.pathname == "/list" ? "btn primary" : "btn"}
+            >
               <img src={listIcon} alt="Lista" width="25px" height="25px" />
               <span>Lista</span>
             </Link>
           </li>
           <li>
-            <Link to="/movies" className="btn">
+            <Link
+              to="/movies"
+              className={location.pathname == "/movies" ? "btn primary" : "btn"}
+            >
               <img src={moviesIcon} alt="Filmes" width="25px" height="25px" />
               <span>Filmes</span>
             </Link>
           </li>
           <li>
-            <Link to="/series" className="btn">
+            <Link
+              to="/series"
+              className={location.pathname == "/series" ? "btn primary" : "btn"}
+            >
               <img src={seriesIcon} alt="Séries" width="25px" height="25px" />
               <span>Séries</span>
             </Link>
           </li>
           <li>
-            <Link to="/games" className="btn">
+            <Link
+              to="/games"
+              className={location.pathname == "/games" ? "btn primary" : "btn"}
+            >
               <img src={gamesIcon} alt="Jogos" width="25px" height="25px" />
               <span>Jogos</span>
             </Link>
