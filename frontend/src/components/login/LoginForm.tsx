@@ -22,7 +22,6 @@ const LoginForm = () => {
   const [error, setError] = React.useState(false);
 
   async function handleSubmit(event: React.FormEvent) {
-    console.log("submit");
     event.preventDefault();
 
     dispatch(

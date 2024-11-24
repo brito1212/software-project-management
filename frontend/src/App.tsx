@@ -15,8 +15,8 @@ import Footer from "./components/Footer";
 
 // CSS
 import "./App.css";
-import ProtectedRoute from "./components/helper/ProtectedRoute";
 import List from "./pages/List";
+import Main from "./components/helper/Main";
 
 function App() {
   const [isMenuClosed, setIsMenuClosed] = React.useState(true);
@@ -29,7 +29,7 @@ function App() {
       <div className="App">
         <BrowserRouter>
           <Header onCloseMenu={closeMenu} />
-          <main className="container">
+          <Main>
             <Aside isMenuClosed={isMenuClosed} />
             <Routes>
               <Route path="/" element={<Home />} />
@@ -40,7 +40,7 @@ function App() {
               <Route path="/list/*" element={<List />} />
               <Route path="/account" element={<Profile />} />
             </Routes>
-          </main>
+          </Main>
         </BrowserRouter>
         <Footer />
       </div>

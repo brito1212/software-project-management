@@ -1,8 +1,11 @@
+import React from "react";
 import { useNavigate } from "react-router-dom";
 import styles from "./MediaCard.module.css";
 import addIcon from "../../assets/icons/add-icon.svg";
+import AddListasDropdown from "../list/AddListasDropdown";
 
 const MediaCard = ({ slide, cardWidth }) => {
+  const [showListas, setShowListas] = React.useState(false);
   const navigate = useNavigate();
 
   return (
@@ -13,11 +16,15 @@ const MediaCard = ({ slide, cardWidth }) => {
     >
       <button
         className={styles["add-list"]}
-        onClick={(event) => event.stopPropagation()}
+        onClick={(event) => {
+          event.stopPropagation();
+          setShowListas(!showListas);
+        }}
       >
         <img src={addIcon} alt="Add List" />
       </button>
       <img src={slide.banner} />
+      <AddListasDropdown showListas={showListas} midiaId={slide.id} />
     </div>
   );
 };

@@ -1,6 +1,7 @@
 .list-view {
   grid-column: 1 / 3;
-  display: grid;
+  display: flex;
+  flex-direction: column;
   gap: 25px;
 }
 
@@ -13,11 +14,13 @@
   grid-template-columns: repeat(4, 1fr);
   gap: 30px;
   justify-items: center;
+  min-width: 1032px;
 }
 
 .description-container {
   display: grid;
   grid-template-columns: 2fr 1fr 220px;
+  max-width: 1032px;
 }
 
 .description-container .more-options {

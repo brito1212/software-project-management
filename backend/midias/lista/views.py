@@ -13,7 +13,7 @@ class ListaView(ViewSet):
 
     def create(self, request):
         try:
-            lista = ListaSerializer(data=request.data)
+            lista = ListaSerializerUpdate(data=request.data)
             if lista.is_valid():
                 lista.save()
                 return Response(

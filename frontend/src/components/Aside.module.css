@@ -1,15 +1,16 @@
 /* ASIDE */
 aside {
   display: flex;
-  position: absolute;
+  position: fixed;
   left: 0;
+  top: 95px;
   background-color: var(--black);
   opacity: 0;
   flex-direction: column;
   z-index: 100;
   gap: 15px;
   width: 300px;
-  padding: 0px 45px 20px 15px;
+  padding: 2rem 45px 20px 15px;
   transition: all 1s ease-in-out;
   animation: fadeIn 1s forwards;
 }
