@@ -16,7 +16,6 @@ const Home = () => {
     try {
       setError(null);
       setLoading(true);
-      // await fillDatabase();
       const resMovies = await getAllMedias("movie");
       const resSeries = await getAllMedias("serie");
       const resGames = await getAllMedias("game");
