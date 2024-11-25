@@ -96,4 +96,4 @@ class Game(Midia):
     publisher = models.CharField(max_length=100)
     release_date = models.DateField()
     avarage_price = models.DecimalField(max_digits=10, decimal_places=2)
-    avarage_playtime = models.TimeField()
+    avarage_playtime = models.CharField(max_length=100)
