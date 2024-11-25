@@ -1,8 +1,8 @@
 import { api } from "../../api";
 import { Media } from "./media.type";
 
-export async function getMedia(id: string) {
-  const response = await api.get(`/midia/movie/${id}/get_by_id`);
+export async function getMedia(mediaType: string, id: string) {
+  const response = await api.get(`/midia/${mediaType}/${id}/get_by_id`);
   const media = response.data as Media;
   return media;
 }

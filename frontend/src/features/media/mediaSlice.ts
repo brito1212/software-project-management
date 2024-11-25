@@ -43,11 +43,11 @@ export const { fetchStarted, fetchSuccess, fetchError, clearMedia } =
 
 export const selectMedia = (state: RootState) => state.media.media;
 
-export const fetchMedia = (id) => async (dispatch) => {
+export const fetchMedia = (mediaType: string, id: string) => async (dispatch) => {
   try {
     dispatch(clearMedia());
     dispatch(fetchStarted());
-    const media = await getMedia(id);
+    const media = await getMedia(mediaType, id);
     dispatch(fetchSuccess(media));
   } catch (error) {
     dispatch(fetchError(error));

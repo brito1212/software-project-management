@@ -1,11 +1,17 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import styles from "./ViewMedia.module.css";
 import type { Media } from "../../features/media/media.type";
+import { baseURL } from "../../api";
 import { CreateReview } from "../review/CreateReview";
 import ListReview from "../review/ListReview";
 import { closeModal } from "../../features/ui/uiSlice";
 import { useAppDispatch, useAppSelector } from "../../app/store";
-import AddListasDropdown from "../list/AddListasDropdown";
+import {
+  createListaAction,
+  updateListaAction,
+} from "../../features/lista/listaSlice";
+import { Link, useNavigate } from "react-router-dom";
+import { MidiaList } from "../../features/lista/lista.type";
 
 const getBadgeClass = (classification) => {
   switch (classification) {
@@ -34,7 +40,7 @@ const separateName = (member) => {
   };
 };
 
-const ViewMedia: React.FC<Media> = ({
+const ViewMediaMovie: React.FC<Media> = ({
   title,
   description,
   banner,
@@ -44,7 +50,11 @@ const ViewMedia: React.FC<Media> = ({
   director,
   studio,
   cast,
+  platforms,
 }) => {
+  const bannerImage = banner
+    ? `${baseURL}${banner}`
+    : "https://placehold.co/300x400";
   const formattedDate = new Date(publish_date).toLocaleDateString("en-GB");
 
   const [showReview, setShowReview] = React.useState(false);
@@ -53,13 +63,55 @@ const ViewMedia: React.FC<Media> = ({
     setShowReview((showReview) => !showReview);
   };
   const dispatch = useAppDispatch();
-  const { media } = useAppSelector((state) => state.media);
+  const navigate = useNavigate();
 
   useEffect(() => {
     dispatch(closeModal());
   }, [dispatch]);
-
+  const { user } = useAppSelector((state) => state.user);
+  const { media } = useAppSelector((state) => state.media);
+  const { listas } = useAppSelector((state) => state.user.user);
   const [showListas, setShowListas] = React.useState(false);
+
+  function addToLista(id: number) {
+    const lista = listas.find((lista) => lista.id == id);
+    const data = {
+      id: lista.id,
+      name: lista.name,
+      description: lista.description,
+      midias: [...lista.midias.map((midia) => midia.id), media?.id],
+    };
+    dispatch(
+      updateListaAction(
+        data,
+        () => {
+          navigate(`/list/${lista.id}`);
+        },
+        () => {}
+      )
+    );
+  }
+
+  function handleCreateList() {
+    console.log(user?.listas);
+    const newLista = {
+      name: "Minha Lista",
+      description: "Adicione uma descrição...",
+      midias: [],
+      user: user?.id,
+    };
+    dispatch(
+      createListaAction(
+        newLista,
+        () => {
+          navigate("/list");
+        },
+        () => {
+          console.log("erro");
+        }
+      )
+    );
+  }
 
   return (
     <>
@@ -68,7 +120,14 @@ const ViewMedia: React.FC<Media> = ({
           <div className={styles.container}>
             <div className={styles.columnPoster}>
               <div className={styles.poster}>
-                <img src={banner} alt={`${title} Poster`} />
+                <img src={bannerImage} alt={`${title} Poster`} />
+              </div>
+              <div className={styles.badge_area_plat}>
+                {platforms.map((platform, index) => (
+                  <span key={index} className={styles.badge_status}>
+                    {platform}
+                  </span>
+                ))}
               </div>
             </div>
             <div className={styles.columnDetails}>
@@ -137,14 +196,36 @@ const ViewMedia: React.FC<Media> = ({
                       >
                         <i className="fa-solid fa-plus"></i> Adicionar na Lista
                       </button>
-                      <AddListasDropdown
-                        showListas={showListas}
-                        midiaId={media.id}
-                      />
                     </div>
                   </div>
                 </div>
               </div>
+              <ul
+                className={
+                  showListas
+                    ? `${styles.config} ${styles["dropdown-anime"]}`
+                    : `${styles.config}`
+                }
+              >
+                {listas.length !== 0 ? (
+                  listas.map((lista) => (
+                    <li key={lista.id}>
+                      <button
+                        className={styles.btnAddLista}
+                        onClick={() => addToLista(lista.id)}
+                      >
+                        <span>{lista.name}</span>
+                      </button>
+                    </li>
+                  ))
+                ) : (
+                  <li>
+                    <button to="#" onClick={handleCreateList}>
+                      <span>Criar lista</span>
+                    </button>
+                  </li>
+                )}
+              </ul>
             </div>
           </div>
         </div>
@@ -153,7 +234,7 @@ const ViewMedia: React.FC<Media> = ({
             <CreateReview />
           ) : (
             <>
-              <p className={styles.subtitle}>{"Elenco:"}</p>
+              {/* <p className={styles.subtitle}>{"Elenco:"}</p>
               <div className={styles.cast_list}>
                 {cast.map((member, index) => {
                   const { actorName, characterName } = separateName(member);
@@ -171,7 +252,7 @@ const ViewMedia: React.FC<Media> = ({
                     </div>
                   );
                 })}
-              </div>
+              </div> */}
               <ListReview></ListReview>
             </>
           )}
@@ -181,4 +262,4 @@ const ViewMedia: React.FC<Media> = ({
   );
 };
 
-export default ViewMedia;
+export default ViewMediaMovie;

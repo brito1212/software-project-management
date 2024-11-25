@@ -8,7 +8,13 @@ export interface Media {
     genres: string[];
     duration: string;
     director: string;
-    cast: string[]
+    cast: string[];
+    publisher: string;
+    avarage_playtime: string;
+    avarage_price: number; 
+    platforms: string[];
+    seasons: number;
+    episodes: number;
   }
   
   export enum Provider {
