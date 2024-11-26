@@ -7,7 +7,7 @@ export interface Review {
     content: string;
     midia: number;
     user: number;
-    comments: string[];
+    comments: Comment[];
 }
 
 export interface ReviewUser {
@@ -25,4 +25,12 @@ export interface ReviewResponse {
     user: ReviewUser;
     comments: string[];
     created_at: Dayjs;
+}
+
+
+export interface Comment {
+    id: number;
+    content: string;
+    review: number;
+    user: number;
 }
