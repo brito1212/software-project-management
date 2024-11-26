@@ -132,6 +132,7 @@ class GameSerializerFromAPI(serializers.Serializer):
             "description": validated_data.get("summary"),
             "banner": settings.GAME_API_IMAGES_URL + cover_data["image_id"] + ".png",
             "avarage_playtime": timedelta(seconds=validated_data.get("normally")),
+            "avarage_playtime": timedelta(seconds=int(validated_data.get("normally", 0))),
             "media_type": "game"
         }
 

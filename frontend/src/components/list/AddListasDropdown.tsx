@@ -64,7 +64,10 @@ const AddListasDropdown = ({ showListas, midiaId }) => {
           <li key={lista.id}>
             <button
               className={styles.btnAddLista}
-              onClick={() => addToLista(lista.id)}
+              onClick={(e) => {
+                e.stopPropagation();
+                addToLista(lista.id);
+              }}
             >
               <span>{lista.name}</span>
             </button>

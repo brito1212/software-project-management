@@ -90,21 +90,21 @@
 
 .cast_member {
   display: flex;
+  gap: 15px;
+  align-items: center;
 }
 
 .cast_image img,
 .placeholder_image {
-  width: 50px;
-  height: 50px;
+  width: 12px;
+  height: 12px;
   border-radius: 50%;
-  background-color: #777;
+  background-color: var(--main-color);
 }
 
 .cast_info {
   display: grid;
   font-size: 12px;
-  margin-top: 5px;
-  margin-left: 10px;
 }
 
 .cast_name {
@@ -117,7 +117,7 @@
 
 .columnPoster {
   flex: 1.2;
-  padding: 10px;
+  padding: 10px 10px 10px 0;
 }
 .columnDetails {
   flex: 3;
@@ -225,7 +225,8 @@
 .subtitle {
   font-size: 1em;
   margin-bottom: 10px;
-  color: #727278;
+  color: var(--gray03);
+  font-weight: bold;
 }
 
 .column {

@@ -42,9 +42,12 @@ export const ListReview = () => {
 
   if (reviews.length === 0) {
     return (
-      <div>
-        <h3>Sem Reviews...</h3>
-      </div>
+      <>
+        <h4 className={styles.title}>AVALIAÇÕES</h4>
+        <div className={styles.noReviews}>
+          <h3>Sem Reviews...</h3>
+        </div>
+      </>
     );
   }
 

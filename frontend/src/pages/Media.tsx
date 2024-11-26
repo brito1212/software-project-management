@@ -1,11 +1,9 @@
-import React, { useEffect } from "react";
+import { useEffect } from "react";
 import { useParams } from "react-router-dom";
-import ViewMediaMovie from "../components/Media/viewMediaMovie";
-import ViewMediaGame from "../components/Media/viewMediaGame";
-import ViewMediaSerie from "../components/Media/viewMediaSerie";
 import { useAppDispatch, useAppSelector } from "../app/store";
 import { fetchMedia } from "../features/media/mediaSlice";
 import DeleteReview from "../components/review/DeleteReview";
+import ViewMedia from "../components/media/ViewMedia";
 
 const Media = () => {
   const { mediaType, id } = useParams<{ mediaType: string; id: string }>();
@@ -25,22 +23,34 @@ const Media = () => {
   if (loading) return <p>Loading...</p>;
   if (error) return <p>Error: {error.message}</p>;
 
-  let content;
+  // let content;
 
-  switch (mediaType) {
-    case "movie":
-      content = media ? <ViewMediaMovie {...media} /> : <p>No movie data available.</p>;
-      break;
-    case "game":
-      content = media ? <ViewMediaGame {...media} /> : <p>No game data available.</p>;
-      break;
-    case "serie":
-      content = media ? <ViewMediaSerie {...media} /> : <p>No series data available.</p>;
-      break;
-    default:
-      content = <p>Unsupported media type.</p>;
-      break;
-  }
+  // switch (mediaType) {
+  //   case "movie":
+  //     content = media ? (
+  //       <ViewMediaMovie {...media} />
+  //     ) : (
+  //       <p>No movie data available.</p>
+  //     );
+  //     break;
+  //   case "game":
+  //     content = media ? (
+  //       <ViewMediaGame {...media} />
+  //     ) : (
+  //       <p>No game data available.</p>
+  //     );
+  //     break;
+  //   case "serie":
+  //     content = media ? (
+  //       <ViewMediaSerie {...media} />
+  //     ) : (
+  //       <p>No series data available.</p>
+  //     );
+  //     break;
+  //   default:
+  //     content = <p>Unsupported media type.</p>;
+  //     break;
+  // }
 
   return (
     <>
@@ -49,7 +59,7 @@ const Media = () => {
         className="anime-left"
         style={{ display: "flex", flexDirection: "column", gap: "50px" }}
       >
-        {content}
+        {media && <ViewMedia {...media} />}
       </div>
     </>
   );
