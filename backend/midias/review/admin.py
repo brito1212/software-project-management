@@ -1,6 +1,6 @@
 from django.contrib import admin
 
-from .models import Review, Comment
+from .models import Review
 
 # Register your models here.
 
@@ -12,4 +12,3 @@ class ReviewAdmin(admin.ModelAdmin):
 
 
 admin.site.register(Review, ReviewAdmin)
-admin.site.register(Comment)
