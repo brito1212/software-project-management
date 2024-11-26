@@ -50,7 +50,7 @@ const ViewMediaMovie: React.FC<Media> = ({
   director,
   studio,
   cast,
-  platforms
+  platforms,
 }) => {
   const bannerImage = banner
     ? `${baseURL}${banner}`

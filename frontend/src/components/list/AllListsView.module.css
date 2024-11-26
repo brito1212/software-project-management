@@ -1,9 +1,9 @@
 .list-container {
   display: grid;
   grid-template-columns: 1fr 210px;
-  width: 100%;
   margin: 0 10%;
   gap: 60px;
+  min-width: 1032px;
 }
 
 .list-container a {

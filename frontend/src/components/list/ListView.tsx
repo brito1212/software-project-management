@@ -7,7 +7,6 @@ import styles from "./ListView.module.css";
 import MoreOptionsIcon from "../icons/MoreOptionsIcon";
 import editIcon from "../../assets/icons/pencil-edit-icon.svg";
 import deleteIcon from "../../assets/icons/x-symbol.svg";
-import { baseURL } from "../../api";
 import DeleteListModal from "./DeleteListModal";
 import Close from "../helper/Close";
 import { updateListaAction } from "../../features/lista/listaSlice";
@@ -40,7 +39,6 @@ const ListView = () => {
           .map((midia) => midia.id),
       ],
     };
-    console.log(data);
     dispatch(
       updateListaAction(
         data,
@@ -110,7 +108,9 @@ const ListView = () => {
                   <div
                     key={midia.id}
                     className={styles.midia}
-                    onClick={() => navigate(`/midia/movie/${midia.id}`)}
+                    onClick={() =>
+                      navigate(`/midia/${midia.media_type}/${midia.id}`)
+                    }
                   >
                     <Close
                       handleClose={(e) => {
@@ -119,7 +119,7 @@ const ListView = () => {
                       }}
                       extraClass={styles.closeMidia}
                     />
-                    <img src={`${baseURL}${midia.banner}`} alt={midia.title} />
+                    <img src={`${midia.banner}`} alt={midia.title} />
                     <p>{midia.title}</p>
                   </div>
                 ))

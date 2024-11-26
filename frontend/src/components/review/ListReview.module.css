@@ -1,6 +1,6 @@
 .title {
   color: var(--gray03);
-  margin-top: 12px;
+  margin-top: 30px;
 }
 
 .review_container {
@@ -9,7 +9,7 @@
   gap: 10px;
   padding: 10px;
   border-radius: 5px;
-  background: #3A3B3C;
+  background: #3a3b3c;
   margin-top: 18px;
   padding: 12px;
   padding: 36px;
@@ -21,22 +21,27 @@
   border-radius: 50%;
 }
 
-.review_header{
-    display: flex;
-    gap: 10px;
-    align-items: center;
+.review_header {
+  display: flex;
+  gap: 10px;
+  align-items: center;
 }
 
 .date {
-  color: #8F8F99;
+  color: #8f8f99;
 }
 
-.username{
-    color: #5551FF;
+.username {
+  color: #5551ff;
 }
 
 .trash_icon {
   cursor: pointer;
   align-self: left;
   color: rgb(138, 60, 60);
+}
+
+.noReviews {
+  padding: 50px;
+  text-align: center;
 }

@@ -1,10 +1,20 @@
 from typing import Any
 from django.shortcuts import render
+import requests
 from rest_framework.response import Response
+
+from django.conf import settings
 from .models import Game, Midia, Movie, Serie
 from rest_framework.viewsets import ViewSet
 from rest_framework import permissions, status, serializers
-from .serializers import GameSerializer, MovieSerializer, SerieSerializer
+from .serializers import (
+    GameSerializer,
+    GameSerializerFromAPI,
+    MovieSerializer,
+    MovieSerializerFromAPI,
+    SerieSerializer,
+    SerieSerializerFromAPI,
+)
 from rest_framework.decorators import action
 
 
@@ -20,6 +30,10 @@ class MidiaAbstractView(ViewSet):
         pass
 
     def get_midia_model(self) -> Midia:
+        pass
+
+    @action(detail=False, methods=["get"])
+    def fill_database(self, request):
         pass
 
     def __init__(self, **kwargs: Any) -> None:
@@ -121,6 +135,59 @@ class MovieView(MidiaAbstractView):
     def get_midia_model(self) -> Midia:
         return Movie
 
+    @action(detail=False, methods=["get"])
+    def fill_database(self, request):
+        try:
+            url = settings.MOVIE_AND_SERIE_API_URL.format(midia_type="movie")
+            headers = {
+                "accept": "application/json",
+                "Authorization": "Bearer " + settings.MOVIE_AND_SERIE_API_ACCESS_TOKEN,
+            }
+
+            response = requests.get(url, headers=headers)
+            data = response.json()
+            results = data.get("results", [])
+            for result in results:
+                url_details = settings.MOVIE_AND_SERIE_DETAILS_API_URL.format(
+                    midia_type="movie", midia_id=result.get("id")
+                )
+                response_details = requests.get(url_details, headers=headers)
+                data_details = response_details.json()
+
+                url_credits = settings.MOVIE_AND_SERIE_CREDITS_API_URL.format(
+                    midia_type="movie", movie_id=result.get("id")
+                )
+                response_credits = requests.get(url_credits, headers=headers)
+                data_credits = response_credits.json()
+                cast = data_credits.get("cast", [])
+                data_details["cast"] = cast[:10] if len(cast) > 10 else cast
+                data_details["director"] = next(
+                    (
+                        member["original_name"]
+                        for member in data_credits["crew"]
+                        if member["job"] == "Director"
+                    ),
+                    None,
+                )
+
+                serializer = MovieSerializerFromAPI(data=data_details)
+                if serializer.is_valid():
+                    if not Movie.objects.filter(title=data_details["title"]).exists():
+                        movie = serializer.save()
+                        print(f"Filme salvo: {movie.title}")
+                    print(f"Filme {data_details['title']} já existe no banco")
+                else:
+                    print(serializer.errors)
+            return Response(
+                "DB filled successfully with new Movies!", status=status.HTTP_200_OK
+            )
+
+        except Exception as e:
+            return Response(
+                f"Failed to fill DB: \n{str(e)}",
+                status=status.HTTP_500_INTERNAL_SERVER_ERROR,
+            )
+
 
 class SerieView(MidiaAbstractView):
 
@@ -130,6 +197,44 @@ class SerieView(MidiaAbstractView):
     def get_midia_model(self) -> Midia:
         return Serie
 
+    @action(detail=False, methods=["get"])
+    def fill_database(self, request):
+        try:
+            url = settings.MOVIE_AND_SERIE_API_URL.format(midia_type="tv")
+            headers = {
+                "accept": "application/json",
+                "Authorization": "Bearer " + settings.MOVIE_AND_SERIE_API_ACCESS_TOKEN,
+            }
+
+            response = requests.get(url, headers=headers)
+            data = response.json()
+            results = data.get("results", [])
+            for result in results:
+                url_details = settings.MOVIE_AND_SERIE_DETAILS_API_URL.format(
+                    midia_type="tv", midia_id=result.get("id")
+                )
+                response_details = requests.get(url_details, headers=headers)
+                data_details = response_details.json()
+
+                serializer = SerieSerializerFromAPI(data=data_details)
+                if serializer.is_valid():
+                    if not Serie.objects.filter(title=data_details["name"]).exists():
+                        movie = serializer.save()
+                        print(f"Serie salva: {movie.title}")
+                    else:
+                        print(f"Serie {data_details['name']} já existe no banco")
+                else:
+                    print(serializer.errors)
+            return Response(
+                "DB filled successfully with new TV Shows!", status=status.HTTP_200_OK
+            )
+
+        except Exception as e:
+            return Response(
+                f"Failed to fill DB: \n{str(e)}",
+                status=status.HTTP_500_INTERNAL_SERVER_ERROR,
+            )
+
 
 class GameView(MidiaAbstractView):
 
@@ -138,3 +243,43 @@ class GameView(MidiaAbstractView):
 
     def get_midia_model(self) -> Midia:
         return Game
+
+    @action(detail=False, methods=["get"])
+    def fill_database(self, request):
+        try:
+            url = settings.GAME_API_URL
+            headers = {
+                "Client-ID": settings.GAME_API_CLIENT_ID,
+                "Authorization": "Bearer " + settings.GAME_API_ACCESS_TOKEN,
+            }
+            data = settings.GAME_API_BODY
+            response = requests.post(url, headers=headers, data=data)
+            results = response.json()
+            for result in results:
+                url_playtime = settings.GAME_API_URL_TIME_TO_BEAT
+                data_playtime = settings.GAME_API_BODY_TIME_TO_BEAT.format(
+                    game_id=result.get("id")
+                )
+                response = requests.post(url_playtime, headers=headers, data=data_playtime)
+                playtime = response.json()
+                if playtime:
+                    result["normally"] = playtime[0].get("normally", 0)
+                else:
+                    result["normally"] = 0
+                serializer = GameSerializerFromAPI(data=result)
+                if serializer.is_valid():
+                    if not Game.objects.filter(title=result["name"]).exists():
+                        game = serializer.save()
+                        print(f"Game salvo: {game.title}")
+                    else:
+                        print(f"Game {result['name']} já existe no banco")
+                else:
+                    print(serializer.errors)
+            return Response(
+                "DB filled successfully with new Games!", status=status.HTTP_200_OK
+            )
+        except Exception as e:
+            return Response(
+                f"Failed to fill DB: \n{str(e)}",
+                status=status.HTTP_500_INTERNAL_SERVER_ERROR,
+            )

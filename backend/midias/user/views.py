@@ -95,6 +95,10 @@ class UpdateUser(APIView):
     def post(self, request, pk):
         try:
             data = request.data
+            if(data['first_name'] == '' or data['last_name']  == '' or data['username']  == ''):
+                return Response(
+                    {"message": "Data is blank"}, status=status.HTTP_400_BAD_REQUEST
+                )
             user = User.objects.filter(id=pk).first()
             if user:
                 for key, value in data.items():

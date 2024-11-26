@@ -7,9 +7,8 @@ export async function getMedia(mediaType: string, id: string) {
   return media;
 }
 
-export async function getAllMedias() {
-  const response = await api.get("/api-auth/all-medias/");
-
-  const media = response.data as Media;
+export async function getAllMedias(type_media: string) {
+  const response = await api.get(`/midia/${type_media}`);
+  const media = response.data;
   return media;
 }

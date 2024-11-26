@@ -31,5 +31,5 @@
 }
 
 .error {
-  color: red;
+  color: var(--red);
 }

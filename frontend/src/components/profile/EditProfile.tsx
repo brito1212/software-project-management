@@ -19,6 +19,8 @@ interface Image {
 const EditProfile = () => {
   const { user } = useAppSelector((state) => state.user);
   const dispatch = useAppDispatch();
+  const { message } = useAppSelector((state) => state.toast);
+  const [error, setError] = React.useState(false);
 
   const bannerImage = user?.banner ? `${baseURL}${user.banner}` : bannerDefault;
 
@@ -74,7 +76,9 @@ const EditProfile = () => {
         user?.id,
         formData,
         () => dispatch(closeModal()),
-        () => {}
+        () => {
+          setError(true);
+        }
       )
     );
   }
@@ -135,6 +139,7 @@ const EditProfile = () => {
         styles={stylesEditProfile}
         onChange={(e) => setUsername(e.target.value)}
       />
+      {error && <p className={styles.error}>{message}</p>}
       <div className={styles.buttons}>
         <button className="btn primary" onClick={handleUpdate}>
           Salvar

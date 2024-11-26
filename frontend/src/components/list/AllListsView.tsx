@@ -48,7 +48,7 @@ const AllListsView = () => {
                   {lista.midias[0] ? (
                     <img
                       className={styles.banner}
-                      src={`${baseURL}${lista.midias[0]?.banner}`}
+                      src={`${lista.midias[0]?.banner}`}
                       alt={lista.midias[0]?.title}
                     />
                   ) : (
@@ -59,7 +59,7 @@ const AllListsView = () => {
                   {lista.midias[1] ? (
                     <img
                       className={styles.banner}
-                      src={`${baseURL}${lista.midias[1]?.banner}`}
+                      src={`${lista.midias[1]?.banner}`}
                       alt={lista.midias[1]?.title}
                     />
                   ) : (
@@ -70,7 +70,7 @@ const AllListsView = () => {
                   {lista.midias[2] ? (
                     <img
                       className={styles.banner}
-                      src={`${baseURL}${lista.midias[2]?.banner}`}
+                      src={`${lista.midias[2]?.banner}`}
                       alt={lista.midias[2]?.title}
                     />
                   ) : (

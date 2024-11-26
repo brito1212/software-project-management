@@ -1,4 +1,4 @@
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { useAppDispatch, useAppSelector } from "../app/store";
 import styles from "./Header.module.css";
 import logout from "../assets/icons/logout.svg";
@@ -9,6 +9,7 @@ import { baseURL } from "../api";
 const Header = ({ onCloseMenu }) => {
   const { user } = useAppSelector((state) => state.user);
   const dispatch = useAppDispatch();
+  const navigate = useNavigate();
 
   const userImage = user?.profile_image
     ? `${baseURL}${user.profile_image}`
@@ -16,6 +17,7 @@ const Header = ({ onCloseMenu }) => {
 
   function handleLogout() {
     dispatch(logoutAction());
+    navigate("/login");
   }
 
   return (
@@ -39,7 +41,7 @@ const Header = ({ onCloseMenu }) => {
           </label>
         </div>
         <Link to="/" className={styles.logo}>
-          Mid.IA
+          MID.IA
         </Link>
       </div>
       {!user ? (
