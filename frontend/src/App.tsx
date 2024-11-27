@@ -18,6 +18,7 @@ import "./App.css";
 import List from "./pages/List";
 import Main from "./components/helper/Main";
 import SearchMedia from "./components/media/SearchMedia";
+import VisitProfile from "./components/profile/VisitProfile";
 
 function App() {
   const [isMenuClosed, setIsMenuClosed] = React.useState(true);
@@ -40,6 +41,7 @@ function App() {
               <Route path="/midia/:mediaType/:id" element={<Media />} />
               <Route path="/list/*" element={<List />} />
               <Route path="/account" element={<Profile />} />
+              <Route path="/profile/:username" element={<VisitProfile />} />
               <Route path="/search" element={<SearchMedia />} />
             </Routes>
           </Main>

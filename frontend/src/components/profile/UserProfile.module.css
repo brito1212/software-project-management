@@ -46,6 +46,7 @@
 
 .info {
   color: var(--gray01);
+  flex: 2;
 }
 
 .name {
@@ -60,7 +61,6 @@
   gap: 5px;
   align-self: end;
   justify-content: space-around;
-  flex-grow: 2;
   background-color: var(--white);
   border: 1px solid var(--red);
   color: var(--red);
@@ -75,6 +75,7 @@
   text-align: center;
   text-decoration: none;
   transition: all 0.2s ease;
+  width: 175px;
 }
 
 .edit:hover {
@@ -84,4 +85,13 @@
 
 .edit:hover.edit svg {
   fill: var(--white);
+}
+
+.follow {
+  margin-left: 75px;
+  width: 125px;
+}
+
+.unfollow {
+  width: 200px;
 }

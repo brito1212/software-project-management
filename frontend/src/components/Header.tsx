@@ -5,6 +5,7 @@ import logout from "../assets/icons/logout.svg";
 import profileImage from "../assets/images/profile-image.png";
 import { logoutAction } from "../features/user/userSlice";
 import { baseURL } from "../api";
+import SearchField from "./forms/SearchField";
 
 const Header = ({ onCloseMenu }) => {
   const { user } = useAppSelector((state) => state.user);
@@ -20,10 +21,9 @@ const Header = ({ onCloseMenu }) => {
     navigate("/login");
   }
 
-  function handleSubmit(event) {
-    event.preventDefault();
-    navigate(`/search?q=${event.target[0].value}`);
-  }
+  const handleSearchSubmit = (searchText) => {
+    navigate(`/search?q=${searchText}`);
+  };
 
   return (
     <header>
@@ -62,21 +62,7 @@ const Header = ({ onCloseMenu }) => {
         </>
       ) : (
         <>
-          <form className={styles.search} onSubmit={handleSubmit}>
-            <input
-              name="searchField"
-              id="searchField"
-              className={styles["search-field"]}
-              type="text"
-              placeholder="Pesquisar mídia..."
-            />
-            <input
-              type="submit"
-              id="magnifyingGlass"
-              className={styles["magnifying-glass"]}
-              value="Buscar"
-            />
-          </form>
+          <SearchField onSubmit={handleSearchSubmit} />
           <div className={styles.login}>
             <Link className={styles.account} to="/account">
               <img className={styles["img-user"]} src={userImage} alt="Image" />

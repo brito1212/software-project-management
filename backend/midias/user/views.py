@@ -82,11 +82,79 @@ class UserView(ViewSet):
                 f"Failed to get user: \n{str(e)}",
                 status=status.HTTP_500_INTERNAL_SERVER_ERROR,
             )
+        
+    @action(detail=True, methods=["get"])
+    def get_user_by_username(self, request, pk=None):
+        try:
+            # data = request.data
+            user = User.objects.filter(username=pk).first()
+            if user:
+                serializer = UsersSerializer(user)
+                return Response(serializer.data)
+            return Response(
+                {"message": "Usuário não encontrado!"}, status=status.HTTP_404_NOT_FOUND
+            )
+        except Exception as e:
+            return Response(
+                f"Failed to get user: \n{str(e)}",
+                status=status.HTTP_500_INTERNAL_SERVER_ERROR,
+            )
 
     @action(detail=True, methods=["post"])
-    def follow(self, request):
+    def follow(self, request, pk=None):
+        try:
+            follower = request.user 
+            following = User.objects.filter(username=pk).first()  # Usuário a ser seguido
+            
+            # Verifica se o usuário já segue
+            if following.seguidores.filter(id=follower.id).exists():
+                return Response(
+                    {"message": "Você já segue este usuário."},
+                    status=status.HTTP_400_BAD_REQUEST
+                )
 
-        return Response({"message": "WIP"}, status=status.HTTP_200_OK)
+            # Adiciona o seguidor ao usuário
+            following.seguidores.add(follower)
+            follower.seguindo.add(following)
+            following.save()
+
+            return Response(
+                {"message": f"Você começou a seguir {following.username}."},
+                status=status.HTTP_200_OK
+            )
+        except Exception as e:
+            return Response(
+                 {"error": f"Erro ao seguir o usuário: {str(e)}"},
+                status=status.HTTP_500_INTERNAL_SERVER_ERROR
+            )
+
+    @action(detail=True, methods=["post"])
+    def unfollow(self, request, pk=None):
+        try:
+            follower = request.user  
+            following = User.objects.filter(username=pk).first() 
+
+            # Verifica se o usuário não segue o outro
+            if not following.seguidores.filter(id=follower.id).exists():
+                return Response(
+                    {"message": "Você não segue este usuário."},
+                    status=status.HTTP_400_BAD_REQUEST
+                )
+
+            # Remove o seguidor do usuário
+            following.seguidores.remove(follower)
+            follower.seguindo.remove(following)
+            following.save()
+
+            return Response(
+                 {"message": f"Você parou de seguir {following.username}."},
+                status=status.HTTP_200_OK
+            )
+        except Exception as e:
+            return Response(
+               {"error": f"Erro ao deixar de seguir o usuário: {str(e)}"},
+                status=status.HTTP_500_INTERNAL_SERVER_ERROR
+            )
 
 
 class UpdateUser(APIView):

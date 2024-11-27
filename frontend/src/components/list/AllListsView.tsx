@@ -3,7 +3,6 @@ import addIcon from "../../assets/icons/add-icon.svg";
 import styles from "./AllListsView.module.css";
 import { useAppDispatch, useAppSelector } from "../../app/store";
 import { createListaAction } from "../../features/lista/listaSlice";
-import { baseURL } from "../../api";
 import moviesIcon from "../../assets/icons/movies-icon.svg";
 
 const AllListsView = () => {
