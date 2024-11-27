@@ -10,6 +10,8 @@ import deleteIcon from "../../assets/icons/x-symbol.svg";
 import DeleteListModal from "./DeleteListModal";
 import Close from "../helper/Close";
 import { updateListaAction } from "../../features/lista/listaSlice";
+import { getAllMedias } from "../../features/media/mediaAPI";
+import MediaCard from "../media/MediaCard";
 
 const ListView = () => {
   const { id } = useParams<{ id: string }>();
@@ -18,6 +20,7 @@ const ListView = () => {
   const lista = listas.find((lista) => lista.id == id);
 
   const [moreOptions, setMoreOptions] = React.useState(false);
+  const [midiaRecList, setMidiaRecList] = React.useState([]);
 
   const dispatch = useAppDispatch();
   const navigate = useNavigate();
@@ -50,9 +53,73 @@ const ListView = () => {
     );
   }
 
+  function processMedia(midias, allMedia) {
+    if (!midias || !Array.isArray(midias) || midias.length === 0) return [];
+  
+    const matchedMedia = [];
+  
+    midias.forEach((midia) => {
+      const index = allMedia.findIndex((media_db) => media_db.id === midia.id);
+  
+      if (index !== -1) {
+        matchedMedia.push(allMedia[index]);
+  
+        allMedia.splice(index, 1);
+      }
+    });
+  
+    return matchedMedia;
+  }
+
+  function calculateScore(media_db, matchedMedia) {
+    let score = 0;
+  
+    matchedMedia.forEach((midia) => {
+      const matchingGenres = midia.genres?.filter((genre) => media_db.genres?.includes(genre)) || [];
+      score += matchingGenres.length;
+    });
+  
+    return score;
+  }
+
+  async function generateRecommendations(midias) {
+    if (!midias || midias.length === 0) return [];
+  
+    try {
+      const movieMedia = await getAllMedias("movie");
+      const seriesMedia = await getAllMedias("serie");
+      const gameMedia = await getAllMedias("game");
+
+      const allMedia = [...movieMedia, ...seriesMedia, ...gameMedia];
+
+      const matchedMedia = processMedia(midias, allMedia);
+  
+      const scoredMedia = allMedia.map((media_db) => ({
+        ...media_db,
+        score: calculateScore(media_db, matchedMedia),
+      }));
+  
+      const topRecommendations = scoredMedia
+        .filter((media) => media.score > 0)
+        .sort((a, b) => b.score - a.score)
+        .slice(0, 4);
+      return topRecommendations;
+    } catch (error) {
+      console.error("Erro ao gerar recomendações:", error);
+      return [];
+    }
+  }
+
   React.useEffect(() => {
+    async function fetchRecommendations() {
+      if (lista?.midias) {
+        const recommendations = await generateRecommendations(lista.midias);
+        setMidiaRecList(recommendations);
+      }
+    }
+    fetchRecommendations();
     dispatch(closeModal());
-  }, [dispatch]);
+  }, [dispatch, lista]);
 
   return (
     <>
@@ -125,6 +192,20 @@ const ListView = () => {
                 ))
               ) : (
                 <div className={styles.noList}>Insira mídias na sua lista.</div>
+              )}
+            </div>
+            <br></br>
+            <h1>{"Recomendações:"}</h1>
+            <div className={styles["description-container"]}>
+              <p>{"Baseadas na sua lista"}</p>
+            </div>
+            <div className={styles["list-wrapper"]}>
+              {midiaRecList.length !== 0 ? (
+                midiaRecList.map((midiaRec, index) => (
+                  <MediaCard key={index} slide={midiaRec} cardWidth={215} />
+                ))
+              ) : (
+                <div className={styles.noList}>Nenhuma recomendação disponível.</div>
               )}
             </div>
           </>
