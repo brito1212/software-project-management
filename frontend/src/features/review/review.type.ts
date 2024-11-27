@@ -34,3 +34,11 @@ export interface Comment {
     review: number;
     user: number;
 }
+
+export interface CommentResponse{
+    id: number;
+    content: string;
+    review: number;
+    user: ReviewUser;
+    created_at: Dayjs;
+}

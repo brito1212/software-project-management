@@ -3,7 +3,7 @@
     margin-top: 30px;
   }
   
-  .review_container {
+  .comment_container {
     display: flex;
     flex-direction: column;
     gap: 10px;
@@ -21,7 +21,7 @@
     border-radius: 50%;
   }
   
-  .review_header {
+  .comment_header {
     display: flex;
     gap: 10px;
     align-items: center;
@@ -41,30 +41,7 @@
     color: rgb(138, 60, 60);
   }
   
-  .noReviews {
+  .nocomments {
     padding: 50px;
     text-align: center;
   }
-  
-
-  .add_comment_link {
-    color: #5551ff;
-    cursor: pointer;
-  }
-
-.line {
-  position: absolute;
-  left: 0;
-  top: 0;
-  bottom: 0;
-  width: 3px;
-  background: #5551FF;
-}
-
-.comment_section {
-  position: relative;
-  display: flex;
-  flex-direction: column;
-  padding-left: 20px;
-  margin-left: 50px;
-}

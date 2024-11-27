@@ -26,3 +26,8 @@ export async function createComment(comment: Comment) {
     const response = await api.post("/comment/", comment);
     return response;
 }
+
+export async function deleteComment(commentId: string) {
+    const response = await api.delete(`/comment/${commentId}/`);
+    return response.data;
+}

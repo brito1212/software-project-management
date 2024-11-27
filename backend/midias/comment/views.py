@@ -49,7 +49,6 @@ class CommentView(ViewSet):
 
     def destroy(self, request, pk=None):
         try:
-            data = request.data
             comment = Comment.objects.filter(id=pk).first()
             if comment:
                 comment.delete()

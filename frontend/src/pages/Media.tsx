@@ -4,11 +4,13 @@ import { useAppDispatch, useAppSelector } from "../app/store";
 import { fetchMedia } from "../features/media/mediaSlice";
 import DeleteReview from "../components/review/DeleteReview";
 import ViewMedia from "../components/media/ViewMedia";
+import { DeleteComment } from "../components/comments/DeleteComment";
 
 const Media = () => {
   const { mediaType, id } = useParams<{ mediaType: string; id: string }>();
   const dispatch = useAppDispatch();
   const { media, loading, error } = useAppSelector((state) => state.media);
+  const { modalData } = useAppSelector((state) => state.ui);
 
   useEffect(() => {
     if (mediaType && id) {
@@ -54,7 +56,8 @@ const Media = () => {
 
   return (
     <>
-      <DeleteReview />
+      {modalData?.type === "deleteReview" && <DeleteReview/>}
+      {modalData?.type === "deleteComment" && <DeleteComment/>}
       <div
         className="anime-left"
         style={{ display: "flex", flexDirection: "column", gap: "50px" }}

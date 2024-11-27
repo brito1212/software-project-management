@@ -8,6 +8,7 @@ import styles from "./ViewReview.module.css";
 
 import { openModal } from "../../features/ui/uiSlice";
 import CreateComment from "../comments/CreateComment";
+import ListComment from "../comments/ListComment";
 
 export const ViewReview = ({ review }) => {
     const dispatch = useAppDispatch();
@@ -44,7 +45,7 @@ export const ViewReview = ({ review }) => {
                 {review.user.id === user?.id && (
                     <i
                     className={`fa-solid fa-trash-can ${styles.trash_icon}`}
-                    onClick={() => handleClick({ reviewId: review.id })}
+                    onClick={() => handleClick({ type: "deleteReview", reviewId: review.id })}
                     ></i>
                 )}
                 </div>
@@ -59,10 +60,16 @@ export const ViewReview = ({ review }) => {
                 <p>{review.content}</p>
             </div>
             <a className={styles.add_comment_link} onClick={createComment}>Adicione um comentário</a>
+            <div className={styles.comment_section}>
+                <div className={styles.line}></div>
+                {isCommentFormVisible && (
+                    <CreateComment closeForm={() => setCommentFormVisible(false)} reviewId={review.id}/>
+                )}
 
-            {isCommentFormVisible && (
-                <CreateComment closeForm={() => setCommentFormVisible(false)} reviewId={review.id}/>
-            )}
+                {review.comments.length > 0 && (
+                    <ListComment comments={review.comments} />
+                )}
+            </div>
         </>
     );
 }
