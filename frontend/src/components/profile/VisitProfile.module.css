@@ -1,0 +1,14 @@
+.visit-profile {
+  display: flex;
+  flex-direction: column;
+  gap: 50px;
+}
+
+.searchField {
+  flex-grow: 0;
+  max-width: 100%;
+}
+
+.title {
+  margin-top: 25px;
+}

@@ -16,6 +16,25 @@ export async function getAllUsers() {
   return user;
 }
 
+export async function getUserByUsername(username: string) {
+  const response = await api.get(
+    `/api-auth/user/${username}/get_user_by_username/`
+  );
+
+  const user = response.data as User;
+  return user;
+}
+
+export async function followUser(username: string) {
+  const response = await api.post(`/api-auth/user/${username}/follow/`);
+  return response;
+}
+
+export async function unfollowUser(username: string) {
+  const response = await api.post(`/api-auth/user/${username}/unfollow/`);
+  return response;
+}
+
 export async function createUser(user: UserRegistration) {
   const response = await api.post("/api-auth/create/", user);
   return response;
