@@ -23,13 +23,25 @@ class Movie(Midia):
     director = models.CharField(max_length=100)
     cast = ArrayField(models.CharField(max_length=100), blank=True, null=True)
 
+    def save(self, *args, **kwargs):
+        self.media_type = 'movie'
+        super().save(*args, **kwargs)
+
 
 class Serie(Midia):
     seasons = models.IntegerField()
     episodes = models.IntegerField()
     created_by = models.CharField(max_length=100)
 
+    def save(self, *args, **kwargs):
+        self.media_type = 'serie'
+        super().save(*args, **kwargs)
+
 
 class Game(Midia):
     publisher = models.CharField(max_length=100)
     avarage_playtime = models.DurationField()
+
+    def save(self, *args, **kwargs):
+        self.media_type = 'game'
+        super().save(*args, **kwargs)

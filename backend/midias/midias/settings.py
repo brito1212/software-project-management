@@ -54,7 +54,7 @@ INSTALLED_THIRD = [
     "corsheaders",
 ]
 
-INSTALLED_APP = ["user", "midia", "lista", "review"]
+INSTALLED_APP = ["user", "midia", "lista", "review", "comment"]
 
 INSTALLED_APPS = INSTALLED_INTERNAL + INSTALLED_THIRD + INSTALLED_APP
 
