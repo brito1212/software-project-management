@@ -9,11 +9,15 @@ import gamesIcon from "../assets/icons/games-icon.svg";
 import chevronDown from "../assets/icons/chevron-down.svg";
 
 import styles from "./Aside.module.css";
-import { useAppSelector } from "../app/store";
+import { useAppDispatch, useAppSelector } from "../app/store";
+import { setSelectedTypes } from "../features/filter/filterSlice";
 
 const Aside = ({ isMenuClosed }) => {
   const { user } = useAppSelector((state) => state.user);
   const location = useLocation();
+
+  const dispatch = useAppDispatch();
+  const selectedTypes = useAppSelector((state) => state.filter.selectedTypes);
 
   return (
     <aside className={isMenuClosed ? styles.close : ""}>
@@ -40,8 +44,15 @@ const Aside = ({ isMenuClosed }) => {
           </li>
           <li>
             <Link
-              to="/movies"
-              className={location.pathname == "/movies" ? "btn primary" : "btn"}
+              to="/search?q="
+              className={
+                selectedTypes.includes("movie") &&
+                selectedTypes.length <= 1 &&
+                location.pathname == "/search"
+                  ? "btn primary"
+                  : "btn"
+              }
+              onClick={() => dispatch(setSelectedTypes(["movie"]))}
             >
               <img src={moviesIcon} alt="Filmes" width="25px" height="25px" />
               <span>Filmes</span>
@@ -49,8 +60,15 @@ const Aside = ({ isMenuClosed }) => {
           </li>
           <li>
             <Link
-              to="/series"
-              className={location.pathname == "/series" ? "btn primary" : "btn"}
+              to="/search?q="
+              className={
+                selectedTypes.includes("serie") &&
+                selectedTypes.length <= 1 &&
+                location.pathname == "/search"
+                  ? "btn primary"
+                  : "btn"
+              }
+              onClick={() => dispatch(setSelectedTypes(["serie"]))}
             >
               <img src={seriesIcon} alt="Séries" width="25px" height="25px" />
               <span>Séries</span>
@@ -58,8 +76,15 @@ const Aside = ({ isMenuClosed }) => {
           </li>
           <li>
             <Link
-              to="/games"
-              className={location.pathname == "/games" ? "btn primary" : "btn"}
+              to="/search?q="
+              className={
+                selectedTypes.includes("game") &&
+                selectedTypes.length <= 1 &&
+                location.pathname == "/search"
+                  ? "btn primary"
+                  : "btn"
+              }
+              onClick={() => dispatch(setSelectedTypes(["game"]))}
             >
               <img src={gamesIcon} alt="Jogos" width="25px" height="25px" />
               <span>Jogos</span>
