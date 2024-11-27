@@ -29,6 +29,7 @@ urlpatterns = [
     path("midia/", include("midia.urls")),
     path("lista/", include("lista.urls")),
     path("review/", include("review.urls")),
+    path("comment/", include("comment.urls")),
 ]
 
 if settings.ENVIRONMENT == "dev":
