@@ -20,6 +20,11 @@ const Header = ({ onCloseMenu }) => {
     navigate("/login");
   }
 
+  function handleSubmit(event) {
+    event.preventDefault();
+    navigate(`/search?q=${event.target[0].value}`);
+  }
+
   return (
     <header>
       <div className={styles["menu-logo-wrapper"]}>
@@ -57,7 +62,7 @@ const Header = ({ onCloseMenu }) => {
         </>
       ) : (
         <>
-          <form className={styles.search}>
+          <form className={styles.search} onSubmit={handleSubmit}>
             <input
               name="searchField"
               id="searchField"

@@ -12,3 +12,8 @@ export async function getAllMedias(type_media: string) {
   const media = response.data;
   return media;
 }
+
+export async function getSearchMedia(type_media: string, name: string | null) {
+  const response = await api.get(`/midia/${type_media}/search?q=${name}`);
+  return response.data;
+}

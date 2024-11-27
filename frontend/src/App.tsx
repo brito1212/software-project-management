@@ -17,6 +17,7 @@ import Footer from "./components/Footer";
 import "./App.css";
 import List from "./pages/List";
 import Main from "./components/helper/Main";
+import SearchMedia from "./components/media/SearchMedia";
 
 function App() {
   const [isMenuClosed, setIsMenuClosed] = React.useState(true);
@@ -39,6 +40,7 @@ function App() {
               <Route path="/midia/:mediaType/:id" element={<Media />} />
               <Route path="/list/*" element={<List />} />
               <Route path="/account" element={<Profile />} />
+              <Route path="/search" element={<SearchMedia />} />
             </Routes>
           </Main>
         </BrowserRouter>

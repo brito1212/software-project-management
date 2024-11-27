@@ -1,0 +1,143 @@
+.search {
+  display: flex;
+  flex-direction: column;
+  gap: 25px;
+}
+
+.filters {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  border-top: 1px solid var(--white);
+  border-bottom: 1px solid var(--white);
+}
+
+.select {
+  display: flex;
+  gap: 15px;
+  align-items: center;
+  padding: 10px 20px;
+  cursor: pointer;
+  position: relative;
+  transition: all 0.3s ease;
+}
+
+.select:hover:not(:has(.items label:hover)) {
+  background-color: var(--gray01);
+}
+
+.items {
+  position: absolute;
+  top: 60px;
+  left: 0;
+  width: 100%;
+  border-radius: 8px;
+  padding: 10px;
+  background-color: var(--gray01);
+  box-shadow: 0 5px 10px rgba(0, 0, 0, 0.1);
+  z-index: 1;
+  opacity: 0;
+  display: none;
+  transition: all 0.3s ease;
+}
+
+.active {
+  opacity: 1;
+  display: block;
+}
+
+.items label {
+  display: flex;
+  padding: 15px;
+  gap: 10px;
+  width: 100%;
+  border-radius: 5px;
+  cursor: pointer;
+  align-items: center;
+}
+
+.items label:hover {
+  background-color: var(--gray03);
+}
+
+.checkbox {
+  display: none;
+  opacity: 0;
+  height: 0;
+  width: 0;
+}
+
+.checkmark {
+  height: 15px;
+  width: 15px;
+  background-color: #eee;
+  border-radius: 3px;
+}
+
+.checkbox:checked ~ .checkmark {
+  background-color: #2196f3;
+}
+
+.checkmark i {
+  opacity: 0;
+  transform: scale(0.8);
+}
+
+.checkbox:checked ~ .checkmark i {
+  opacity: 1;
+}
+
+.item label span {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-width: 16px;
+  min-height: 16px;
+  border-radius: 4px;
+  margin-right: 12px;
+  border-radius: 4px;
+  border: 1.5px solid #c0c0c0;
+  transition: all 0.3s ease-in-out;
+}
+
+.filters-applied {
+  display: flex;
+  gap: 25px;
+  align-items: center;
+  height: 55px;
+}
+
+.type {
+  background-color: var(--main-color);
+  padding: 10px 20px;
+  border-radius: 5px;
+  text-transform: capitalize;
+  display: flex;
+  gap: 20px;
+  align-items: center;
+}
+
+.type button {
+  border: none;
+  background-color: transparent;
+  cursor: pointer;
+  border-radius: 50%;
+  width: 25px;
+  height: 25px;
+}
+
+.type button i {
+  color: var(--white);
+}
+
+.error {
+  min-width: 970px;
+}
+
+.medias-wrapper {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 30px;
+  justify-items: center;
+  min-width: 970px;
+}

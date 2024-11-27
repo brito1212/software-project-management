@@ -12,7 +12,7 @@ const MediaCard = ({ slide, cardWidth }) => {
     <div
       className={styles.card}
       style={{ width: `${cardWidth}px` }}
-      onClick={() => navigate(`midia/${slide.media_type}/${slide.id}`)}
+      onClick={() => navigate(`/midia/${slide.media_type}/${slide.id}`)}
     >
       <button
         className={styles["add-list"]}
