@@ -6,8 +6,8 @@ export interface User {
   last_name: string;
   username: string;
   email: string;
-  seguindo: User[];
-  seguidores: User[];
+  seguindo: number[];
+  seguidores: number[];
   listas: Lista[];
   profile_image: string;
   banner: string;

@@ -33,6 +33,7 @@ const Profile = () => {
         <SearchField
           onSubmit={handleSearchSubmit}
           extraStyle={styles.searchField}
+          placeholder={"Pesquisar pessoas..."}
         />
       </div>
     </ProtectedRoute>
