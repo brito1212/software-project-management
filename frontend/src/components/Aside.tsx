@@ -1,4 +1,5 @@
 import { Link, useLocation } from "react-router-dom";
+import React from "react";
 
 // Icons
 import homeIcon from "../assets/icons/home-icon.svg";
@@ -7,17 +8,40 @@ import moviesIcon from "../assets/icons/movies-icon.svg";
 import seriesIcon from "../assets/icons/series-icon.svg";
 import gamesIcon from "../assets/icons/games-icon.svg";
 import chevronDown from "../assets/icons/chevron-down.svg";
+import profileImage from "../assets/images/profile-image.png";
 
 import styles from "./Aside.module.css";
 import { useAppDispatch, useAppSelector } from "../app/store";
 import { setSelectedTypes } from "../features/filter/filterSlice";
+import { User } from "../features/user/user.type";
+import { getUserById } from "../features/user/userApi";
+import { baseURL } from "../api";
 
 const Aside = ({ isMenuClosed }) => {
   const { user } = useAppSelector((state) => state.user);
+  const [seguindo, setSeguindo] = React.useState<User[]>([]);
   const location = useLocation();
 
   const dispatch = useAppDispatch();
   const selectedTypes = useAppSelector((state) => state.filter.selectedTypes);
+
+  const getFriends = async () => {
+    try {
+      if (!user?.seguindo || user.seguindo.length === 0) return;
+
+      const friends = await Promise.all(
+        user.seguindo.map((userId) => getUserById(userId))
+      );
+
+      setSeguindo(friends);
+    } catch (error) {
+      console.error("Erro ao buscar amigos:", error);
+    }
+  };
+
+  React.useEffect(() => {
+    getFriends();
+  }, [user?.seguindo]);
 
   return (
     <aside className={isMenuClosed ? styles.close : ""}>
@@ -99,12 +123,16 @@ const Aside = ({ isMenuClosed }) => {
             <p>Seguindo</p>
             {user.seguindo.length !== 0 ? (
               <ul>
-                {user.seguindo.map((user, index) => (
+                {seguindo.map((user, index) => (
                   <li key={index}>
                     <Link to={`/profile/${user.username}`}>
                       <div className={styles.photo}>
                         <img
-                          src={user.profile_image}
+                          src={
+                            user.profile_image
+                              ? `${baseURL}${user.profile_image}`
+                              : profileImage
+                          }
                           alt={`${user.username} Image`}
                         />
                       </div>

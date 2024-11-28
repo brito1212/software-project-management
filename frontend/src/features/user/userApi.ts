@@ -25,6 +25,13 @@ export async function getUserByUsername(username: string) {
   return user;
 }
 
+export async function getUserById(id: number) {
+  const response = await api.get(`/api-auth/user/${id}/get_user_by_id/`);
+
+  const user = response.data as User;
+  return user;
+}
+
 export async function followUser(username: string) {
   const response = await api.post(`/api-auth/user/${username}/follow/`);
   return response;

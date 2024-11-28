@@ -62,7 +62,10 @@ const Header = ({ onCloseMenu }) => {
         </>
       ) : (
         <>
-          <SearchField onSubmit={handleSearchSubmit} />
+          <SearchField
+            onSubmit={handleSearchSubmit}
+            placeholder={"Pesquisar mídias..."}
+          />
           <div className={styles.login}>
             <Link className={styles.account} to="/account">
               <img className={styles["img-user"]} src={userImage} alt="Image" />
