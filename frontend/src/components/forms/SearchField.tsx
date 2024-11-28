@@ -1,7 +1,7 @@
 import React from "react";
 import styles from "./SearchField.module.css";
 
-const SearchField = ({ onSubmit, extraStyle = "" }) => {
+const SearchField = ({ onSubmit, extraStyle = "", placeholder }) => {
   const [searchText, setSearchText] = React.useState("");
 
   const handleChange = (e) => {
@@ -19,7 +19,7 @@ const SearchField = ({ onSubmit, extraStyle = "" }) => {
         id="searchField"
         className={styles["search-field"]}
         type="text"
-        placeholder="Pesquisar mídia..."
+        placeholder={placeholder}
         value={searchText}
         onChange={handleChange}
       />
