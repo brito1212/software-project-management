@@ -33,7 +33,7 @@ const AllListsView = () => {
 
   return (
     <>
-      <div className={styles.columns}>
+      <div className={`anime-left ${styles.columns}`}>
         <h1>Minhas Listas</h1>
         {user?.listas.length != 0 ? (
           user?.listas.map((lista) => (

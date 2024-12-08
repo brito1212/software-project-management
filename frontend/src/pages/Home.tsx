@@ -3,6 +3,7 @@ import React from "react";
 // Components
 import { Carousel } from "../components";
 import { getAllMedias } from "../features/media/mediaApi";
+import Loading from "../components/helper/Loading";
 
 const Home = () => {
   const [movies, setMovies] = React.useState(null);
@@ -34,7 +35,7 @@ const Home = () => {
   }, []);
 
   if (error) return <div>{error}</div>;
-  if (loading) return <div>Loading...</div>;
+  if (loading) return <Loading />;
   return (
     <article className="main-article anime-left">
       <h1 style={{ marginLeft: "60px", fontSize: "2rem" }}>

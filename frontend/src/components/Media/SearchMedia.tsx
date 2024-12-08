@@ -7,6 +7,7 @@ import { setSelectedTypes } from "../../features/filter/filterSlice";
 import styles from "./SearchMedia.module.css";
 import filtersIcon from "../../assets/icons/filters-icon.svg";
 import MediaCard from "./MediaCard";
+import Loading from "../helper/Loading";
 
 const SearchMedia = () => {
   const [searchParams] = useSearchParams();
@@ -89,7 +90,7 @@ const SearchMedia = () => {
     );
   }, [query, selectedTypes]);
 
-  if (loading) return <div>Loading...</div>;
+  if (loading) return <Loading />;
   return (
     <section className={`${styles.search} anime-left`}>
       <div className={styles.filters}>

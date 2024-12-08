@@ -43,7 +43,7 @@ export const ListReview = () => {
             new Date(b.created_at).getTime() - new Date(a.created_at).getTime()
         )
         .map((review) => (
-          <ViewReview review={review} key={review.id}/>
+          <ViewReview review={review} key={review.id} />
         ))}
     </div>
   );
