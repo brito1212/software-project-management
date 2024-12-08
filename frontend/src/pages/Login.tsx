@@ -5,12 +5,10 @@ import { LoginPasswordLost } from "../components/index";
 
 const Login = () => {
   return (
-    <section className="login">
-      <Routes>
-        <Route path="/" element={<LoginForm />} />
-        <Route path="/lost" element={<LoginPasswordLost />} />
-      </Routes>
-    </section>
+    <Routes>
+      <Route path="/" element={<LoginForm />} />
+      <Route path="/lost" element={<LoginPasswordLost />} />
+    </Routes>
   );
 };
 

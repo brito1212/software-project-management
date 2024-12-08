@@ -13,12 +13,14 @@ import { useAppDispatch, useAppSelector } from "../app/store";
 import useForm from "../hooks/useForm";
 
 import stylesSignUp from "../components/forms/Input.module.css";
+import Loading from "../components/helper/Loading";
 
 const SignUp = () => {
   const navigate = useNavigate();
   const dispatch = useAppDispatch();
   const { message } = useAppSelector((state) => state.toast);
   const [error, setError] = React.useState(false);
+  const [loading, setLoading] = React.useState(false);
 
   const first_name = useForm();
   const last_name = useForm();
@@ -28,6 +30,8 @@ const SignUp = () => {
 
   async function handleSubmit(event: React.FormEvent) {
     event.preventDefault();
+    setLoading(true);
+
     const registrationData = {
       first_name: first_name.value,
       last_name: last_name.value,
@@ -39,16 +43,21 @@ const SignUp = () => {
     dispatch(
       emailSingUpAction(
         registrationData,
-        () => navigate("../login"),
         () => {
+          setLoading(false);
+          navigate("../login");
+        },
+        () => {
+          setLoading(false);
           setError(true);
         }
       )
     );
   }
 
+  if (loading) return <Loading />;
   return (
-    <section className="login">
+    <section className={styles.login}>
       <section className="anime-left">
         <h1 className={styles.title}>Sign up</h1>
         <form className={styles.form} onSubmit={handleSubmit}>

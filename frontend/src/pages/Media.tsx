@@ -5,6 +5,7 @@ import { fetchMedia } from "../features/media/mediaSlice";
 import DeleteReview from "../components/review/DeleteReview";
 import ViewMedia from "../components/media/ViewMedia";
 import { DeleteComment } from "../components/comments/DeleteComment";
+import Loading from "../components/helper/Loading";
 
 const Media = () => {
   const { mediaType, id } = useParams<{ mediaType: string; id: string }>();
@@ -22,7 +23,7 @@ const Media = () => {
     return <p>Invalid media type or ID in the URL.</p>;
   }
 
-  if (loading) return <p>Loading...</p>;
+  if (loading) return <Loading />;
   if (error) return <p>Error: {error.message}</p>;
 
   // let content;
@@ -56,8 +57,8 @@ const Media = () => {
 
   return (
     <>
-      {modalData?.type === "deleteReview" && <DeleteReview/>}
-      {modalData?.type === "deleteComment" && <DeleteComment/>}
+      {modalData?.type === "deleteReview" && <DeleteReview />}
+      {modalData?.type === "deleteComment" && <DeleteComment />}
       <div
         className="anime-left"
         style={{ display: "flex", flexDirection: "column", gap: "50px" }}

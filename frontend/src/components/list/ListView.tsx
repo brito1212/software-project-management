@@ -55,36 +55,37 @@ const ListView = () => {
 
   function processMedia(midias, allMedia) {
     if (!midias || !Array.isArray(midias) || midias.length === 0) return [];
-  
+
     const matchedMedia = [];
-  
+
     midias.forEach((midia) => {
       const index = allMedia.findIndex((media_db) => media_db.id === midia.id);
-  
+
       if (index !== -1) {
         matchedMedia.push(allMedia[index]);
-  
+
         allMedia.splice(index, 1);
       }
     });
-  
+
     return matchedMedia;
   }
 
   function calculateScore(media_db, matchedMedia) {
     let score = 0;
-  
+
     matchedMedia.forEach((midia) => {
-      const matchingGenres = midia.genres?.filter((genre) => media_db.genres?.includes(genre)) || [];
+      const matchingGenres =
+        midia.genres?.filter((genre) => media_db.genres?.includes(genre)) || [];
       score += matchingGenres.length;
     });
-  
+
     return score;
   }
 
   async function generateRecommendations(midias) {
     if (!midias || midias.length === 0) return [];
-  
+
     try {
       const movieMedia = await getAllMedias("movie");
       const seriesMedia = await getAllMedias("serie");
@@ -93,12 +94,12 @@ const ListView = () => {
       const allMedia = [...movieMedia, ...seriesMedia, ...gameMedia];
 
       const matchedMedia = processMedia(midias, allMedia);
-  
+
       const scoredMedia = allMedia.map((media_db) => ({
         ...media_db,
         score: calculateScore(media_db, matchedMedia),
       }));
-  
+
       const topRecommendations = scoredMedia
         .filter((media) => media.score > 0)
         .sort((a, b) => b.score - a.score)
@@ -125,7 +126,7 @@ const ListView = () => {
     <>
       {modalData === "edit" && <EditListModal lista={lista} />}
       {modalData === "delete" && <DeleteListModal id={lista.id} />}
-      <div className={styles["list-view"]}>
+      <div className={`anime-left ${styles["list-view"]}`}>
         {lista ? (
           <>
             <h1>{lista.name}</h1>
@@ -205,7 +206,9 @@ const ListView = () => {
                   <MediaCard key={index} slide={midiaRec} cardWidth={215} />
                 ))
               ) : (
-                <div className={styles.noList}>Nenhuma recomendação disponível.</div>
+                <div className={styles.noList}>
+                  Nenhuma recomendação disponível.
+                </div>
               )}
             </div>
           </>

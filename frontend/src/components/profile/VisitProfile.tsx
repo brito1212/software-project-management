@@ -5,6 +5,7 @@ import { useNavigate, useParams } from "react-router-dom";
 import { useAppSelector } from "../../app/store";
 import ListProfile from "./ListProfile";
 import styles from "./VisitProfile.module.css";
+import Loading from "../helper/Loading";
 
 const VisitProfile = () => {
   const [user, setUser] = React.useState<any>(null);
@@ -40,7 +41,7 @@ const VisitProfile = () => {
   }, [username, navigate, userLogged?.username]);
 
   if (error) return <div>{error}</div>;
-  if (loading) return <div>Loading...</div>;
+  if (loading) return <Loading />;
   if (user)
     return (
       <div className={styles["visit-profile"]}>

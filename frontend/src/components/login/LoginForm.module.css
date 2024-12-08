@@ -1,3 +1,19 @@
+.login {
+  width: 500px;
+  min-width: 300px;
+  height: fit-content;
+  background-color: rgba(23, 22, 71, 0.13);
+  border: 2px solid rgba(23, 22, 71, 0.1);
+  border-radius: 10px;
+  padding: 1rem 2rem 2rem 2rem;
+}
+
+.login section {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+
 .title {
   font-size: 3rem;
   color: var(--main-color);
